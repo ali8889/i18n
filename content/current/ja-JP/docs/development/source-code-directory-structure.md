@@ -83,7 +83,6 @@ Electron
 * **npm** - npm を介した Electron のインストールロジック。
 * **out** - `ninja`の一時的な出力用ディレクトリ。
 * **script** - ビルド、パッケージ、テストなどの開発目的に使用されるスクリプト。
-
 ```diff
 script/ - Electron がさまざまな目的で実行するすべてのスクリプトの集合。
 ├── codesign/ - Electron アプリのコード署名を偽装します。テスト用です。
@@ -92,8 +91,7 @@ script/ - Electron がさまざまな目的で実行するすべてのスクリ�
     ├── notes/ - 新しいバージョンの Electron のリリースノートを生成します。
     └── uploaders/ - リリース中にさまざまなリリースに関するファイルをアップロードします。
 ```
-
-* **ツール** - GN ファイルで使用されるヘルパースクリプト。 
+* **tools** - GN ファイルで使用するヘルパースクリプト。
   * ここに配置されたスクリプトは、`script` のスクリプトと違ってユーザーが直接呼び出せません。
 * **typings** - Electron 内部コードの TypeScript 型定義。
 * **vendor** - `boto` や `requests` など、サードパーティの依存関係のソースコード。
@@ -105,8 +103,8 @@ script/ - Electron がさまざまな目的で実行するすべてのスクリ�
 ```sh
 $ git status
 
-  modified:   vendor/depot_tools (new commits)
-  modified:   vendor/boto (new commits)
+    modified:   vendor/depot_tools (new commits)
+    modified:   vendor/boto (new commits)
 ```
 
 これらのベンダー依存関係を更新するには次のコマンドを実行します。
@@ -119,5 +117,5 @@ git submodule update --init --recursive
 
 ```sh
 [alias]
-  su = submodule update --init --recursive
+    su = submodule update --init --recursive
 ```

@@ -4,7 +4,7 @@
 
 ## Використання `update.electronjs.org`
 
-GitHub's Electron team maintains [update.electronjs.org](https://github.com/electron/update.electronjs.org), a free and open-source webservice that Electron apps can use to self-update. The service is designed for Electron apps that meet the following criteria:
+The Electron team maintains [update.electronjs.org](https://github.com/electron/update.electronjs.org), a free and open-source webservice that Electron apps can use to self-update. The service is designed for Electron apps that meet the following criteria:
 
 - App runs on macOS or Windows
 - App has a public GitHub repository
@@ -54,9 +54,9 @@ Next, construct the URL of the update server and tell [autoUpdater](../api/auto-
 
 ```javascript
 const server = 'https://your-deployment-url.com'
-const feed = `${server}/update/${process.platform}/${app.getVersion()}`
+const url = `${server}/update/${process.platform}/${app.getVersion()}`
 
-autoUpdater.setFeedURL(feed)
+autoUpdater.setFeedURL({ url })
 ```
 
 As the final step, check for updates. The example below will check every minute:
@@ -97,3 +97,7 @@ autoUpdater.on('error', message => {
   console.error(message)
 })
 ```
+
+## Handing Updates Manually
+
+Because the requests made by Auto Update aren't under your direct control, you may find situations that are difficult to handle (such as if the update server is behind authentication). The `url` field does support files, which means that with some effort, you can sidestep the server-communication aspect of the process. [Here's an example of how this could work](https://github.com/electron/electron/issues/5020#issuecomment-477636990).

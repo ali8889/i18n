@@ -10,13 +10,13 @@
 
 1) [`electron-forge`](https://github.com/electron-userland/electron-forge) または [`electron-builder`](https://github.com/electron-userland/electron-builder)の使用、両方のツールは `snap`ですぐに使用できます。 これは最も簡単な選択肢です。 2) `electron-installer-snap`の使用、これは`electron-packager`のアウトプットを使用します。 3) 作成した`.deb`パッケージの使用
 
-いずれの方法であっても、あなたは`snapcraft` ツールをインストールしていなければなりません。また私達は、Ubuntu 16.04 (または現在のLTS) でのビルドを推奨します。
+いずれにしても、`snapcraft` ツールをインストールしている必要があります。 Ubuntu 16.04 (または現在の LTS) でのビルドを推奨します。
 
 ```sh
 snap install snapcraft --classic
 ```
 
-一方でmacOS上ではHomebrewを使用することで*一応* 、`snapcraft`をインストールすることはできます。しかし、これは`snap` パッケージをビルドできます。このツールは、ストアでのパッケージの管理用です。
+一方でmacOS上ではHomebrewを使用することで_一応_ 、`snapcraft`をインストールすることはできます。しかし、これは`snap` パッケージをビルドできます。このツールは、ストアでのパッケージの管理用です。
 
 ## `electron-installer-snap`の使用
 
@@ -76,7 +76,7 @@ Snapcraft は既存の`.deb`ファイルをもとに、`.snap` ファイルに�
 
 ### ステップ2: snapcraft.yamlファイルの作成
 
-利用可能な設定オプションの詳細については、[snapcraft 構文のドキュメント](https://docs.snapcraft.io/build-snaps/syntax) を参照してください。次に例を挙げます。
+利用可能な設定オプションの詳細については、[snapcraft 構文のドキュメント](https://docs.snapcraft.io/build-snaps/syntax) を参照してください。 以下で例を見てみましょう。
 
 ```yaml
 name: myApp
@@ -94,7 +94,6 @@ parts:
     source: my-deb.deb
     source-type: deb
     after:
-
       - desktop-gtk3
     stage-packages:
       - libasound2
@@ -115,13 +114,13 @@ apps:
   myApp:
     command: bin/electron-launch $SNAP/usr/lib/myApp/myApp
     desktop: usr/share/applications/myApp.desktop
-    # Correct the TMPDIR path for Chromium Framework/Electron to ensure
-    # libappindicator has readable resources.
+    # Chromium Framework/Electron の TMPDIR パスを修正し、
+    # libappindicator が読み取れるリソースを確保します。
     environment:
       TMPDIR: $XDG_RUNTIME_DIR
 ```
 
-ご覧の通り、`snapcraft.yaml` は `electron-launch` と呼ばれるファイルを起動するようにシステムに伝達しています。この例では、以下のようにアプリのバイナリへ情報を渡しています。
+ご覧の通り、`snapcraft.yaml` は `electron-launch` と呼ばれるファイルを起動するようにシステムに伝達しています。 この例では、以下のようにアプリのバイナリへ情報を渡します。
 
 ```sh
 #!/bin/sh

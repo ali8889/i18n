@@ -2,7 +2,7 @@
 
 > 세션 쿠키를 가져오거나 수정합니다.
 
-프로세스:[Main](../glossary.md#main-process)
+프로세스: [Main](../glossary.md#main-process)
 
 `Cookies` 클래스는 `Session` 의`cookies` 속성을 이용해 접근합니다.
 
@@ -11,7 +11,7 @@
 ```javascript
 const { session } = require('electron')
 
-// Query all cookies.
+// 모든 쿠키 쿼리.
 session.defaultSession.cookies.get({})
   .then((cookies) => {
     console.log(cookies)
@@ -32,7 +32,7 @@ session.defaultSession.cookies.get({ url: 'http://www.github.com' })
 const cookie = { url: 'http://www.github.com', name: 'dummy_name', value: 'dummy' }
 session.defaultSession.cookies.set(cookie)
   .then(() => {
-    // success
+    // 성공
   }, (error) => {
     console.error(error)
   })
@@ -46,7 +46,7 @@ session.defaultSession.cookies.set(cookie)
 
 * `event` Event
 * `cookie` [Cookie](structures/cookie.md) - 변경된 cookie 값
-* `cause` String - 변경 원인은 다음 항목들 중 하나임. 
+* `cause` String - The cause of the change with one of the following values:
   * `explicit` - 사용자가 의도적으로 cookie를 변경하였음.
   * `overwrite` - 덮어쓰기에 의해 cookie가 자동으로 삭제되었음.
   * `expired` - 기간 만료로 cookie가 자동으로 삭제되었음.
@@ -62,7 +62,7 @@ Cookie가 추가, 수정, 삭제, 만료로 인해 변경된 경우 호출된다
 
 #### `cookies.get(filter)`
 
-* `filter` Object 
+* `filter` Object
   * `url` String (optional) - Retrieves cookies which are associated with `url`. Empty implies retrieving cookies of all URLs.
   * `name` String (optional) - name 기반으로 필터를 함.
   * `domain` - String (optional) - `domains`과 같거나 subdomain을 cookies에서 찾는다.
@@ -76,12 +76,12 @@ Sends a request to get all cookies matching `filter`, and resolves a promise wit
 
 #### `cookies.set(details)`
 
-* `details` Object 
+* `details` Object
   * `url` String - The URL to associate the cookie with. The promise will be rejected if the URL is invalid.
   * `name` String (optional) - The name of the cookie. Empty by default if omitted.
   * `value` String (optional) - The value of the cookie. Empty by default if omitted.
-  * `domain` String (optional) - The domain of the cookie; this will be normalized with a preceding dot so that it's also valid for subdomains. Empty by default if omitted.
-  * `path` String (optional) - The path of the cookie. Empty by default if omitted.
+  * `도메인` String (옵션) - 쿠키의 도메인; 앞의 점으로 정규화 되어 서브도메인에도 유효합니다. Empty by default if omitted.
+  * `경로` String(옵션) - 쿠키의 경로 Empty by default if omitted.
   * `secure` Boolean (optional) - Whether the cookie should be marked as Secure. Defaults to false.
   * `httpOnly` Boolean (optional) - Whether the cookie should be marked as HTTP only. Defaults to false.
   * `expirationDate` Double (optional) - The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted then the cookie becomes a session cookie and will not be retained between sessions.

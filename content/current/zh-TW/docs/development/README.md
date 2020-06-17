@@ -4,7 +4,7 @@ These guides are intended for people working on the Electron project itself. For
 
 * [行為準則](../../CODE_OF_CONDUCT.md)
 * [貢獻 Electron](../../CONTRIBUTING.md)
-* [議題管理](issues.md)
+* [議題](issues.md)
 * [合併請求 (PR)](pull-requests.md)
 * [文件編寫風格](coding-style.md#documentation)
 * [原始碼目錄結構](source-code-directory-structure.md)

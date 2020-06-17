@@ -29,8 +29,9 @@ $ code electron-quick-start
 }
 ```
 
+
 ### 3. 디버깅
 
-`main.js` 에 중단점을 설정하고, [Debug View](https://code.visualstudio.com/docs/editor/debugging) 에서 디버깅을 시작하세요. 중단점을 만나게 될 것 입니다.
+Set some breakpoints in `main.js`, and start debugging in the [Debug View](https://code.visualstudio.com/docs/editor/debugging). You should be able to hit the breakpoints.
 
 VSCode 에서 바로 디버깅 할 수 있는 프로젝트를 미리 준비했습니다: https://github.com/octref/vscode-electron-debug/tree/master/electron-quick-start

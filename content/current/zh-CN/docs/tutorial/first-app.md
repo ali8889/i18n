@@ -6,7 +6,7 @@ Electron 可以让你使用纯 JavaScript 调用丰富的原生(操作系统) AP
 
 **注意**: 获取该示例的代码仓库: [ 立即下载并运行 ](#trying-this-example)。
 
-从开发的角度来看, Electron application 本质上是一个 Node. js 应用程序。 与 Node.js 模块相同，应用的入口是 `package.json` 文件。 一个最基本的 Electron 应用一般来说会有如下的目录结构：
+从开发的角度来看, Electron application 本质上是一个 Node. js  应用程序。 与 Node.js 模块相同，应用的入口是 `package.json` 文件。 一个最基本的 Electron 应用一般来说会有如下的目录结构：
 
 ```plaintext
 your-app/
@@ -31,7 +31,7 @@ npm 会帮助你创建一个基本的 `package.json` 文件。 其中的 `main` 
 }
 ```
 
-**注意**：如果 `main` 字段没有在 `package.json` 中出现，那么 Electron 将会尝试加载 `index.js` 文件（就像 Node.js 自身那样）。 如果你实际开发的是一个简单的 Node 应用，那么你需要添加一个 `start` 脚本来指引 `node` 去执行当前的 package：
+__注意__：如果 `main` 字段没有在 `package.json` 中出现，那么 Electron 将会尝试加载 `index.js` 文件（就像 Node.js 自身那样）。 如果你实际开发的是一个简单的 Node 应用，那么你需要添加一个 `start` 脚本来指引 `node` 去执行当前的 package：
 
 ```json
 {
@@ -119,12 +119,11 @@ function createWindow () {
   win.webContents.openDevTools()
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
+// Electron会在初始化完成并且准备好创建浏览器窗口时调用这个方法
 // 部分 API 在 ready 事件触发后才能使用。
 app.whenReady().then(createWindow)
 
-// Quit when all windows are closed.
+//当所有窗口都被关闭后退出
 app.on('window-all-closed', () => {
   // 在 macOS 上，除非用户用 Cmd + Q 确定地退出，
   // 否则绝大部分应用及其菜单栏会保持激活。
@@ -141,8 +140,8 @@ app.on('activate', () => {
   }
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. 也可以拆分成几个文件，然后用 require 导入。
+// 您可以把应用程序其他的流程写在在此文件中
+// 代码 也可以拆分成几个文件，然后用 require 导入。
 ```
 
 最后，创建你想展示的 `index.html`：
@@ -173,7 +172,7 @@ app.on('activate', () => {
 
 复制并运行这个库 [`electron/electron-quick-start`](https://github.com/electron/electron-quick-start)。
 
-**注意**：本例需要 [Git](https://git-scm.com) 和 [npm](https://www.npmjs.com/) 来运行。
+**Note**: Running this requires [Git](https://git-scm.com) and [npm](https://www.npmjs.com/).
 
 ```sh
 # 克隆这仓库

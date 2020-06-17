@@ -1,6 +1,6 @@
 # Mac App Store'a Gönderme Kılavuzu
 
-V0.34.0'dan beri Electron, Mac App Store'a (MAS) paketlenmiş uygulamalar gönderilmesini sağlar. Bu kılavuzda, uygulamanızın nasıl gönderileceği ve MAS yapısının sınırlamaları hakkında bilgiler verilmektedir.
+Since v0.34.0, Electron allows submitting packaged apps to the Mac App Store (MAS). This guide provides information on: how to submit your app and the limitations of the MAS build.
 
 **Note:** Submitting an app to Mac App Store requires enrolling in the [Apple Developer Program](https://developer.apple.com/support/compare-memberships/), which costs money.
 
@@ -18,23 +18,29 @@ Uygulamanızı imzalamadan önce, hesabınızın Takım ID'sini bilmeniz gerekiy
 
 ### Uygulamanızı imzalayın
 
-Hazırlık çalışmalarını tamamladıktan sonra, uygulamanızı aşağıdakileri izleyerek paketleyebilirsiniz:  Uygulama Dağıtımı </ 0> 'na gidin ve ardından uygulamanızı imzalayın.</p> 
+Hazırlık çalışmalarını tamamladıktan sonra, uygulamanızı aşağıdakileri izleyerek paketleyebilirsiniz:
+ Uygulama Dağıtımı </ 0> 'na gidin ve ardından uygulamanızı imzalayın.</p> 
 
 First, you have to add a `ElectronTeamID` key to your app's `Info.plist`, which has your Team ID as its value:
+
+
 
 ```xml
 <plist version="1.0">
 <dict>
   ...
-  <key>ElectronTakımID</key>
-  <string>TAKIM_ID</string>
+  <key>ElectronTeamID</key>
+  <string>TEAM_ID</string>
 </dict>
 </plist>
 ```
 
+
 Sonra, üç yetki dosyaları hazırlamanız gerekir.
 
 `child.plist`:
+
+
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -49,7 +55,10 @@ Sonra, üç yetki dosyaları hazırlamanız gerekir.
 </plist>
 ```
 
+
 `parent.plist`:
+
+
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -66,7 +75,10 @@ Sonra, üç yetki dosyaları hazırlamanız gerekir.
 </plist>
 ```
 
+
 `loginhelper.plist`:
+
+
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -79,9 +91,12 @@ Sonra, üç yetki dosyaları hazırlamanız gerekir.
 </plist>
 ```
 
+
 `TEAM_ID` kısmını takım ID'nizle `your.bundle.id` kısmını ise Bundle ID'nizle değiştirmeniz gerekmektedir.
 
 Ve sonra aşağıdaki komut dosyası ile uygulamayı imzalayın:
+
+
 
 ```sh
 #!/bin/bash
@@ -116,27 +131,39 @@ codesign -s "$APP_KEY" -f --entitlements "$PARENT_PLIST" "$APP_PATH"
 productbuild --component "$APP_PATH" /Applications --sign "$INSTALLER_KEY" "$RESULT_PATH"
 ```
 
+
 MacOS altında uygulama sandbox etme konusunda yeni iseniz, temel bir fikre sahip olmak için Apple'ın [Enabling App Sandbox](https://developer.apple.com/library/ios/documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html) bölümünü de okumalısınız, daha sonra gerekli izinler için anahtarları uygulamanızın yetki dosyaları için eklemeniz gerekir.
 
 Uygulamayı manuel olarak imzalamanın yanı sıra, [elektron-osx-sign](https://github.com/electron-userland/electron-osx-sign) modülünü işi yapması için kullanmayı seçebilirsiniz.
 
+
+
 #### Yerel modülleri imzala
 
-Uygulamanızda kullanılan yerel modüller de imzalanmalıdır. Eğer Electron-osx-sign kullanılıyorsa, yerleşik ikili dosyaların yolunun bağımsız değişken listesine eklendiğinden emin olun:
+Native modules used in your app also need to be signed. If using electron-osx-sign, be sure to include the path to the built binaries in the argument list:
+
+
 
 ```sh
 electron-osx-sign Uygulaman.app Uygulaman.app/Contents/Resources/app/node_modules/nativemodule/build/release/nativemodule
 ```
 
+
 Ayrıca, yerli modüllerde üretilmemiş ara dosyaların bulunmasına dikkat edilmelidir. (bunların da imzalanması gerektiğinden dolayı dahil edilmemelidir). Eğer 8.1.0 sürümünden önce [electron-packager](https://github.com/electron/electron-packager) kullandıysanız, yapı adımınıza bu dosyaları yok saymak için `--ignore=.+\.o$` ekleyin. Versions 8.1.0 and later ignore those files by default.
+
+
 
 ### Uygulamanı yükle
 
 Uygulamanızı imzaladıktan sonra, yüklemeden önce [created a record](https://developer.apple.com/library/ios/documentation/LanguagesUtilities/Conceptual/iTunesConnect_Guide/Chapters/CreatingiTunesConnectRecord.html)’a sahip olduğunuzdan emin olmak ve iTunes Connect'e yazılım yüklemek için uygulama yükleyicisi'ni kullanabilirsiniz.
 
+
+
 ### Uygulamanızı gözden geçirmek için gönderin
 
 Bu adımların ardından, [uygulamanızı incelenmek üzere gönderebilirsiniz](https://developer.apple.com/library/ios/documentation/LanguagesUtilities/Conceptual/iTunesConnect_Guide/Chapters/SubmittingTheApp.html).
+
+
 
 ## MAS Yapısının Sınırlamaları
 
@@ -153,45 +180,67 @@ ve aşağıdaki davranışlar değiştirilmiştir:
 
 Ayrıca, sandboxıng uygulaması kullanmından dolayı uygulama tarfından erişilebilinen kaynaklar kesinlikle sınırlıdır. Daha fazla bilgi için okuyabilirsiniz [App Sandboxing](https://developer.apple.com/app-sandboxing/).
 
+
+
 ### Ek yükümlülükler
 
 Uygulamanızın hangi Elektron API'larını kullandığına bağlı olarak, uygulamanızın bu API'ları Mac App Store yapısından kullanabilmesi için `parent.plist` dosyanıza ek yetkiler eklemeniz gerekebilir.
 
+
+
 #### Ağ erişimi
 
 Uygulamanızın bir sunucuya bağlanmasına izin vermek için giden ağ bağlantılarını etkinleştirin:
+
+
 
 ```xml
 <key>com.apple.security.network.client</key>
 <true/>
 ```
 
+
 Uygulamanızın ağ dinleme soketini açmasını sağlamak için gelen ağ bağlantılarınızı etkinleştirin:
+
+
 
 ```xml
 <key>com.apple.security.network.server</key>
 <true/>
 ```
 
+
 Daha fazla ayrıntı için [Ağ Erişimini Etkinleştirme belgelerine](https://developer.apple.com/library/ios/documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html#//apple_ref/doc/uid/TP40011195-CH4-SW9) bakın.
 
+
+
 #### dialog.showOpenDialog
+
+
 
 ```xml
 <key>com.apple.security.files.user-selected.read-only</key>
 <true/>
 ```
 
-Daha fazla bilgi için [Enabling User-Selected File Access documentation](https://developer.apple.com/library/mac/documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html#//apple_ref/doc/uid/TP40011195-CH4-SW6) bakın.
+
+Daha fazla detay için [Ağ Erişimini Etkinleştirme belgelerine](https://developer.apple.com/library/mac/documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html#//apple_ref/doc/uid/TP40011195-CH4-SW6) bakın.
+
+
 
 #### dialog.showSaveDialog
+
+
 
 ```xml
 <key>com.apple.security.files.user-selected.read-write</key>
 <true/>
 ```
 
-Daha fazla detay için [Ağ Erişimini Etkinleştirme belgelerine](https://developer.apple.com/library/mac/documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html#//apple_ref/doc/uid/TP40011195-CH4-SW6) bakın.
+
+Daha fazla bilgi için [Enabling User-Selected File Access documentation](https://developer.apple.com/library/mac/documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html#//apple_ref/doc/uid/TP40011195-CH4-SW6) bakın.
+
+
 
 ## Electron Tarafından Kullanılan Kriptografi Algoritmaları
 

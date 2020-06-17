@@ -12,7 +12,65 @@ This document uses the following convention to categorize breaking changes:
 - **Deprecated:** An API was marked as deprecated. The API will continue to function, but will emit a deprecation warning, and will be removed in a future release.
 - **Removed:** An API or feature was removed, and is no longer supported by Electron.
 
+## Planned Breaking API Changes (12.0)
+
+### Removed: `crashReporter` methods in the renderer process
+
+The following `crashReporter` methods are no longer available in the renderer process:
+
+- `crashReporter.start`
+- `crashReporter.getLastCrashReport`
+- `crashReporter.getUploadedReports`
+- `crashReporter.getUploadToServer`
+- `crashReporter.setUploadToServer`
+- `crashReporter.getCrashesDirectory`
+
+They should be called only from the main process.
+
+Zobacz [#23265](https://github.com/electron/electron/pull/23265) aby uzyskać więcej szczegółów.
+
+## Planned Breaking API Changes (11.0)
+
 ## Planned Breaking API Changes (10.0)
+
+### Deprecated: `companyName` argument to `crashReporter.start()`
+
+The `companyName` argument to `crashReporter.start()`, which was previously required, is now optional, and further, is deprecated. To get the same behavior in a non-deprecated way, you can pass a `companyName` value in `globalExtra`.
+
+```js
+// Deprecated in Electron 10
+crashReporter.start({ companyName: 'Umbrella Corporation' })
+// Replace with
+crashReporter.start({ globalExtra: { _companyName: 'Umbrella Corporation' } })
+```
+
+### Deprecated: `crashReporter.getCrashesDirectory()`
+
+The `crashReporter.getCrashesDirectory` method has been deprecated. Usage should be replaced by `app.getPath('crashDumps')`.
+
+```js
+// Deprecated in Electron 10
+crashReporter.getCrashesDirectory()
+// Replace with
+app.getPath('crashDumps')
+```
+
+### Deprecated: `crashReporter` methods in the renderer process
+
+Calling the following `crashReporter` methods from the renderer process is deprecated:
+
+- `crashReporter.start`
+- `crashReporter.getLastCrashReport`
+- `crashReporter.getUploadedReports`
+- `crashReporter.getUploadToServer`
+- `crashReporter.setUploadToServer`
+- `crashReporter.getCrashesDirectory`
+
+The only non-deprecated methods remaining in the `crashReporter` module in the renderer are `addExtraParameter`, `removeExtraParameter` and `getParameters`.
+
+All above methods remain non-deprecated when called from the main process.
+
+Zobacz [#23265](https://github.com/electron/electron/pull/23265) aby uzyskać więcej szczegółów.
 
 ### Removed: Browser Window Affinity
 
@@ -150,43 +208,43 @@ Chromium has removed support for changing the layout zoom level limits, and it i
 
 This is the URL specified as `disturl` in a `.npmrc` file or as the `--dist-url` command line flag when building native Node modules.  Both will be supported for the foreseeable future but it is recommended that you switch.
 
-Deprecated: https://atom.io/download/electron
+Przestarzałe: https://atom.io/download/electron
 
-Replace with: https://electronjs.org/headers
+Zamień z: https://electronjs.org/headers
 
 ### API Changed: `session.clearAuthCache()` no longer accepts options
 
 The `session.clearAuthCache` API no longer accepts options for what to clear, and instead unconditionally clears the whole cache.
 
 ```js
-// Deprecated
+// Przestarzałe
 session.clearAuthCache({ type: 'password' })
-// Replace with
+// Zamień z
 session.clearAuthCache()
 ```
 
 ### API Changed: `powerMonitor.querySystemIdleState` is now `powerMonitor.getSystemIdleState`
 
 ```js
-// Removed in Electron 7.0
+// Usunięte w Electron 7.0
 powerMonitor.querySystemIdleState(threshold, callback)
-// Replace with synchronous API
+// Zamień na synchroniczne API
 const idleState = powerMonitor.getSystemIdleState(threshold)
 ```
 
 ### API Changed: `powerMonitor.querySystemIdleTime` is now `powerMonitor.getSystemIdleState`
 
 ```js
-// Removed in Electron 7.0
+// Usunięte w Electron 7.0
 powerMonitor.querySystemIdleTime(callback)
-// Replace with synchronous API
+// Zamień na synchroniczne API
 const idleTime = powerMonitor.getSystemIdleTime()
 ```
 
 ### API Changed: `webFrame.setIsolatedWorldInfo` replaces separate methods
 
 ```js
-// Removed in Electron 7.0
+// Usunięto w Electron 7.0
 webFrame.setIsolatedWorldContentSecurityPolicy(worldId, csp)
 webFrame.setIsolatedWorldHumanReadableName(worldId, name)
 webFrame.setIsolatedWorldSecurityOrigin(worldId, securityOrigin)
@@ -210,12 +268,12 @@ The `webkitdirectory` property on HTML file inputs allows them to select folders
 
 As of Electron 7, that `FileList` is now list of all files contained within the folder, similarly to Chrome, Firefox, and Edge ([link to MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory)).
 
-As an illustration, take a folder with this structure:
+Jako ilustrację, zobacz folder z tą strukturą:
 ```console
 folder
-├── file1
-├── file2
-└── file3
+├── plik1
+├── plik2
+└── plik3
 ```
 
 In Electron <=6, this would return a `FileList` with a `File` object for:
@@ -223,7 +281,7 @@ In Electron <=6, this would return a `FileList` with a `File` object for:
 path/to/folder
 ```
 
-In Electron 7, this now returns a `FileList` with a `File` object for:
+W Electron 7, teraz zwraca `FileList` z obiektem `File` dla:
 ```console
 /path/to/folder/file3
 /path/to/folder/file2
@@ -612,9 +670,9 @@ webview.onkeyup = () => { /* handler */ }
 
 This is the URL specified as `disturl` in a `.npmrc` file or as the `--dist-url` command line flag when building native Node modules.
 
-Deprecated: https://atom.io/download/atom-shell
+Przestarzałe: https://atom.io/download/atom-shell
 
-Replace with: https://atom.io/download/electron
+Zamień z: https://atom.io/download/electron
 
 ## Breaking API Changes (2.0)
 

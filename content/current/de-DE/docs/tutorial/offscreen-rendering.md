@@ -20,7 +20,7 @@ Um diesen Modus einzuschalten, muss GPU Beschleunigung ausgeschaltet werden. Die
 
 ## Beispiel
 
-```javascript
+``` javascript
 const { app, BrowserWindow } = require('electron')
 
 app.disableHardwareAcceleration()

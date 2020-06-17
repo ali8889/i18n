@@ -1,6 +1,6 @@
 # 安装
 
-要安装预编译好的的二进制文件, 请使用 [` npm `](https://docs.npmjs.com)。 首选的方法是在项目中作为development dependency安装。
+To install prebuilt Electron binaries, use [`npm`](https://docs.npmjs.com). The preferred method is to install Electron as a development dependency in your app:
 
 ```sh
 npm install electron --save-dev
@@ -32,43 +32,40 @@ npm install --platform=win32 electron
 
 ## 代理
 
-If you need to use an HTTP proxy, you need to set the `ELECTRON_GET_USE_PROXY` variable to any value, plus additional environment variables depending on your host system's Node version:
+如果您需要使用 HTTP 代理，您需要设置 `ELECTRON_GET_USE_PROXY` 变量为 任何值。 附加额外的环境变量，取决于您的主机系统Node版本：
 
-* [Node 10 and above](https://github.com/gajus/global-agent/blob/v2.1.5/README.md#environment-variables)
-* [Before Node 10](https://github.com/np-maintain/global-tunnel/blob/v2.7.1/README.md#auto-config)
+* [Node10及以上](https://github.com/gajus/global-agent/blob/v2.1.5/README.md#environment-variables)
+* [Node10前](https://github.com/np-maintain/global-tunnel/blob/v2.7.1/README.md#auto-config)
 
 ## 自定义镜像和缓存
-
-During installation, the `electron` module will call out to [`@electron/get`](https://github.com/electron/get) to download prebuilt binaries of Electron for your platform. 这将通过访问 GitHub 的发布下载页面来完成 (`https://github.com/electron/electron/releases/tag/v$VERSION`, 这里的 `$VERSION` 是 Electron 的确切版本).
+在安装过程中，`electron` 模块会通过 [`electron-download`](https://github.com/electron/get) 为您的平台下载 Electron 的预编译二进制文件。 这将通过访问 GitHub 的发布下载页面来完成 (`https://github.com/electron/electron/releases/tag/v$VERSION`, 这里的 `$VERSION` 是 Electron 的确切版本).
 
 如果您无法访问GitHub，或者您需要提供自定义构建，则可以通过提供镜像或现有的缓存目录来实现。
 
 #### 镜像
-
-You can use environment variables to override the base URL, the path at which to look for Electron binaries, and the binary filename. The URL used by `@electron/get` is composed as follows:
+您可以使用环境变量来覆盖基本 URL，查找 Electron 二进制文件的路径以及二进制文件名。 The URL used by `@electron/get` is composed as follows:
 
 ```javascript
 url = ELECTRON_MIRROR + ELECTRON_CUSTOM_DIR + '/' + ELECTRON_CUSTOM_FILENAME
 ```
 
-For instance, to use the China CDN mirror:
+例如，使用一个中国的镜像：
 
 ```shell
 ELECTRON_MIRROR="https://cdn.npm.taobao.org/dist/electron/"
 ```
 
-By default, `ELECTRON_CUSTOM_DIR` is set to `v$VERSION`. To change the format, use the `{{ version }}` placeholder. For example, `version-{{ version }}` resolves to `version-5.0.0`, `{{ version }}` resolves to `5.0.0`, and `v{{ version }}` is equivalent to the default. As a more concrete example, to use the China non-CDN mirror:
+默认情况下，`ELECTRON_CUSTTOM_DIR`被设置为 `v$VERSION`。 要更改格式，请使用 `{{ version }}` 占位符。 例如，`version-{{ version }}` 被解析为 `version-5.0.0`, `{{ version }}` 被解析为 `5.0.0`， `v{{ version }}` 与默认值等价。 更具体的例子，使用中国非CDN镜像：
 
 ```shell
 ELECTRON_MIRROR="https://npm.taobao.org/mirrors/electron/"
 ELECTRON_CUSTOM_DIR="{{ version }}"
 ```
 
-The above configuration will download from URLs such as `https://npm.taobao.org/mirrors/electron/8.0.0/electron-v8.0.0-linux-x64.zip`.
+上述配置将从URL下载，例如`https://npm.taobao.org/mirrors/electron-v8.0.0-linux-x64.zip`
 
 #### 缓存
-
-或者，您可以覆盖本地缓存。 `@electron/get` will cache downloaded binaries in a local directory to not stress your network. 您可以使用该缓存文件夹来提供 Electron 的定制版本，或者避免进行网络连接。
+或者，您可以覆盖本地缓存。 `electron-download` 会将下载的二进制文件缓存在本地目录中，不会增加网络负担。 您可以使用该缓存文件夹来提供 Electron 的定制版本，或者避免进行网络连接。
 
 * Linux: `$XDG_CACHE_HOME` or `~/.cache/electron/`
 * macOS: `~/Library/Caches/electron/`
@@ -76,9 +73,9 @@ The above configuration will download from URLs such as `https://npm.taobao.org/
 
 在使用旧版本 Electron 的环境中，您也可以在`~/.electron`中找到缓存。
 
-You can also override the local cache location by providing a `electron_config_cache` environment variable.
+您也可以通过提供一个 `electron_config_cache` 环境变量来覆盖本地缓存位置。
 
-缓存包含版本的官方zip文件以及校验和，存储为文本文件。 典型的缓存可能如下所示：
+The cache contains the version's official zip file as well as a checksum, stored as a text file. A typical cache might look like this:
 
 ```sh
 ├── httpsgithub.comelectronelectronreleasesdownloadv1.7.9electron-v1.7.9-darwin-x64.zip
@@ -104,13 +101,11 @@ You can also override the local cache location by providing a `electron_config_c
 ```
 
 ## 跳过二进制包下载
-
 当您在安装 `electron` NPM 包时, 它会自动下载 electron 的二进制包。
 
 当在CI环境中 测试另一个组件的时候，这可能是不必要的。
 
-为了防止当您安装所有 npm 依赖关系时下载二进制文件，您可以设置环境变量 `ELECTRON_SKIP_BINARY_DOWNODD`。 例如:
-
+To prevent the binary from being downloaded when you install all npm dependencies you can set the environment variable `ELECTRON_SKIP_BINARY_DOWNLOAD`. E.g.:
 ```sh
 ELECRON_SKIP_BINARY_DOWNOAD=1 npm install
 ```

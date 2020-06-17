@@ -95,10 +95,10 @@ Using `autoUpdater` as an example:
 * Constructors must be listed with `###`-level titles.
 * [Static Methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static) must be listed under a `### Static Methods` chapter.
 * [Instance Methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Prototype_methods) must be listed under an `### Instance Methods` chapter.
-* All methods that have a return value must start their description with "Returns `[TYPE]` - Return description" 
+* All methods that have a return value must start their description with "Returns `[TYPE]` - Return description"
   * If the method returns an `Object`, its structure can be specified using a colon followed by a newline then an unordered list of properties in the same style as function parameters.
 * Instance Events must be listed under an `### Instance Events` chapter.
-* Instance Properties must be listed under an `### Instance Properties` chapter. 
+* Instance Properties must be listed under an `### Instance Properties` chapter.
   * Instance properties must start with "A [Property Type] ..."
 
 Using the `Session` and `Cookies` classes as an example:
@@ -179,7 +179,7 @@ If an argument or a method is unique to certain platforms, those platforms are d
 
 The description for `Function` type arguments should make it clear how it may be called and list the types of the parameters that will be passed to it.
 
-### أحداث
+### Events
 
 The events chapter must be in following form:
 
@@ -197,7 +197,7 @@ The title can be `###` or `####`-levels depending on whether it is an event of a
 
 The arguments of an event follow the same rules as methods.
 
-### الخصائص
+### Properties
 
 The properties chapter must be in following form:
 

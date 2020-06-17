@@ -9,7 +9,7 @@ A `BrowserView` can be used to embed additional web content into a [`BrowserWind
 ### Halimbawa
 
 ```javascript
-// Ang pangunahing pag-proseso.
+// Sa mga pangunahing proseso.
 const { BrowserView, BrowserWindow } = require('electron')
 
 let win = new BrowserWindow({ width: 800, height: 600 })
@@ -23,9 +23,9 @@ view.setBounds({ x: 0, y: 0, width: 300, height: 300 })
 view.webContents.loadURL('https://electronjs.org')
 ```
 
-### `new BrowserView([options])` *Experimental*
+### `new BrowserView([options])` _Experimental_
 
-* `pagpipilian` Bagay (opsyonal) 
+* `options` Object (optional)
   * `webPreferences` Bagay (opsyonal) - Tingnan ang [BrowserWindow](browser-window.md).
 
 ### Mga istatikong pamamaraan
@@ -50,11 +50,11 @@ Nagbabalik ang `BrowserView` - Ang pagtanaw sa ibinigay na mga `id`.
 
 Mga bagay na ginawa na may `new BrowserView`ay may mga sumusunod na katangian:
 
-#### `view.webContents` *Experimental*
+#### `view.webContents` _Experimental_
 
 Ang isang [`WebContents`](web-contents.md) na bagay na pag-aari ng tanawin na ito.
 
-#### `view.id` *Experimental*
+#### `view.id` _Experimental_
 
 Ang isang `integer` kumakatawan sa natatanging ID ng tanawin.
 
@@ -70,26 +70,26 @@ Force closing the view, the `unload` and `beforeunload` events won't be emitted 
 
 Returns `Boolean` - Whether the view is destroyed.
 
-#### `view.setAutoResize(options)` *Experimental*
+#### `view.setAutoResize(options)` _Experimental_
 
-* `options` Bagay 
+* `options` Object
   * `width` Boolean (optional) - If `true`, the view's width will grow and shrink together with the window. `false` by default.
   * `height` Boolean (optional) - If `true`, the view's height will grow and shrink together with the window. `false` by default.
   * `horizontal` Boolean (optional) - If `true`, the view's x position and width will grow and shrink proportionally with the window. `false` by default.
   * `vertical` Boolean (optional) - If `true`, the view's y position and height will grow and shrink proportionally with the window. `false` by default.
 
-#### `view.setBounds(bounds)` *Experimental*
+#### `view.setBounds(bounds)` _Experimental_
 
 * `bounds` [Rectangle](structures/rectangle.md)
 
 Binabago ang laki at inililipat ang view mula sa ibinibigay na hangganan na may kaugnayan sa window.
 
-#### `view.getBounds()` *Experimental*
+#### `view.getBounds()` _Experimental_
 
 Nagbabalik[`Rectangle`](structures/rectangle.md)
 
 The `bounds` of this BrowserView instance as `Object`.
 
-#### `view.setBackgroundColor(color)` *Experimental*
+#### `view.setBackgroundColor(color)` _Experimental_
 
-* `color` String - Ang kulay sa form ng `#aarrggbb` o sa `#argb`. Ang channel ng alpha ay opsyonal.
+* `color` String - Color in `#aarrggbb` or `#argb` form. The alpha channel is optional.

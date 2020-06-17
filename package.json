@@ -14,7 +14,7 @@
     "@octokit/rest": "^16.43.1",
     "@types/cheerio": "^0.22.11",
     "@types/lodash": "^4.14.134",
-    "@types/node": "^13.1.6",
+    "@types/node": "^14.0.1",
     "@types/rimraf": "^3.0.0",
     "chai": "^4.1.2",
     "chai-date-string": "^0.1.0",
@@ -28,10 +28,10 @@
     "get-crowdin-file-ids": "^1.1.1",
     "github-slugger": "^1.2.0",
     "globals": "^13.0.0",
-    "got": "^10.2.1",
+    "got": "^11.0.1",
     "handlebars": "^4.7.4",
     "href-type": "^1.0.1",
-    "hubdown": "^2.3.2",
+    "hubdown": "^2.6.0",
     "husky": "^4.0.1",
     "js-yaml": "^3.8.4",
     "locale-code": "^2.0.1",
@@ -39,7 +39,7 @@
     "make-dir": "^3.0.0",
     "make-promises-safe": "^5.0.0",
     "match-words": "^1.0.0",
-    "mocha": "^7.0.0",
+    "mocha": "^8.0.1",
     "npm-run-all": "^4.1.2",
     "prettier": "^2.0.0",
     "remark": "^12.0.0",
@@ -73,8 +73,8 @@
     "upload-crowdin-glossary": "ts-node script/upload-crowdin-glossary.ts",
     "automerge": "ts-node ./script/automerge.ts"
   },
-  "electronLatestStableTag": "v8.2.2",
-  "electronMasterBranchCommit": "aeaccd00a2be44781f8ca375b073888949d89f2e",
+  "electronLatestStableTag": "v9.0.4",
+  "electronMasterBranchCommit": "e1e73fa5f5e96af7c352053f34879e44ea8ab0bd",
   "engines": {
     "node": ">=10"
   },
@@ -85,7 +85,7 @@
   },
   "supportedVersions": [
     "6-1-x",
-    "7-2-x",
-    "9-x-y"
+    "7-3-x",
+    "8-x-y"
   ]
 }

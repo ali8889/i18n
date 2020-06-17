@@ -1,4 +1,4 @@
-# Membangun sistem Tinjauan
+# Membangun Sistem Tinjauan
 
 Electron uses [GN](https://gn.googlesource.com/gn) for project generation and [ninja](https://ninja-build.org/) for building. Project configurations can be found in the `.gn` and `.gni` files.
 
@@ -17,7 +17,7 @@ Electron inherits this build option from Chromium. In `Debug` builds, the binary
 
 ## Uji
 
-**NB** *this section is out of date and contains information that is no longer relevant to the GN-built electron.*
+**NB** _this section is out of date and contains information that is no longer relevant to the GN-built electron._
 
 Menguji perubahan sesuai dengan proyek gaya pengkodean menggunakan:
 

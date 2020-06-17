@@ -4,7 +4,7 @@ Ci sono molti modi di aggiornare una app di Electron. La più facile ed ufficial
 
 ## Usando `aggiorna.electronjs.org`
 
-Il team di GitHub di Electron mantiene aggiorna.electronjs.org, un servizio web gratuito e libero che le app di Electron possono usare per auto aggiornarsi. The service is designed for Electron apps that meet the following criteria:</p> 
+The Electron team maintains [update.electronjs.org](https://github.com/electron/update.electronjs.org), a free and open-source webservice that Electron apps can use to self-update. The service is designed for Electron apps that meet the following criteria:
 
 - App eseguite su macOS o Windows
 - App con repository di GitHub pubblica
@@ -54,12 +54,12 @@ Poi, costruisci l'URL del server si aggiornamento e dillo all'[autoUpdater](../a
 
 ```javascript
 const server = 'https://your-deployment-url.com'
-const feed = `${server}/update/${process.platform}/${app.getVersion()}`
+const url = `${server}/update/${process.platform}/${app.getVersion()}`
 
-autoUpdater.setFeedURL(feed)
+autoUpdater.setFeedURL({ url })
 ```
 
-Come passo finale controlla per aggiornamenti. L'esempio sotto controllerà ogni minuto:
+As the final step, check for updates. The example below will check every minute:
 
 ```javascript
 setInterval(() => {
@@ -89,7 +89,7 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
 })
 ```
 
-Assicurati anche che gli errori [siano controllati](../api/auto-updater.md#event-error). Qui un esempio per la loro registrazione a `stderr`:
+Also make sure that errors are [being handled](../api/auto-updater.md#event-error). Here's an example for logging them to `stderr`:
 
 ```javascript
 autoUpdater.on('error', message => {
@@ -97,3 +97,7 @@ autoUpdater.on('error', message => {
   console.error(messaggio)
 })
 ```
+
+## Handing Updates Manually
+
+Because the requests made by Auto Update aren't under your direct control, you may find situations that are difficult to handle (such as if the update server is behind authentication). The `url` field does support files, which means that with some effort, you can sidestep the server-communication aspect of the process. [Here's an example of how this could work](https://github.com/electron/electron/issues/5020#issuecomment-477636990).

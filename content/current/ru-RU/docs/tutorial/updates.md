@@ -1,10 +1,10 @@
-# Обновление приложений
+# Updating Applications
 
 Существует несколько способов по обновлению Electron приложений. Самый простой и официально поддерживаемый - воспользоваться встроенным [Squirrel](https://github.com/Squirrel) фреймворком и модулем Electron [autoUpdater](../api/auto-updater.md).
 
 ## Используя `update.electronjs.org`
 
-Команда GitHub's Electron поддерживает [update.electronjs.org](https://github.com/electron/update.electronjs.org), бесплатный веб-сервис с открытым исходным кодом, который Electron приложения могут использовать для самообновления. Сервис разработан для приложений Electron, отвечающих следующим критериям:
+The Electron team maintains [update.electronjs.org](https://github.com/electron/update.electronjs.org), a free and open-source webservice that Electron apps can use to self-update. Сервис разработан для приложений Electron, отвечающих следующим критериям:
 
 - Приложение работает на macOS или Windows
 - Приложение имеет публичный GitHub репозиторий
@@ -54,9 +54,9 @@ Next, construct the URL of the update server and tell [autoUpdater](../api/auto-
 
 ```javascript
 const server = 'https://your-deployment-url.com'
-const feed = `${server}/update/${process.platform}/${app.getVersion()}`
+const url = `${server}/update/${process.platform}/${app.getVersion()}`
 
-autoUpdater.setFeedURL(feed)
+autoUpdater.setFeedURL({ url })
 ```
 
 As the final step, check for updates. The example below will check every minute:
@@ -97,3 +97,7 @@ autoUpdater.on('error', message => {
   console.error(message)
 })
 ```
+
+## Handing Updates Manually
+
+Because the requests made by Auto Update aren't under your direct control, you may find situations that are difficult to handle (such as if the update server is behind authentication). The `url` field does support files, which means that with some effort, you can sidestep the server-communication aspect of the process. [Here's an example of how this could work](https://github.com/electron/electron/issues/5020#issuecomment-477636990).

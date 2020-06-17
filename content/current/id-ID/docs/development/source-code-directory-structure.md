@@ -1,4 +1,4 @@
-# Struktur direktori sumber kode
+# Struktur Direktori Sumber Kode
 
 Kode sumber dari electron dipisahkan menjadi beberapa bagian, sebagian besar mengikuti Chromium pada konvensi pemisahan.
 
@@ -84,7 +84,6 @@ Electron
 * **npm** - Logic for installation of Electron via npm.
 * **keluar** - Direktori keluaran sementara `ninja`.
 * **skrip** - Skrip yang digunakan untuk tujuan pembangunan seperti bangunan, kemasan, pengujian, dll.
-
 ```diff
 script/ - The set of all scripts Electron runs for a variety of purposes.
 ├── codesign/ - Fakes codesigning for Electron apps; used for testing.
@@ -93,8 +92,7 @@ script/ - The set of all scripts Electron runs for a variety of purposes.
     ├── notes/ - Generates release notes for new Electron versions.
     └── uploaders/ - Uploads various release-related files during release.
 ```
-
-* **alat** - Helper scripts used by GN files. 
+* **tools** - Helper scripts used by GN files.
   * Scripts put here should never be invoked by users directly, unlike those in `script`.
 * **typings** - TypeScript typings for Electron's internal code.
 * **vendor** - Source code for some third party dependencies, including `boto` and `requests`.
@@ -106,8 +104,8 @@ Repositori Electron memiliki beberapa dependensi yang dipesan, ditemukan di [/ve
 ```sh
 $ git status
 
-  modified:   vendor/depot_tools (new commits)
-  modified:   vendor/boto (new commits)
+    modified:   vendor/depot_tools (new commits)
+    modified:   vendor/boto (new commits)
 ```
 
 Untuk memperbarui dependensi ini, jalankan perintah berikut:
@@ -120,5 +118,5 @@ Jika Anda sering menjalankan perintah ini, Anda bisa membuat alias untuk itu di 
 
 ```sh
 [alias]
-  su = submodule update --init --recursive
+    su = submodule update --init --recursive
 ```

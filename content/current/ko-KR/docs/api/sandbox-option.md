@@ -14,7 +14,7 @@ A sandboxed renderer doesn't have a Node.js environment running and doesn't expo
 
 Another difference is that sandboxed renderers don't modify any of the default JavaScript APIs. Consequently, some APIs such as `window.open` will work as they do in Chromium (i.e. they do not return a [`BrowserWindowProxy`](browser-window-proxy.md)).
 
-## Example
+## 예시
 
 To create a sandboxed window, pass `sandbox: true` to `webPreferences`:
 
@@ -105,7 +105,7 @@ The `-x` flag should be used with any required module that is already exposed in
 
 Currently the `require` function provided in the preload scope exposes the following modules:
 
-- `electron` 
+- `electron`
   - `crashReporter`
   - `desktopCapturer`
   - `ipcRenderer`

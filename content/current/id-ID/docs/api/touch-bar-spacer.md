@@ -4,10 +4,10 @@
 
 Proses: [utama](../tutorial/application-architecture.md#main-and-renderer-processes)
 
-### `baru TouchBarSpacer(options)` *Experimental*
+### `baru TouchBarSpacer(options)` _Experimental_
 
-* `pilihan` Benda 
-  * `ukuran` String (opsional) - Ukuran spacer, nilai yang mungkin adalah: 
-    * `small` - Small space between items. Maps to `NSTouchBarItemIdentifierFixedSpaceSmall`. This is the default.
-    * `large` - Large space between items. Maps to `NSTouchBarItemIdentifierFixedSpaceLarge`.
-    * `flexible` - Take up all available space. Maps to `NSTouchBarItemIdentifierFlexibleSpace`.
+* `options` Object
+  * `size` String (optional) - Size of spacer, possible values are:
+    * `kecil` - kecil ruang antara item. Maps to `NSTouchBarItemIdentifierFixedSpaceSmall`. This is the default.
+    * `besar` - besar ruang antara item. Maps to `NSTouchBarItemIdentifierFixedSpaceLarge`.
+    * `fleksibel` - mengambil semua ruang yang tersedia. Maps to `NSTouchBarItemIdentifierFlexibleSpace`.

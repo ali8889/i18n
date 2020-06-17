@@ -10,7 +10,7 @@ Ang `IncomingMessage` ay ginagamit ang "interface" na [Readable Stream](https://
 
 #### Event: 'data'
 
-Pagbabalik sa:
+Ibinabalik ang:
 
 * `chunk` Buffer - Ang "chunk" ng pagtugon sa katawan ng datos.
 
@@ -26,13 +26,13 @@ Lumalabas kapag ang kahilingan ay biglang itinigil habang nagaganap ang transaks
 
 #### Event: 'error'
 
-Pagbabalik:
+Ibinabalik ang:
 
 `error` Error - Karaniwang hinahawakan ang maling "string" at tutukuyin ang sanhi kung bakit ito hindi nagtagumpay.
 
 Lumalabas kapag nakatagpo ng mali habang patuloy ang pagtugon sa datos ng "events". Halimbawa, kung ang "server" ay malapit sa pinagbabatayan nito habang ang proseso ng pagtugon ay nagpapatuloy, ang "`error` event" ay lalabas sa "response object" at ang "`close` event" ay susunod pagkatapos nito.
 
-### Mga Halimbawa ng Katangian
+### Katangian ng pagkakataon
 
 Isang `IncomingMessage` na may mga sumusunod na katangian na maaaring basahin:
 

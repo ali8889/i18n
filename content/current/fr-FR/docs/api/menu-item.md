@@ -8,8 +8,8 @@ Voir [`Menu`](menu.md) pour des exemples.
 
 ### `new MenuItem(options)`
 
-* `options` Objet 
-  * `click` Fonction (optionnel) - Sera appelé avec `click(menuItem, browserWindow, event)` lorsque l'élément du menu est cliqué. 
+* `options` Object
+  * `click` Function (optional) - Will be called with `click(menuItem, browserWindow, event)` when the menu item is clicked.
     * `menuItem` MenuItem
     * `browserWindow` [BrowserWindow](browser-window.md)
     * `event` [KeyboardEvent](structures/keyboard-event.md)
@@ -17,18 +17,18 @@ Voir [`Menu`](menu.md) pour des exemples.
   * `type` String (facultatif) - Peut être `normal`, `séparateur`, `sous-menu`, `checkbox` ou `radio`.
   * `label` String (optionnel)
   * `sublabel` String (optionnel)
-  * `toolTip` String (facultatif) *macOS* - Texte de survol pour ce lien de menu.
+  * `toolTip` String (facultatif) _macOS_ - Texte de survol pour ce lien de menu.
   * `accélérateur` [Accelerator](accelerator.md) (facultatif)
   * `icon` ([NativeImage](native-image.md) | String) (facultatif)
   * `activé` Booléen (facultatif) - Si faux, l'élément de menu sera grisé et non cliquable.
-  * `acceleratorWorksWhenHidden` Boolean (facultatif) *macOS* - la valeur par défaut est `true`, et lorsque `false` empêchera l'accélérateur de déclencher l'élément si l'élément n'est pas visible`.
+  * `acceleratorWorksWhenHidden` Boolean (facultatif) _macOS_ - la valeur par défaut est `true`, et lorsque `false` empêchera l'accélérateur de déclencher l'élément si l'élément n'est pas visible`.
   * `visible` Boolean (facultatif) - Si false, l'élément de menu sera entièrement masqué.
   * `coché` Booléen (facultatif) - Ne doit être spécifié que pour `case à cocher` ou `radio` type des liens de menu .
-  * `registerAccelerator` Boolean (facultatif) *Linux* *Windows* - Si faux, l'accélérateur ne sera pas inscrit au système, mais il sera toujours affiché. Vrai par défaut.
+  * `registerAccelerator` Boolean (optional) _Linux_ _Windows_ - If false, the accelerator won't be registered with the system, but it will still be displayed. Par défaut, true.
   * `sous-menu` (MenuItemConstructorOptions[] | [Menu](menu.md)) (facultatif) - Doit être spécifié pour `sous-menu` type éléments de menu. Si `sous-menu` est spécifié, le `type: 'submenu'` peut être omis. Si la valeur n'est pas un [`Menu`](menu.md) alors elle sera automatiquement convertie en un en utilisant `Menu.buildFromTemplate`.
-  * `id` String (facultatif) - Unique dans un menu unique. Si défini, alors il peut être utilisé comme référence à cet élément par l'attribut position.
+  * `id` String (optional) - Unique within a single menu. If defined then it can be used as a reference to this item by the position attribute.
   * `avant` String[] (facultatif) - Insère cet élément avant l'élément avec le libellé spécifié. Si l'élément référencé n'existe pas, l'élément sera inséré à la fin du menu. Implique également que l'élément de menu en question doit être placé dans le même « groupe » que l'élément.
-  * `after` String[] (facultatif) - Insère cet élément après l'élément avec le libellé spécifié. Si l'élément référencé n'existe pas, l'élément sera inséré à la fin de le menu.
+  * `after` String[] (optional) - Inserts this item after the item with the specified label. Si l'élément référencé n'existe pas, l'élément sera inséré à la fin de le menu.
   * `beforeGroupContaining` String[] (facultatif) - Fournit un moyen pour un seul menu contextuel de déclarer le placement de leur groupe contenant avant le groupe contenant l'élément avec l'étiquette spécifiée.
   * `afterGroupContaining` String[] (facultatif) - Fournit un moyen pour un seul menu contextuel de déclarer le placement de leur groupe contenant après le groupe contenant de l'élément avec l'étiquette spécifiée.
 
@@ -69,7 +69,7 @@ La propriété `role` peut avoir les valeurs suivantes :
 * `viewMenu` - Menu "Affichage" par défaut (Recharger, Activer/désactiver les outils de développement, etc.)
 * `windowMenu` - Menu par défaut entier "Windows" (Minimize, Zoom, etc.).
 
-Les rôles supplémentaires suivants sont disponibles sur *macOS*:
+Les rôles supplémentaires suivants sont disponibles sur _macOS_:
 
 * `appMenu` - Tout le menu "App" par défaut (About, Services, etc.)
 * `about` - Mapper à l'action `orderFrontStandardAboutPanel`.
@@ -93,9 +93,9 @@ Les rôles supplémentaires suivants sont disponibles sur *macOS*:
 
 Lorsque vous spécifiez un `rôle` sur macOS, `label` et `accélérateur` sont les seules options qui affecteront l'élément de menu. Toutes les autres options seront ignorées. La minuscule `rôle`, par exemple `toggledevtools`, est toujours supportée.
 
-**Nota Bene:** Les propriétés `activées` et `visibilité` ne sont pas disponibles pour les éléments de menu de premier niveau sur MacOS.
+**Nota Bene:** The `enabled` and `visibility` properties are not available for top-level menu items in the tray on MacOS.
 
-### Instance Properties
+### Propriétés d'instance
 
 Les propriétés suivantes sont disponibles pour les instances de `MenuItem` :
 
@@ -109,8 +109,7 @@ Une `String` indiquant l'étiquette visible de l'élément, cette propriété pe
 
 #### `menuItem.click`
 
-Une `Fonction` qui est lancée lorsque l'élément de menu reçoit un événement de clic. Elle peut être appelée avec `menuItem.click(event, focusedWindow, focusedWebContents)`.
-
+Une `Function` qui est activée lorsque l'élément MenuItem reçoit un événement de clic. It can be called with `menuItem.click(event, focusedWindow, focusedWebContents)`.
 * `event` [KeyboardEvent](structures/keyboard-event.md)
 * `focusedWindow` [BrowserWindow](browser-window.md)
 * `focusedWebContents` [WebContents](web-contents.md)
@@ -121,7 +120,7 @@ Un `Menu` (facultatif) contenant le sous-menu de l'élément de menu s'il est pr
 
 #### `menuItem.type`
 
-Une `String` indiquant le type de l'élément. Peut être `normal`, `séparateur`, `sous-menu`, `checkbox` ou `radio`.
+A `String` indicating the type of the item. Can be `normal`, `separator`, `submenu`, `checkbox` or `radio`.
 
 #### `menuItem.role`
 
@@ -139,7 +138,7 @@ A `NativeImage | String` (facultatif) indiquant l'icône de l'élément , si dé
 
 Une `String` indiquant la sous-étiquette de l'objet, cette propriété peut être modifiée dynamiquement.
 
-#### `menuItem.toolTip` *macOS*
+#### `menuItem.toolTip` _macOS_
 
 Une `Chaîne` indiquant le texte du survol de l'élément.
 

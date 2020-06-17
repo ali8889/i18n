@@ -1,4 +1,4 @@
-# Rendu Offscreen
+# Rendu hors de l'écran
 
 Le Rendu hors de l'écran vous permet d’obtenir le contenu d’une fenêtre de navigateur dans un fichier bitmap, donc il peut être restitué n’importe où, par exemple une texture dans une scène 3D. Le rendu hors écran d'Electron utilise une approche similaire au projet [Chromium Embedded Framework](https://bitbucket.org/chromiumembedded/cef).
 
@@ -20,7 +20,7 @@ Pour activer ce mode, l'accélération GPU doit être désactivé en appelant l'
 
 ## Utilisation
 
-```javascript
+``` javascript
 const { app, BrowserWindow } = require('electron')
 
 app.disableHardwareAcceleration()

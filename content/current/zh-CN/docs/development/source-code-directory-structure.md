@@ -1,4 +1,4 @@
-# 源码目录结构
+# 源代码目录结构
 
 Electron 的源代码主要依据 Chromium 的拆分约定被拆成了许多部分。
 
@@ -83,7 +83,6 @@ Electron
 * **npm** - Logic for installation of Electron via npm.
 * **out** - `ninja` 的临时输出目录.
 * **script** - 用于诸如构建、打包、测试等开发用途的脚本等.
-
 ```diff
 script/ - The set of all scripts Electron runs for a variety of purposes.
 ├── codesign/ - Fakes codesigning for Electron apps; used for testing.
@@ -92,8 +91,7 @@ script/ - The set of all scripts Electron runs for a variety of purposes.
     ├── notes/ - Generates release notes for new Electron versions.
     └── uploaders/ - Uploads various release-related files during release.
 ```
-
-* **工具** - Helper scripts used by GN files. 
+* **tools** - Helper scripts used by GN files.
   * Scripts put here should never be invoked by users directly, unlike those in `script`.
 * **typings** - TypeScript typings for Electron's internal code.
 * **vendor** - Source code for some third party dependencies, including `boto` and `requests`.
@@ -105,8 +103,8 @@ Electron信息库有一些被提供的依赖, 在 [/vendor](https://github.com/e
 ```sh
 $ git status
 
-  modified:   vendor/depot_tools (new commits)
-  modified:   vendor/boto (new commits)
+    modified:   vendor/depot_tools (new commits)
+    modified:   vendor/boto (new commits)
 ```
 
 要更新这些被提供的依赖关系，运行以下命令：
@@ -119,5 +117,5 @@ git submodule update --init --recursive
 
 ```sh
 [alias]
-  su = submodule update --init --recursive
+    su = submodule update --init --recursive
 ```

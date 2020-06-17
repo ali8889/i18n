@@ -9,29 +9,28 @@ Electron의 `process` object는 [Node.js `process` object](https://nodejs.org/ap
 ## Sandbox
 
 샌드박스 된 렌더러의 `process` object는 API의 일부 집합만 포함합니다.
-
-* `crash()`
-* `hang()`
-* `getCreationTime()`
-* `getHeapStatistics()`
-* `getBlinkMemoryInfo()`
-* `getProcessMemoryInfo()`
-* `getSystemMemoryInfo()`
-* `getSystemVersion()`
-* `getCPUUsage()`
-* `getIOCounters()`
-* `argv`
-* `execPath`
-* `env`
-* `pid`
-* `arch`
-* `platform`
-* `sandboxed`
-* `type`
-* `version`
-* `versions`
-* `mas`
-* `windowsStore`
+- `crash()`
+- `hang()`
+- `getCreationTime()`
+- `getHeapStatistics()`
+- `getBlinkMemoryInfo()`
+- `getProcessMemoryInfo()`
+- `getSystemMemoryInfo()`
+- `getSystemVersion()`
+- `getCPUUsage()`
+- `getIOCounters()`
+- `argv`
+- `execPath`
+- `env`
+- `pid`
+- `arch`
+- `platform`
+- `sandboxed`
+- `type`
+- `version`
+- `versions`
+- `mas`
+- `windowsStore`
 
 ## Events
 
@@ -53,15 +52,15 @@ process.once('loaded', () => {
 
 ## 속성
 
-### `process.defaultApp` *Readonly*
+### `process.defaultApp` _읽기전용_
 
 A `Boolean`. When app is started by being passed as parameter to the default app, this property is `true` in the main process, otherwise it is `undefined`.
 
-### `process.isMainFrame` *Readonly*
+### `process.isMainFrame` _읽기전용_
 
 A `Boolean`, `true` when the current renderer context is the "main" renderer frame. If you want the ID of the current frame you should use `webFrame.routingId`.
 
-### `process.mas` *Readonly*
+### `process.mas` _읽기전용_
 
 A `Boolean`. For Mac App Store build, this property is `true`, for other builds it is `undefined`.
 
@@ -77,11 +76,11 @@ A `Boolean` that controls whether or not deprecation warnings are printed to `st
 
 A `Boolean` that controls whether or not deprecation warnings are printed to `stderr` when formerly callback-based APIs converted to Promises are invoked using callbacks. Setting this to `true` will enable deprecation warnings.
 
-### `process.resourcesPath` *Readonly*
+### `process.resourcesPath` _읽기전용_
 
 A `String` representing the path to the resources directory.
 
-### `process.sandboxed` *Readonly*
+### `process.sandboxed` _읽기전용_
 
 A `Boolean`. When the renderer process is sandboxed, this property is `true`, otherwise it is `undefined`.
 
@@ -94,22 +93,21 @@ A `Boolean` that controls whether or not deprecation warnings will be thrown as 
 A `Boolean` that controls whether or not deprecations printed to `stderr` include their stack trace. Setting this to `true` will print stack traces for deprecations. This property is instead of the `--trace-deprecation` command line flag.
 
 ### `process.traceProcessWarnings`
-
 A `Boolean` that controls whether or not process warnings printed to `stderr` include their stack trace. Setting this to `true` will print stack traces for process warnings (including deprecations). This property is instead of the `--trace-warnings` command line flag.
 
-### `process.type` *Readonly*
+### `process.type` _읽기전용_
 
 A `String` representing the current process's type, can be `"browser"` (i.e. main process), `"renderer"`, or `"worker"` (i.e. web worker).
 
-### `process.versions.chrome` *Readonly*
+### `process.versions.chrome` _읽기전용_
 
 A `String` representing Chrome's version string.
 
-### `process.versions.electron` *Readonly*
+### `process.versions.electron` _읽기전용_
 
 A `String` representing Electron's version string.
 
-### `process.windowsStore` *Readonly*
+### `process.windowsStore` _읽기전용_
 
 A `Boolean`. If the app is running as a Windows Store app (appx), this property is `true`, for otherwise it is `undefined`.
 
@@ -125,13 +123,13 @@ Causes the main thread of the current process crash.
 
 Returns `Number | null` - The number of milliseconds since epoch, or `null` if the information is unavailable
 
-Indicates the creation time of the application. The time is represented as number of milliseconds since epoch. It returns null if it is unable to get the process creation time.
+Indicates the creation time of the application. 시간은 epoch 이후 밀리 초로 표시됩니다. It returns null if it is unable to get the process creation time.
 
 ### `process.getCPUUsage()`
 
 Returns [`CPUUsage`](structures/cpu-usage.md)
 
-### `process.getIOCounters()` *Windows* *Linux*
+### `process.getIOCounters()` _Windows_ _Linux_
 
 Returns [`IOCounters`](structures/io-counters.md)
 
@@ -149,7 +147,7 @@ Returns `Object`:
 * `peakMallocedMemory` Integer
 * `doesZapGarbage` Boolean
 
-Returns an object with V8 heap statistics. Note that all statistics are reported in Kilobytes.
+Returns an object with V8 heap statistics. 모든 통계는 킬로바이트로 보고됩니다.
 
 ### `process.getBlinkMemoryInfo()`
 
@@ -175,8 +173,8 @@ Returns `Object`:
 
 * `total` Integer - The total amount of physical memory in Kilobytes available to the system.
 * `free` Integer - The total amount of memory not being used by applications or disk cache.
-* `swapTotal` Integer *Windows* *Linux* - The total amount of swap memory in Kilobytes available to the system.
-* `swapFree` Integer *Windows* *Linux* - The free amount of swap memory in Kilobytes available to the system.
+* `swapTotal` Integer _Windows_ _Linux_ - The total amount of swap memory in Kilobytes available to the system.
+* `swapFree` Integer _Windows_ _Linux_ - The free amount of swap memory in Kilobytes available to the system.
 
 Returns an object giving memory usage statistics about the entire system. Note that all statistics are reported in Kilobytes.
 
@@ -189,9 +187,9 @@ Returns `String` - The version of the host operating system.
 ```js
 const version = process.getSystemVersion()
 console.log(version)
-// On macOS -> '10.13.6'
-// On Windows -> '10.0.17763'
-// On Linux -> '4.15.0-45-generic'
+// macOS의 경우 -> '10.13.6'
+// Windows의 경우 -> '10.0.17763'
+// Linux의 경우 -> '4.15.0-45-generic'
 ```
 
 **Note:** It returns the actual operating system version instead of kernel version on macOS unlike `os.release()`.
@@ -208,7 +206,7 @@ Takes a V8 heap snapshot and saves it to `filePath`.
 
 Causes the main thread of the current process hang.
 
-### `process.setFdLimit(maxDescriptors)` *macOS* *Linux*
+### `process.setFdLimit(maxDescriptors)` _macOS_ _Linux_
 
 * `maxDescriptors` Integer
 

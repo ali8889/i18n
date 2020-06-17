@@ -31,7 +31,7 @@ npm skript vytvoří základní `package.json` soubor na základě Vámi zadaný
 }
 ```
 
-**Poznámka**: Pokud položka `main` neexistuje v `package.json`, Electron se pokusí spustit`index.js` (stejně jako v případě Node.js). If this was actually a simple Node application, you would add a `start` script that instructs `node` to execute the current package:
+__Poznámka__: Pokud položka `main` neexistuje v `package.json`, Electron se pokusí spustit`index.js` (stejně jako v případě Node.js). If this was actually a simple Node application, you would add a `start` script that instructs `node` to execute the current package:
 
 ```json
 {

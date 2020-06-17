@@ -11,7 +11,7 @@ const { dialog } = require('electron')
 console.log(dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }))
 ```
 
-Dialogは、Electronのメインスレッドから開かれます。dialogオブジェクトをレンダラープロセスから使用したい場合、remoteを使用してアクセスするようにしてください。
+ダイアログは Electron のメインスレッドから開かれます。 レンダラプロセスからダイアログオブジェクトを使いたい場合は、リモートを使ってアクセスすることを忘れないでください。
 
 ```javascript
 const { dialog } = require('electron').remote
@@ -25,29 +25,29 @@ console.log(dialog)
 ### `dialog.showOpenDialogSync([browserWindow, ]options)`
 
 * `browserWindow` [BrowserWindow](browser-window.md) (任意)
-* `options` Object 
+* `options` Object
   * `title` String (任意)
   * `defaultPath` String (任意)
   * `buttonLabel` String (任意) - 確認ボタンのカスタムラベル。空のままにすると、既定のラベルが使用されます。
   * `filters` [FileFilter[]](structures/file-filter.md) (任意)
-  * `properties` String[] (任意) - ダイアログでどの機能を使用するか。以下の値がサポートされます。 
+  * `properties` String[] (任意) - ダイアログが使うべきでない機能を含む。 以下の値がサポートされています:
     * `openFile` - ファイルを選択するのを許可します。
     * `openDirectory` - ディレクトリを選択するのを許可します。
     * `multiSelections` - 複数のパスを選択するのを許可します。
     * `showHiddenFiles` - ダイアログで隠しファイルを表示します。
-    * `createDirectory` *macOS* - ダイアログでディレクトリを作成するのを許可します。
-    * `promptToCreate` *Windows* - ダイアログで存在しないファイルパスを入力した場合に、作成を促します。 これは実際にパスにファイルを作成しませんが、アプリケーションによって作成される必要がある存在しないパスが返されることを許可します。
-    * `noResolveAliases` *macOS* - 自動的にエイリアス (シンボリックリンク) のパスを解決しないようにします。選択したエイリアスはリンク先のパスの代わりにエイリアスのパスを返します。
-    * `treatPackageAsDirectory` *macOS* - `.app` フォルダのようなパッケージを、ファイルの代わりにディレクトリとして扱います。
-    * `dontAddToRecent` *Windows* - 開いているアイテムを最近開いた書類リストに追加しないようにします。
-  * `message` String (任意) *macOS* - 入力ボックスの上に表示するメッセージ。
-  * `securityScopedBookmarks` Boolean (任意) *macOS* *mas* - Mac App Store 向けにパッケージしたときに [セキュリティスコープ付きブックマーク](https://developer.apple.com/library/content/documentation/Security/Conceptual/AppSandboxDesignGuide/AppSandboxInDepth/AppSandboxInDepth.html#//apple_ref/doc/uid/TP40011183-CH3-SW16) を作成します。
+    * `createDirectory` _macOS_ - ダイアログでディレクトリを作成するのを許可します。
+    * `promptToCreate` _Windows_ - ダイアログで存在しないファイルパスを入力した場合に、作成を促します。 これは実際にパスにファイルを作成しませんが、アプリケーションによって作成される必要がある存在しないパスが返されることを許可します。
+    * `noResolveAliases` _macOS_ - 自動的なエイリアス (シンボリックリンク) によるパス解決を無効にします。 選択されたエイリアスは、ターゲットパスの代わりにエイリアスパスを返します。
+    * `treatPackageAsDirectory` _macOS_ - `.app` フォルダのようなパッケージを、ファイルの代わりにディレクトリとして扱います。
+    * `dontAddToRecent` _Windows_ - 開いているアイテムを最近開いたドキュメントリストに追加しないようにします。
+  * `message` String (任意) _macOS_ - 入力ボックスの上に表示するメッセージ。
+  * `securityScopedBookmarks` Boolean (任意) _macOS_ _mas_ - Mac App Store 向けにパッケージしたときに [セキュリティスコープ付きブックマーク](https://developer.apple.com/library/content/documentation/Security/Conceptual/AppSandboxDesignGuide/AppSandboxInDepth/AppSandboxInDepth.html#//apple_ref/doc/uid/TP40011183-CH3-SW16) を作成します。
 
 戻り値 `String[] | undefined` - ユーザが選択したファイルパス。dialog がキャンセルされた場合は `undefined` を返します。
 
 `browserWindow` の引数で、ダイアログは親ウインドウにアタッチされ、モーダル表示になります。
 
-特定の種類だけにユーザーを制限したいとき、`filters` には、表示または選択できるファイルの種類の配列を指定します。例:
+特定の種類だけにユーザーを制限したいとき、`filters` には、表示または選択できるファイルの種類の配列を指定します。 例:
 
 ```javascript
 {
@@ -73,33 +73,33 @@ dialog.showOpenDialogSync(mainWindow, {
 ### `dialog.showOpenDialog([browserWindow, ]options)`
 
 * `browserWindow` [BrowserWindow](browser-window.md) (任意)
-* `options` Object 
+* `options` Object
   * `title` String (任意)
   * `defaultPath` String (任意)
   * `buttonLabel` String (任意) - 確認ボタンのカスタムラベル。空のままにすると、既定のラベルが使用されます。
   * `filters` [FileFilter[]](structures/file-filter.md) (任意)
-  * `properties` String[] (任意) - ダイアログでどの機能を使用するか。以下の値がサポートされます。 
+  * `properties` String[] (任意) - ダイアログが使うべきでない機能を含む。 以下の値がサポートされています:
     * `openFile` - ファイルを選択するのを許可します。
     * `openDirectory` - ディレクトリを選択するのを許可します。
     * `multiSelections` - 複数のパスを選択するのを許可します。
     * `showHiddenFiles` - ダイアログで隠しファイルを表示します。
-    * `createDirectory` *macOS* - ダイアログでディレクトリを作成するのを許可します。
-    * `promptToCreate` *Windows* - ダイアログで存在しないファイルパスを入力した場合に、作成を促します。 これは実際にパスにファイルを作成しませんが、アプリケーションによって作成される必要がある存在しないパスが返されることを許可します。
-    * `noResolveAliases` *macOS* - 自動的にエイリアス (シンボリックリンク) のパスを解決しないようにします。選択したエイリアスはリンク先のパスの代わりにエイリアスのパスを返します。
-    * `treatPackageAsDirectory` *macOS* - `.app` フォルダのようなパッケージを、ファイルの代わりにディレクトリとして扱います。
-    * `dontAddToRecent` *Windows* - 開いているアイテムを最近開いた書類リストに追加しないようにします。
-  * `message` String (任意) *macOS* - 入力ボックスの上に表示するメッセージ。
-  * `securityScopedBookmarks` Boolean (任意) *macOS* *mas* - Mac App Store 向けにパッケージしたときに [セキュリティスコープ付きブックマーク](https://developer.apple.com/library/content/documentation/Security/Conceptual/AppSandboxDesignGuide/AppSandboxInDepth/AppSandboxInDepth.html#//apple_ref/doc/uid/TP40011183-CH3-SW16) を作成します。
+    * `createDirectory` _macOS_ - ダイアログでディレクトリを作成するのを許可します。
+    * `promptToCreate` _Windows_ - ダイアログで存在しないファイルパスを入力した場合に、作成を促します。 これは実際にパスにファイルを作成しませんが、アプリケーションによって作成される必要がある存在しないパスが返されることを許可します。
+    * `noResolveAliases` _macOS_ - 自動的なエイリアス (シンボリックリンク) によるパス解決を無効にします。 選択されたエイリアスは、ターゲットパスの代わりにエイリアスパスを返します。
+    * `treatPackageAsDirectory` _macOS_ - `.app` フォルダのようなパッケージを、ファイルの代わりにディレクトリとして扱います。
+    * `dontAddToRecent` _Windows_ - 開いているアイテムを最近開いたドキュメントリストに追加しないようにします。
+  * `message` String (任意) _macOS_ - 入力ボックスの上に表示するメッセージ。
+  * `securityScopedBookmarks` Boolean (任意) _macOS_ _mas_ - Mac App Store 向けにパッケージしたときに [セキュリティスコープ付きブックマーク](https://developer.apple.com/library/content/documentation/Security/Conceptual/AppSandboxDesignGuide/AppSandboxInDepth/AppSandboxInDepth.html#//apple_ref/doc/uid/TP40011183-CH3-SW16) を作成します。
 
 戻り値 `Promise<Object>` - 以下を含むオブジェクトで実行されます。
 
 * `canceled` Boolean - dialog がキャンセルされたかそうでないか。
-* `filePaths` String[] - ユーザーによって選択されたファイルパスの配列。この dialog がキャンセルされた場合、これは空の配列になります。
-* `bookmarks` String[] (任意) *macOS* *mas* - `filePaths` に対応している配列です。base64 エンコードされたセキュリティスコープ付きブックマーク文字列が格納されています。 データを取り込むために `securityScopedBookmarks` を有効にする必要があります。 (戻り値については、[この表](#bookmarks-array) を参照してください。)
+* `filePaths` String[] - ユーザーによって選択されたファイルパスの配列. ダイアログがキャンセルされた場合、これは空の配列になります。
+* `bookmarks` String[] (任意)_macOS_ _mas_ - セキュリティスコープ付きブックマークを含む base64 エンコードされた `filePaths` 配列にマッチする配列。 データを取り込むために `securityScopedBookmarks` を有効にする必要があります。 (戻り値については、[この表](#bookmarks-array) を参照してください。)
 
 `browserWindow` の引数で、ダイアログは親ウインドウにアタッチされ、モーダル表示になります。
 
-特定の種類だけにユーザーを制限したいとき、`filters` には、表示または選択できるファイルの種類の配列を指定します。例:
+特定の種類だけにユーザーを制限したいとき、`filters` には、表示または選択できるファイルの種類の配列を指定します。 例:
 
 ```javascript
 {
@@ -130,21 +130,21 @@ dialog.showOpenDialog(mainWindow, {
 ### `dialog.showSaveDialogSync([browserWindow, ]options)`
 
 * `browserWindow` [BrowserWindow](browser-window.md) (任意)
-* `options` Object 
+* `options` Object
   * `title` String (任意)
   * `defaultPath` String (任意) - 既定で使用される絶対ディレクトリパス、絶対ファイルパスもしくはファイル名。
   * `buttonLabel` String (任意) - 確認ボタンのカスタムラベル。空のままにすると、既定のラベルが使用されます。
   * `filters` [FileFilter[]](structures/file-filter.md) (任意)
-  * `message` String (任意) *macOS* - テキストフィールドの上に表示するメッセージ。
-  * `nameFieldLabel` String (任意) *macOS* - ファイル名のテキストフィールドの前に表示されるテキストのカスタムラベル。
-  * `showsTagField` Boolean (任意) *macOS* - タグの入力ボックスを表示します。省略値は、`true` です。
-  * `properties` String[] (任意) 
+  * `message` String (任意) _macOS_ - テキストフィールドの上に表示するメッセージ。
+  * `nameFieldLabel` String (任意) _macOS_ - ファイル名のテキストフィールドの前に表示されるテキストのカスタムラベル。
+  * `showsTagField` Boolean (任意) _macOS_ - タグの入力ボックスを表示します。省略値は、`true` です。
+  * `properties` String[] (任意)
     * `showHiddenFiles` - ダイアログで隠しファイルを表示します。
-    * `createDirectory` *macOS* - ダイアログでディレクトリを作成するのを許可します。
-    * `treatPackageAsDirectory` *macOS* - `.app` フォルダのようなパッケージを、ファイルの代わりにディレクトリとして扱います。
-    * `showOverwriteConfirmation` *Linux* - ユーザが既に存在するファイル名を入力した場合に、ユーザに確認ダイアログを表示するかどうかを設定します。
-    * `dontAddToRecent` *Windows* - 保存したアイテムを最近開いた書類リストに追加しないようにします。
-  * `securityScopedBookmarks` Boolean (任意) *masOS* *mas* - Mac App Store 向けにパッケージしたときに [セキュリティスコープ付きブックマーク](https://developer.apple.com/library/content/documentation/Security/Conceptual/AppSandboxDesignGuide/AppSandboxInDepth/AppSandboxInDepth.html#//apple_ref/doc/uid/TP40011183-CH3-SW16) を作成します。 このオプションが有効でファイルが存在しない場合は、選択したパスに空のファイルが作成されます。
+    * `createDirectory` _macOS_ - ダイアログでディレクトリを作成するのを許可します。
+    * `treatPackageAsDirectory` _macOS_ - `.app` フォルダのようなパッケージを、ファイルの代わりにディレクトリとして扱います。
+    * `showOverwriteConfirmation` _Linux_ - ユーザが既に存在するファイル名を入力した場合に、ユーザに確認ダイアログを表示するかどうかを設定します。
+    * `dontAddToRecent` _Windows_ - 開いているアイテムを最近開いたドキュメントリストに追加しないようにします。
+  * `securityScopedBookmarks` Boolean (任意) _macOS_ _mas_ - Mac App Store 向けにパッケージしたときに [セキュリティスコープ付きブックマーク](https://developer.apple.com/library/content/documentation/Security/Conceptual/AppSandboxDesignGuide/AppSandboxInDepth/AppSandboxInDepth.html#//apple_ref/doc/uid/TP40011183-CH3-SW16) を作成します。 このオプションが有効でファイルが存在しない場合は、選択したパスに空のファイルが作成されます。
 
 戻り値 `String | undefined` - ユーザが選択したファイルパス。dialog がキャンセルされた場合は `undefined` を返します。
 
@@ -155,28 +155,26 @@ dialog.showOpenDialog(mainWindow, {
 ### `dialog.showSaveDialog([browserWindow, ]options)`
 
 * `browserWindow` [BrowserWindow](browser-window.md) (任意)
-* `options` Object 
+* `options` Object
   * `title` String (任意)
   * `defaultPath` String (任意) - 既定で使用される絶対ディレクトリパス、絶対ファイルパスもしくはファイル名。
   * `buttonLabel` String (任意) - 確認ボタンのカスタムラベル。空のままにすると、既定のラベルが使用されます。
   * `filters` [FileFilter[]](structures/file-filter.md) (任意)
-  * `message` String (任意) *macOS* - テキストフィールドの上に表示するメッセージ。
-  * `nameFieldLabel` String (任意) *macOS* - ファイル名のテキストフィールドの前に表示されるテキストのカスタムラベル。
-  * `showsTagField` Boolean (任意) *macOS* - タグの入力ボックスを表示します。省略値は、`true` です。
-  * `properties` String[] (任意) 
+  * `message` String (任意) _macOS_ - テキストフィールドの上に表示するメッセージ。
+  * `nameFieldLabel` String (任意) _macOS_ - ファイル名のテキストフィールドの前に表示されるテキストのカスタムラベル。
+  * `showsTagField` Boolean (任意) _macOS_ - タグの入力ボックスを表示します。省略値は、`true` です。
+  * `properties` String[] (任意)
     * `showHiddenFiles` - ダイアログで隠しファイルを表示します。
-    * `createDirectory` *macOS* - ダイアログでディレクトリを作成するのを許可します。
-    * `treatPackageAsDirectory` *macOS* - `.app` フォルダのようなパッケージを、ファイルの代わりにディレクトリとして扱います。
-    * `showOverwriteConfirmation` *Linux* - ユーザが既に存在するファイル名を入力した場合に、ユーザに確認ダイアログを表示するかどうかを設定します。
-    * `dontAddToRecent` *Windows* - 保存したアイテムを最近開いた書類リストに追加しないようにします。
-  * `securityScopedBookmarks` Boolean (任意) *masOS* *mas* - Mac App Store 向けにパッケージしたときに [セキュリティスコープ付きブックマーク](https://developer.apple.com/library/content/documentation/Security/Conceptual/AppSandboxDesignGuide/AppSandboxInDepth/AppSandboxInDepth.html#//apple_ref/doc/uid/TP40011183-CH3-SW16) を作成します。 このオプションが有効でファイルが存在しない場合は、選択したパスに空のファイルが作成されます。
+    * `createDirectory` _macOS_ - ダイアログでディレクトリを作成するのを許可します。
+    * `treatPackageAsDirectory` _macOS_ - `.app` フォルダのようなパッケージを、ファイルの代わりにディレクトリとして扱います。
+    * `showOverwriteConfirmation` _Linux_ - ユーザが既に存在するファイル名を入力した場合に、ユーザに確認ダイアログを表示するかどうかを設定します。
+    * `dontAddToRecent` _Windows_ - 開いているアイテムを最近開いたドキュメントリストに追加しないようにします。
+  * `securityScopedBookmarks` Boolean (任意) _macOS_ _mas_ - Mac App Store 向けにパッケージしたときに [セキュリティスコープ付きブックマーク](https://developer.apple.com/library/content/documentation/Security/Conceptual/AppSandboxDesignGuide/AppSandboxInDepth/AppSandboxInDepth.html#//apple_ref/doc/uid/TP40011183-CH3-SW16) を作成します。 このオプションが有効でファイルが存在しない場合は、選択したパスに空のファイルが作成されます。
 
 戻り値 `Promise<Object>` - 以下を含むオブジェクトで実行されます。
-
-    * `canceled` - Boolean - dialog がキャンセルされたかそうでないか。
-    * `filePath` String (任意) - このダイアログがキャンセルされた場合、これは `undefined` になります。
-    * `bookmark` String (任意) _macOS_ _mas_ - 保存されたファイルのセキュリティスコープのブックマークデータを含む Base64 エンコードされた文字列。 出力するためには `securityScopedBookmarks` を有効にする必要があります。 (戻り値については、[この表](#bookmarks-array) を参照してください。)
-    
+  * `canceled` Boolean - dialog がキャンセルされたかそうでないか。
+  * `filePath` String (任意) - ダイアログがキャンセルされると、これは `undefined` になります。
+  * `bookmark` String (任意)_macOS_ _mas_ - 保存されたファイルのセキュリティスコープのブックマークデータを含む Base64 エンコードされた文字列。 出力するために `securityScopedBookmarks` を有効にする必要があります。 (戻り値については、[この表](#bookmarks-array) を参照してください。)
 
 `browserWindow` の引数で、ダイアログは親ウインドウにアタッチされ、モーダル表示になります。
 
@@ -187,15 +185,15 @@ dialog.showOpenDialog(mainWindow, {
 ### `dialog.showMessageBoxSync([browserWindow, ]options)`
 
 * `browserWindow` [BrowserWindow](browser-window.md) (任意)
-* `options` Object 
+* `options` Object
   * `type` String (任意) - `"none"`、`"info"`、`"error"`、`"question"`、`"warning"` にすることができます。 Windowsでは、`"icon"` のオプションを使用してアイコンを設定しない場合、`"question"` は、`"info"` と同じアイコンを表示します。 macOSでは、`"warning"` と `"error"` の両方で同じ警告アイコンを表示します。
-  * `buttons` String[] (任意) - ボタンのテキストの配列。Windowsでは、空の配列だと、"OK" というラベルのついた1つのボタンだけになります。
+  * `buttons` String[] (任意) - ボタン用テキストの配列。 Windows では、空の配列は 1 つの "OK" ボタンになります。
   * `defaultId` Integer (任意) - メッセージボックスを開いたとき、既定で選択されるボタンの配列の中のボタンのインデックス。
   * `title` String (任意) - メッセージボックスのタイトル。いくつかのプラットフォームでは表示されません。
   * `message` String - メッセージボックスの内容。
   * `detail` String (任意) - メッセージの追加情報。
   * `checkboxLabel` String (任意) - 指定した場合、メッセージボックスには、指定したラベルを持つチェックボックスが含まれます。
-  * `checkboxChecked` Boolean (任意) - チェックボックスの初期のチェック状態。既定では、`false` です。
+  * `checkboxChecked` Boolean (任意) - チェックボックスの初期のチェック状態。 省略値は `false` です。
   * `icon` ([NativeImage](native-image.md) | String) (任意)
   * `cancelId` Integer (任意) - `Esc` キー経由でダイアログをキャンセルするのに使用されるボタンのインデックス。 既定では、これはラベルとして "cancel" または "no" の付いた最初のボタンに割り当てられます。 そのようにラベル付けされたボタンがなく、このオプションが設定されていない場合、`0` が戻り値として使用されます。
   * `noLink` Boolean (任意) - WindowsでElectronはどの `buttons` が ("Cancel" や "Yes" のような) 一般的なボタンかを把握し、その他をダイアログでコマンドリンクとして表示しようとします。 これにより、モダンなWindowsアプリのスタイルでダイアログを表示させることができます。 この動作が気に入らない場合、`noLink` を `true` に設定することができます。
@@ -203,32 +201,30 @@ dialog.showOpenDialog(mainWindow, {
 
 戻り値 `Integer` - クリックされたボタンのインデックス。
 
-メッセージボックスを表示し、メッセージボックスが閉じられるまでプロセスをブロックします。クリックされたボタンのインデックスを返します。
+メッセージボックスを表示し、メッセージボックスが閉じられるまでプロセスをブロックします。 クリックされたボタンのインデックスを返します。
 
-`browserWindow` の引数で、ダイアログは親ウインドウにアタッチされ、モーダル表示になります。
+`browserWindow` の引数で、ダイアログは親ウインドウにアタッチされ、モーダル表示になります。 `browserWindow` が表示されていない場合、dialog はアタッチされません。 この場合は独立したウインドウとして表示されます。
 
 ### `dialog.showMessageBox([browserWindow, ]options)`
 
 * `browserWindow` [BrowserWindow](browser-window.md) (任意)
-* `options` Object 
+* `options` Object
   * `type` String (任意) - `"none"`、`"info"`、`"error"`、`"question"`、`"warning"` にすることができます。 Windowsでは、`"icon"` のオプションを使用してアイコンを設定しない場合、`"question"` は、`"info"` と同じアイコンを表示します。 macOSでは、`"warning"` と `"error"` の両方で同じ警告アイコンを表示します。
-  * `buttons` String[] (任意) - ボタンのテキストの配列。Windowsでは、空の配列だと、"OK" というラベルのついた1つのボタンだけになります。
+  * `buttons` String[] (任意) - ボタン用テキストの配列。 Windows では、空の配列は 1 つの "OK" ボタンになります。
   * `defaultId` Integer (任意) - メッセージボックスを開いたとき、既定で選択されるボタンの配列の中のボタンのインデックス。
   * `title` String (任意) - メッセージボックスのタイトル。いくつかのプラットフォームでは表示されません。
   * `message` String - メッセージボックスの内容。
   * `detail` String (任意) - メッセージの追加情報。
   * `checkboxLabel` String (任意) - 指定した場合、メッセージボックスには、指定したラベルを持つチェックボックスが含まれます。
-  * `checkboxChecked` Boolean (任意) - チェックボックスの初期のチェック状態。既定では、`false` です。
+  * `checkboxChecked` Boolean (任意) - チェックボックスの初期のチェック状態。 省略値は `false` です。
   * `icon` [NativeImage](native-image.md) (任意)
   * `cancelId` Integer (任意) - `Esc` キー経由でダイアログをキャンセルするのに使用されるボタンのインデックス。 既定では、これはラベルとして "cancel" または "no" の付いた最初のボタンに割り当てられます。 そのようにラベル付けされたボタンがなく、このオプションが設定されていない場合、`0` が戻り値として使用されます。
   * `noLink` Boolean (任意) - WindowsでElectronはどの `buttons` が ("Cancel" や "Yes" のような) 一般的なボタンかを把握し、その他をダイアログでコマンドリンクとして表示しようとします。 これにより、モダンなWindowsアプリのスタイルでダイアログを表示させることができます。 この動作が気に入らない場合、`noLink` を `true` に設定することができます。
   * `normalizeAccessKeys` Boolean (任意) - プラットフォーム間でキーボードのアクセスキーを正規化します。 省略値は、`false` です。 これを有効にすると、`&` が、ボタンのラベルでキーボードショートカットアクセスキーの位置として使用されているとみなされ、各プラットフォームで正常に動作するようにラベルが変換されます。macOSでは、`&` の文字は削除され、Linuxでは、`_` に変換され、Windowsでは、そのままにされます。 例えば、`Vie&w` というボタンラベルは、Linuxでは、`Vie_w`、macOSでは、`View` に変換され、WindowsとLinuxでは、`Alt-W` 経由で選択できます。
 
 戻り値 `Promise<Object>` - 以下のプロパティを含む Promise で解決されます。
-
-    * `response` Number - クリックされたボタンのインデックス。
-    * `checkboxChecked` Boolean - `checkboxLabel` が設定されている場合のチェックボックスのチェック状態。チェックされていなければ `false`。
-    
+  * `response` Number - クリックされたボタンのインデックス。
+  * `checkboxChecked` Boolean - `checkboxLabel` が設定された場合、チェックボックスのチェック状態。 そうでない場合は `false` になります。
 
 メッセージボックスを表示し、メッセージボックスが閉じられるまでプロセスをブロックします。
 
@@ -243,10 +239,10 @@ dialog.showOpenDialog(mainWindow, {
 
 `app` モジュールで `ready` イベントが発生する前でも、このAPIは安全に呼び出すことができます。これは、起動の初期段階でのエラーを報告するのによく使用されます。 Linuxで、appの `ready` イベントの前に呼び出すと、メッセージは標準エラーに出力され、GUIのダイアログは表示されません。
 
-### `dialog.showCertificateTrustDialog([browserWindow, ]options)` *macOS* *Windows*
+### `dialog.showCertificateTrustDialog([browserWindow, ]options)` _macOS_ _Windows_
 
 * `browserWindow` [BrowserWindow](browser-window.md) (任意)
-* `options` Object 
+* `options` Object
   * `certificate` [Certificate](structures/certificate.md) - 信頼/インポートする証明書。
   * `message` String - ユーザーに表示するメッセージ。
 

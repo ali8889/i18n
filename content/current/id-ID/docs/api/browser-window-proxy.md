@@ -2,7 +2,7 @@
 
 > 子ブラウザウィンドウを操作します。
 
-Proses: [Renderer](../glossary.md#renderer-process)
+Processo: [Renderizador](../glossary.md#renderer-process)
 
 Ang mga bagay sa `BrowserWindowProxy` ay bumabalik mula sa `window.open` at nagbibigay ng limitadong pag-andar sa maliliit na window.
 
@@ -20,7 +20,7 @@ Memaksa menutup jendela anak tanpa memanggil acara bongkar muatnya.
 
 #### `win.eval(code)`
 
-* `code` String
+* `id` String
 
 Mengevaluasi kode di jendela anak.
 
@@ -40,13 +40,13 @@ Meminta dialog cetak pada jendela anak.
 Mengirim pesan ke jendela anak dengan asal yang ditentukan atau ` * </ 0> untuk no
 preferensi asal</p>
 
-<p>Selain metode ini, jendela anak menerapkan objek <code> window.opener </ 0>
+<p spaces-before="0">Selain metode ini, jendela anak menerapkan objek <code> window.opener </ 0>
 tanpa sifat dan metode tunggal.</p>
 
-<h3>Instance Properties</h3>
+<h3 spaces-before="0">Contoh properti</h3>
 
-<p>Objek <code> BrowserWindowProxy </ 0> memiliki properti contoh berikut:</p>
+<p spaces-before="0">Objek <code> BrowserWindowProxy </ 0> memiliki properti contoh berikut:</p>
 
-<h4><code>menang`</h4> 
+<h4 spaces-before="0"><code>menang`</h4>
 
 A  Boolean </ 0> yang disetel ke true setelah jendela anak ditutup.</p>

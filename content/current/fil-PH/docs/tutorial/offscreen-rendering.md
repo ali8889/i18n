@@ -1,4 +1,4 @@
-# Labas sa iskrin na pagproseso
+# Offscreen Rendering
 
 Ang offscreen rendering ay nagpapahintulot sa iyo na kumuha ng nilalaman ng isang browser window sa bitmap, kaya ito ay nai-render kahit saan, halimbawa sa isang texture ng 3D scene. Ang offscreen rendering sa electron ay gumagamit ng katulad na pamamaraan kaysa sa[Chromium Embedded Framework](https://bitbucket.org/chromiumembedded/cef) na proyekto.
 
@@ -20,7 +20,7 @@ Upang paganahin ang mode na ito ng GPU acceleration ay dapat hindi paganahin sa 
 
 ## Paggamit
 
-```javascript
+``` javascript
 const { app, BrowserWindow } = require('electron')
 
 app.disableHardwareAcceleration()

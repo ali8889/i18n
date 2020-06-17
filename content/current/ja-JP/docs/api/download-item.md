@@ -53,12 +53,12 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
 
 #### イベント: 'done'
 
-戻り値:
+戻り値：
 
 * `event` Event
 * `state` String - `completed`、`cancelled` か `interrupted` にできます。
 
-ダウンロードが終息状態になるときに発生します。これには、完了したダウンロード、(`downloadItem.cancel()` 経由で) キャンセルされたダウンロード、再開することができない中断されたダウンロードが含まれます。
+ダウンロードが終了状態となったときに発生します。 これは完了したダウンロード、キャンセルされたダウンロード (`downloadItem.cancel()` によって) 、再開できる中断されたダウンロードを含みます。
 
 `state` は、次のいずれかになります。
 
@@ -80,7 +80,7 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
 
 #### `downloadItem.getSavePath()`
 
-戻り値 `String` - ダウンロードアイテムの保存先のパス。これは、`downloadItem.setSavePath(path)` 経由で設定されたパスか、表示された保存ダイアログで選択されたパスのいずれかです。
+戻り値 `String` - ダウンロードアイテムの保存先パス。 これは `downloadItem.setSavePath(path)` で設定されたものか、保存ダイアログで選択されたものになります。
 
 **[非推奨](modernization/property-updates.md): 代わりに `savePath` プロパティを使用してください。**
 
@@ -88,7 +88,7 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
 
 * `options` SaveDialogOptions - ファイル保存ダイアログのオプションを設定します。 このオブジェクトは `options` パラメータ([`dialog.showSaveDialog()`](dialog.md)の)と同じプロパティを持ちます。
 
-この API により、ユーザはデフォルトでダウンロードアイテム用に開く保存ダイアログのカスタムオプションを設定できます。 この API はセッションの `will-download` コールバック関数内でのみ使用できます。
+この API によって、ダウンロードアイテムに対して既定で開かれる保存ダイアログのカスタムオプションをユーザが設定できます。 このAPIは、セッションの `will-download` コールバック関数でのみ利用可能です。
 
 #### `downloadItem.getSaveDialogOptions()`
 
@@ -150,7 +150,7 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
 
 #### `downloadItem.getState()`
 
-戻り値 `String` - 現在の状態。`progressing`、`completed`、`cancelled` または `interrupted` のいずれかです。
+戻り値 `String` - 現在の状態。 `progressing` 、 `completed` 、 `cancelled` 、 `interrupted` のいずれか。
 
 **注:** 以下のメソッドは、セッションが再開されたときに `cancelled` アイテムを再開するのに特に有用です。
 

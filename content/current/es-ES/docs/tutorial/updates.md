@@ -4,7 +4,7 @@ Hay muchas manera de actualizar la aplicación Electron. La manera más fácil y
 
 ## Usando `update.electronjs.org`
 
-El equipo de Electron de GitHub mantiene [update.electronjs.org](https://github.com/electron/update.electronjs.org), un servicio web gratuito y de código abierto que las aplicaciones de Electrón pueden usar para auto-actualizarse. El servicio está diseñado para aplicaciones de Electron que cumplen con los siguientes criterios:
+El equipo de Electron mantiene [update.electronjs.org](https://github.com/electron/update.electronjs.org), un webservice gratis y open-source que las aplicaciones Electron puede usar para auto-actualizarse. El servicio está diseñado para aplicaciones de Electron que cumplen con los siguientes criterios:
 
 - Aplicaciones que se ejecuten en macOS o Windows
 - La Aplicación tiene un repositorio público en GitHub
@@ -54,12 +54,12 @@ A continuación, construya la URL de uno de los servidores de actualizaciones, d
 
 ```javascript
 const server = 'https://your-deployment-url.com'
-const feed = `${server}/update/${process.platform}/${app.getVersion()}`
+const url = `${server}/update/${process.platform}/${app.getVersion()}`
 
-autoUpdater.setFeedURL(feed)
+autoUpdater.setFeedURL({ url })
 ```
 
-Como último paso, chequee por actualizaciones. El ejemplo abajo lo verificará cada minuto:
+As the final step, check for updates. The example below will check every minute:
 
 ```javascript
 setInterval(() => {
@@ -89,7 +89,7 @@ Detalles: Una nueva versión ha sido descargada. Restart the application to appl
 })
 ```
 
-También asegúrese de que los errores estan [siendo bien manipulados](../api/auto-updater.md#event-error). Aquí hay un ejemplo para que se pueda registrar `stderr`:
+Also make sure that errors are [being handled](../api/auto-updater.md#event-error). Here's an example for logging them to `stderr`:
 
 ```javascript
 autoUpdater.on('error', message => {
@@ -97,3 +97,7 @@ autoUpdater.on('error', message => {
   console.error(message)
 })
 ```
+
+## Handing Updates Manually
+
+Because the requests made by Auto Update aren't under your direct control, you may find situations that are difficult to handle (such as if the update server is behind authentication). The `url` field does support files, which means that with some effort, you can sidestep the server-communication aspect of the process. [Here's an example of how this could work](https://github.com/electron/electron/issues/5020#issuecomment-477636990).

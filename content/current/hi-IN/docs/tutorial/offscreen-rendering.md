@@ -20,7 +20,7 @@
 
 ## उपयोग
 
-```javascript
+``` javascript
 const { app, BrowserWindow } = require('electron')
 
 app.disableHardwareAcceleration()

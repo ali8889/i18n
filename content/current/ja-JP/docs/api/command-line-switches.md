@@ -44,7 +44,7 @@ HTTP/2 および SPDY/3.1 プロトコルを無効にします。
 
 ## --js-flags=`flags`
 
-Node.js エンジンに渡すフラグを指定します。メインプロセスで `flags` を有効にしたい場合、Electron を開始するときに渡す必要があります。
+Node.js エンジンへ渡されるフラグを指定します。 `flags` をメインプロセスで有効化したい場合は、 Electron の開始時に与えられる必要があります。
 
 ```sh
 $ electron --js-flags="--harmony_proxies --harmony_collections" your-app
@@ -58,7 +58,7 @@ $ electron --js-flags="--harmony_proxies --harmony_collections" your-app
 
 ## --proxy-bypass-list=`hosts`
 
-指定したホストのセミコロン区切りのリストに対してプロキシサーバーをバイパスするよう、Electronに指示します。このフラグは、`--proxy-server` と併用する場合にしか効果がありません。
+セミコロン区切りで与えられたホストに対してプロキシサーバを回避するように Electron へ指示します。 このフラグは `—proxy-server` と共に使用される場合のみ有効です。
 
 例:
 
@@ -75,7 +75,7 @@ app.commandLine.appendSwitch('proxy-bypass-list', '<local>;*.google.com;*foo.com
 
 ## --no-proxy-server
 
-プロキシサーバーを使用せず、常に直接接続します。渡された他のプロキシサーバーのフラグを上書きします。
+プロキシサーバを使わず、常に直接接続を行います。 他に与えられたプロキシサーバのフラグをすべて上書きします。
 
 ## --host-rules=`rules`
 
@@ -83,10 +83,10 @@ app.commandLine.appendSwitch('proxy-bypass-list', '<local>;*.google.com;*foo.com
 
 例:
 
-- `MAP * 127.0.0.1` は、すべてのホスト名を強制的に127.0.0.1にマッピングします。
-- `MAP *.google.com proxy` は、すべてのgoogle.comのサブドメインを強制的に "proxy" で解決されるようにします。
-- `MAP test.com [::1]:77` は、"test.com" を強制的にIPv6ループバックにします。また、最終的なソケットアドレスのポートを強制的に77にします。
-- `MAP * baz, EXCLUDE www.google.com` は、"www.google.com" 以外のすべてを "baz" に再マッピングします。
+* `MAP * 127.0.0.1` は、すべてのホスト名を強制的に127.0.0.1にマッピングします。
+* `MAP *.google.com proxy` は、すべてのgoogle.comのサブドメインを強制的に "proxy" で解決されるようにします。
+* `MAP test.com [::1]:77` は "test.com" を強制的に IPv6 ループバックへ解決されるようにします。 また、ソケットアドレスのポートを 77 に強制します。
+* `MAP * baz, EXCLUDE www.google.com` は、"www.google.com" 以外のすべてを "baz" に再マッピングします。
 
 これらのマッピングは、ネットワークリクエストのエンドポイントのホスト (直接接続でのTCP接続とホストリゾルバー、HTTPプロキシ接続での `CONNECT`、`SOCKS` プロキシ接続でのエンドポイントホスト) に対して適用されます。
 
@@ -108,7 +108,7 @@ app.commandLine.appendSwitch('proxy-bypass-list', '<local>;*.google.com;*foo.com
 
 ## --auth-negotiate-delegate-whitelist=`url`
 
-ユーザーの資格情報の委任が必要となるサーバーのコンマ区切りのリストです。`*` のプリフィックスがない場合は、URL は厳密に一致する必要があります。
+ユーザー資格情報の委任が必要なサーバのコンマ区切りリスト。 `*` のプリフィックスがない場合は、URL は厳密に一致する必要があります。
 
 ## --ignore-certificate-errors
 
@@ -140,7 +140,7 @@ Chromiumが隠れたページのレンダラープロセスの優先順位を下
 
 ## --v=`log_level`
 
-既定の最大のアクティブなVログレベルを指定します。0が省略値です。通常、正の値がVログレベルには使われます。
+既定で有効な最高の V ロギングレベルを設定します。既定値は 0 です。 通常、正の値は V ロギングレベルに使用されます。
 
 このスイッチは、`--enable-logging` が一緒に渡されたときのみ機能します。
 
@@ -155,7 +155,6 @@ Chromiumが隠れたページのレンダラープロセスの優先順位を下
 ## --enable-api-filtering-logging
 
 以下の API の呼び出し元スタックログを有効にします (イベントのフィルタリング)。
-
 - `desktopCapturer.getSources()` / `desktop-capturer-get-sources`
 - `remote.require()` / `remote-require`
 - `remote.getGlobal()` / `remote-get-builtin`
@@ -166,4 +165,4 @@ Chromiumが隠れたページのレンダラープロセスの優先順位を下
 
 ## --no-sandbox
 
-Chromium サンドボックスを無効にします。既定では有効です。テストにのみ使用するようにしてください。
+既定で有効化された Chromium サンドボックスを無効化します。 テスト時のみ使用すべきです。

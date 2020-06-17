@@ -12,7 +12,65 @@ This document uses the following convention to categorize breaking changes:
 - **Deprecated:** An API was marked as deprecated. The API will continue to function, but will emit a deprecation warning, and will be removed in a future release.
 - **Removed:** An API or feature was removed, and is no longer supported by Electron.
 
+## 중단될 예정 API (12.0)
+
+### Removed: `crashReporter` methods in the renderer process
+
+The following `crashReporter` methods are no longer available in the renderer process:
+
+- `crashReporter.start`
+- `crashReporter.getLastCrashReport`
+- `crashReporter.getUploadedReports`
+- `crashReporter.getUploadToServer`
+- `crashReporter.setUploadToServer`
+- `crashReporter.getCrashesDirectory`
+
+They should be called only from the main process.
+
+See [#23265](https://github.com/electron/electron/pull/23265) for more details.
+
+## 중단될 예정 API (11.0)
+
 ## 중단될 예정 API (10.0)
+
+### Deprecated: `companyName` argument to `crashReporter.start()`
+
+The `companyName` argument to `crashReporter.start()`, which was previously required, is now optional, and further, is deprecated. To get the same behavior in a non-deprecated way, you can pass a `companyName` value in `globalExtra`.
+
+```js
+// Deprecated in Electron 10
+crashReporter.start({ companyName: 'Umbrella Corporation' })
+// Replace with
+crashReporter.start({ globalExtra: { _companyName: 'Umbrella Corporation' } })
+```
+
+### Deprecated: `crashReporter.getCrashesDirectory()`
+
+The `crashReporter.getCrashesDirectory` method has been deprecated. Usage should be replaced by `app.getPath('crashDumps')`.
+
+```js
+// Deprecated in Electron 10
+crashReporter.getCrashesDirectory()
+// Replace with
+app.getPath('crashDumps')
+```
+
+### Deprecated: `crashReporter` methods in the renderer process
+
+Calling the following `crashReporter` methods from the renderer process is deprecated:
+
+- `crashReporter.start`
+- `crashReporter.getLastCrashReport`
+- `crashReporter.getUploadedReports`
+- `crashReporter.getUploadToServer`
+- `crashReporter.setUploadToServer`
+- `crashReporter.getCrashesDirectory`
+
+The only non-deprecated methods remaining in the `crashReporter` module in the renderer are `addExtraParameter`, `removeExtraParameter` and `getParameters`.
+
+All above methods remain non-deprecated when called from the main process.
+
+See [#23265](https://github.com/electron/electron/pull/23265) for more details.
 
 ### Removed: Browser Window Affinity
 
@@ -168,18 +226,18 @@ session.clearAuthCache()
 ### API Changed: `powerMonitor.querySystemIdleState` is now `powerMonitor.getSystemIdleState`
 
 ```js
-// Removed in Electron 7.0
+// Electron 7.0 에서 제거됨
 powerMonitor.querySystemIdleState(threshold, callback)
-// Replace with synchronous API
+// 동기 API로 대체됨
 const idleState = powerMonitor.getSystemIdleState(threshold)
 ```
 
 ### API Changed: `powerMonitor.querySystemIdleTime` is now `powerMonitor.getSystemIdleState`
 
 ```js
-// Removed in Electron 7.0
+// Electron 7.0 에서 제거됨
 powerMonitor.querySystemIdleTime(callback)
-// Replace with synchronous API
+// 동기 API로 대체됨
 const idleTime = powerMonitor.getSystemIdleTime()
 ```
 
@@ -292,9 +350,9 @@ require('electron').remote.require('path')
 ### Deprecated: `powerMonitor.querySystemIdleState` replaced with `powerMonitor.getSystemIdleState`
 
 ```js
-// Deprecated
+// 더 이상 사용하지 않음
 powerMonitor.querySystemIdleState(threshold, callback)
-// Replace with synchronous API
+// 동기 API로 대체됨
 const idleState = powerMonitor.getSystemIdleState(threshold)
 ```
 

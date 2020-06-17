@@ -26,21 +26,21 @@ La classe `Notification` dispose des méthodes statiques suivantes :
 
 Retourne `Boolean` - Si le système actuel prend en charge les notification bureau ou non
 
-### `new Notification([options])` *Experimental*
+### `new Notification([options])` _Experimental_
 
-* `options` Object (facultatif) 
+* `options` Object (optional)
   * `title` String - Le titre de la notification, qui s'affichera en haut de la fenêtre de notification lorsqu'elle est affichée.
-  * `sous-titre` String (facultatif) *macOS* - Un sous-titre pour la notification, qui sera affiché sous le titre.
+  * `sous-titre` String (facultatif) _macOS_ - Un sous-titre pour la notification, qui sera affiché sous le titre.
   * `body` String - Le corps de texte de la notification, qui s'affichera sous le titre ou le sous-titre.
   * `silencieux` Booléen (facultatif) - Émet ou non un bruit de notification lors de l'affichage de la notification.
   * `icône` (String | [NativeImage](native-image.md)) (facultatif) - Une icône à utiliser dans la notification.
-  * `hasReply` Boolean (facultatif) *macOS* - Ajout ou non d'une option de réponse en ligne à la notification.
-  * `timeoutType` String (optional) *Linux* *Windows* - The timeout duration of the notification. Can be 'default' or 'never'.
-  * `replyPlaceholder` String (facultatif) *macOS* - L'espace réservé à écrire dans le champ de saisie de réponse en ligne.
-  * `sound` String (facultatif) *macOS* - Le nom du fichier audio à jouer lorsque la notification est affichée.
-  * `urgency` String (optional) *Linux* - The urgency level of the notification. Can be 'normal', 'critical', or 'low'.
-  * `actions` [NotificationAction[]](structures/notification-action.md) (optional) *macOS* - Actions to add to the notification. Please read the available actions and limitations in the `NotificationAction` documentation.
-  * `closeButtonText` String (facultatif) *macOS* - Un titre personnalisé pour le bouton de fermeture d'une alerte. Une chaîne vide fera que le texte localisé par défaut sera utilisé.
+  * `hasReply` Boolean (facultatif) _macOS_ - Ajout ou non d'une option de réponse en ligne à la notification.
+  * `timeoutType` String (optional) _Linux_ _Windows_ - The timeout duration of the notification. Can be 'default' or 'never'.
+  * `replyPlaceholder` String (facultatif) _macOS_ - L'espace réservé à écrire dans le champ de saisie de réponse en ligne.
+  * `sound` String (facultatif) _macOS_ - Le nom du fichier audio à jouer lorsque la notification est affichée.
+  * `urgency` String (optional) _Linux_ - The urgency level of the notification. Can be 'normal', 'critical', or 'low'.
+  * `actions` [NotificationAction[]](structures/notification-action.md) (optional) _macOS_ - Actions to add to the notification. Please read the available actions and limitations in the `NotificationAction` documentation.
+  * `closeButtonText` String (optional) _macOS_ - A custom title for the close button of an alert. An empty string will cause the default localized text to be used.
 
 ### Événements d’instance
 
@@ -58,7 +58,7 @@ Renvoie :
 
 #### Événement : 'click'
 
-Renvoie :
+Retourne :
 
 * `event` Événement
 
@@ -66,26 +66,26 @@ Renvoie :
 
 #### Événement : 'close'
 
-Renvoie :
+Retourne :
 
-* `event` Événement
+* `event` Event
 
 Émis lorsque la notification est fermée manuellement par l'utilisateur.
 
 Cet événement ne garantit pas d'être émis dans tous les cas de fermeture de la notification.
 
-#### Événement : 'reply' *macOS*
+#### Événement : 'reply' _macOS_
 
-Renvoie :
+Retourne :
 
 * `event` Événement
 * `reply` String - La chaîne de caractères que l'utilisateur a écrite dans le champ de réponse.
 
 Émis lorsque l'utilisateur clique sur le bouton "Reply" sur une notification avec `hasReply: true`.
 
-#### Événement : 'action' *macOS*
+#### Événement : 'action' _macOS_
 
-Renvoie :
+Retourne :
 
 * `event` Événement
 * `index` Number - L'indice de l'action qui a été activée.
@@ -138,13 +138,13 @@ Une propriété `Boolean` qui indique si la notification est silencieuse.
 
 Une propriété `Booléenne` qui indique si la notification a une action de réponse.
 
-#### `notification.urgency` *Linux*
+#### `notification.urgency` _Linux_
 
 A `String` property representing the urgency level of the notification. Can be 'normal', 'critical', or 'low'.
 
 Default is 'low' - see [NotifyUrgency](https://developer.gnome.org/notification-spec/#urgency-levels) for more information.
 
-#### `notification.timeoutType` *Linux* *Windows*
+#### `notification.timeoutType` _Linux_ _Windows_
 
 A `String` property representing the type of timeout duration for the notification. Can be 'default' or 'never'.
 
@@ -156,7 +156,7 @@ Une propriété [`NotificationAction[]`](structures/notification-action.md) repr
 
 ### Lire un son
 
-Sur macOS, vous pouvez spécifier le nom du son que vous voulez jouer lors de l'affichage de la notification. Tous les sons par défaut (dans préférences système > Son) peuvent être utilisés, en plus des fichiers audio personnalisés. Assurez-vous que le fichier audio soit copié dans l'"app bundle" (par exemple, `VotreApp.app/Contents/Resources`), ou l'un des emplacements suivants :
+Sur macOS, vous pouvez spécifier le nom du son que vous voulez jouer lors de l'affichage de la notification. Any of the default sounds (under System Preferences > Sound) can be used, in addition to custom sound files. Assurez-vous que le fichier audio soit copié dans l'"app bundle" (par exemple, `VotreApp.app/Contents/Resources`), ou l'un des emplacements suivants :
 
 * `~/Library/Sounds`
 * `/Library/Sounds`

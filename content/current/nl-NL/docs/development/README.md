@@ -7,7 +7,7 @@ Deze handleidingen zijn bedoeld voor mensen die aan het Electron project werken.
 * [Problemen](issues.md)
 * [Pull Requests](pull-requests.md)
 * [Documentatie Styleguide](coding-style.md#documentation)
-* [Bron Code mappen structuur](source-code-directory-structure.md)
+* [Bron Code Directory-structuur](source-code-directory-structure.md)
 * [Codeerstijl](coding-style.md)
 * [Het gebruik van clang-format op C++ Code](clang-format.md)
 * [Bouw omgeving overzicht](build-system-overview.md)

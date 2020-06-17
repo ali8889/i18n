@@ -1,4 +1,4 @@
-# Debugging the Main Process in VSCode
+# تنقيح عملية الرئيسية في VSCode
 
 ### 1. Open an Electron project in VSCode.
 
@@ -28,6 +28,7 @@ $ code electron-quick-start
   ]
 }
 ```
+
 
 ### 3. التنقيح
 

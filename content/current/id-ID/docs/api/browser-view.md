@@ -23,9 +23,9 @@ view.setBounds({ x: 0, y: 0, width: 300, height: 300 })
 view.webContents.loadURL('https://electronjs.org')
 ```
 
-### `baru lihat browser([options])` *Eksperimental*
+### `baru lihat browser([options])` _Eksperimental_
 
-* `pilihan` Objek (pilihan) 
+* `options` Object (optional)
   * `refrensi web` Objek (contoh) - Lihat [jendela Browser](browser-window.md).
 
 ### Metode Statis
@@ -50,11 +50,11 @@ Kembali `lihat Browser` - Tampilan dengan `id` yang diberikan.
 
 Objek yang dibuat dengan `lihat Browser baru` memiliki properti berikut:
 
-#### `baru lihat browser` *Eksperimental*
+#### `baru lihat browser` _Eksperimental_
 
 Sebuah [`isi Web`](web-contents.md) objek yang dimiliki oleh pandangan ini.
 
-#### `lihat.id` *Eksperimental*
+#### `lihat.id` _Eksperimental_
 
 A `bilangan bulat` mewakili ID unik dari tampilan.
 
@@ -70,26 +70,26 @@ Force closing the view, the `unload` and `beforeunload` events won't be emitted 
 
 Returns `Boolean` - Whether the view is destroyed.
 
-#### `lihat.set otomatis ubah ukuran (pilihan)` *Eksperimental*
+#### `lihat.set otomatis ubah ukuran (pilihan)` _Eksperimental_
 
-* `pilihan` Obyek 
+* `options` Object
   * `width` Boolean (optional) - If `true`, the view's width will grow and shrink together with the window. `false` by default.
   * `height` Boolean (optional) - If `true`, the view's height will grow and shrink together with the window. `false` by default.
   * `horizontal` Boolean (optional) - If `true`, the view's x position and width will grow and shrink proportionally with the window. `false` by default.
   * `vertical` Boolean (optional) - If `true`, the view's y position and height will grow and shrink proportionally with the window. `false` by default.
 
-#### `lihat.set batas (batas)` *Eksperimental*
+#### `lihat.set batas (batas)` _Eksperimental_
 
 * `batas` [Empat persegi panjang](structures/rectangle.md)
 
 Mengubah ukuran dan memindahkan pandangan ke batas yang tersedia relatif terhadap jendela.
 
-#### `view.getBounds()` *Experimental*
+#### `view.getBounds()` _Experimental_
 
 Kembali [`Rectangle`](structures/rectangle.md)
 
 The `bounds` of this BrowserView instance as `Object`.
 
-#### `lihat.set latar belakang warna(warna)` *Eksperimental*
+#### `lihat.set latar belakang warna(warna)` _Eksperimental_
 
-* `warna` tali - Warna dalam `#aarrggbb` atau `#argb`. Saluran alfa bersifat opsional.
+* `color` String - Color in `#aarrggbb` or `#argb` form. The alpha channel is optional.

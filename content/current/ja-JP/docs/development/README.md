@@ -4,7 +4,7 @@
 
 * [行動規範](../../CODE_OF_CONDUCT.md)
 * [Electron にコントリビュートする](../../CONTRIBUTING.md)
-* [問題](issues.md)
+* [Issues](issues.md)
 * [プルリクエスト](pull-requests.md)
 * [ドキュメントガイド](coding-style.md#documentation)
 * [ソースコードのディレクトリ構造](source-code-directory-structure.md)

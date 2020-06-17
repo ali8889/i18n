@@ -1,6 +1,6 @@
 # Guide de Soumission Mac App Store
 
-Depuis la version 0.34.0, Electron permet la soumission des applications empaquetées pour le Mac App Store (MAS). Ce guide fournit les informations sur : Comment soumettre votre application et les limites du MAS build.
+Since v0.34.0, Electron allows submitting packaged apps to the Mac App Store (MAS). This guide provides information on: how to submit your app and the limitations of the MAS build.
 
 **Note:** Pour soumettre une application au Mac App Store, il faut s'inscrire dans le [Apple Developer Programme](https://developer.apple.com/support/compare-memberships/), qui coûte de l'argent.
 
@@ -66,7 +66,7 @@ Ensuite, vous devez préparer les trois fichiers suivant.
 </plist>
 ```
 
-`loginhelper.plist` :
+`loginhelper.plist`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -122,10 +122,10 @@ Au lieu de signer manuellement votre application, vous pouvez également choisir
 
 #### Signer des modules natifs
 
-Les modules natifs utilisés dans votre application doivent également être signés. Si vous utilisez electron-osx-sign, n'oubliez pas d'inclure le chemin d'accès des binaires générés dans la liste d'arguments :
+Native modules used in your app also need to be signed. If using electron-osx-sign, be sure to include the path to the built binaries in the argument list:
 
 ```sh
-electron-osx-sign VotreApp.app VotreApp.app/Contents/Resources/app/node_modules/nativemodule/build/release/nativemodule
+electron-osx-sign VotreApp.app YourApp.app/Contents/Resources/app/node_modules/nativemodule/build/release/nativemodule
 ```
 
 Remarquez que les modules natifs peuvent avoir des fichiers intermédiaires générés qui ne doivent pas être inclus (car ils devront aussi être signée). Si vous utilisez [electron-packager](https://github.com/electron/electron-packager) avant la version 8.1.0, ajoutez `--ignore=.+\.o$` à vos étapes de compilation pour ignorer ces fichiers. Les versions 8.1.0 et plus tard ignorent ces fichiers par défaut.

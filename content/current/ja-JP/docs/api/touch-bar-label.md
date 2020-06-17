@@ -4,9 +4,9 @@
 
 プロセス: [Main](../tutorial/application-architecture.md#main-and-renderer-processes)
 
-### `new TouchBarLabel(options)` *実験的*
+### `new TouchBarLabel(options)` _実験的_
 
-* `options` オブジェクト 
+* `options` Object
   * `label` String (任意) - 表示するテキスト。
   * `accessibilityLabel` String (任意) - VoiceOver などのスクリーンリーダーが使用するボタンの簡単な説明文。
   * `textColor` String (任意) - 16進数形式、即ち `#ABCDEF` のテキスト色。
@@ -19,7 +19,7 @@
 
 #### `touchBarLabel.label`
 
-ラベルの現在のテキストを表す `String`。この値を変更すると、タッチバーのラベルがすぐに更新されます。
+ラベルの現在のテキストを表す `String`。 この値を変更すると、タッチバー内のラベルがすぐに更新されます。
 
 #### `touchBarLabel.accessibilityLabel`
 
@@ -27,4 +27,4 @@
 
 #### `touchBarLabel.textColor`
 
-ラベルの現在のテキスト色の16進数コードの `String`。この値を変更すると、タッチバーのラベルがすぐに更新されます。
+ラベルの現在のテキストの色を表す 16 進数の `String`。 この値を変更すると、タッチバー内のラベルがすぐに更新されます。

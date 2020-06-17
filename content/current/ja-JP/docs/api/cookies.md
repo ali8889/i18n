@@ -46,7 +46,7 @@ session.defaultSession.cookies.set(cookie)
 
 * `event` Event
 * `cookie` [Cookie](structures/cookie.md) - 変更された cookie。
-* `cause` String - 以下のいずれかの値となる変更の原因。 
+* `cause` String - 以下のいずれかの値となる変更の原因。
   * `explicit` - ユーザーのアクションによってクッキーが直接変更されました。
   * `overwrite` - 上書きする挿入操作のため、クッキーが自動的に削除されました。
   * `expired` - 有効期限切れのため、クッキーが自動的に削除されました。
@@ -62,8 +62,8 @@ session.defaultSession.cookies.set(cookie)
 
 #### `cookies.get(filter)`
 
-* `フィルタ` Object 
-  * `url` String (任意) - `url` と関連付けられたクッキーを取得します。空にすると、すべての URL のクッキーを取得することを意味します。
+* `filter` Object
+  * `url` String (任意) - `url` に関連付けられた Cookie を取得します。 空の場合は全ての URL の Cookie を取得します。
   * `name` String (任意) - 名前でクッキーをフィルタリングします。
   * `domain` String (任意) - クッキーのドメインと一致するか、ドメインが `domains` のサブドメインであるクッキーを取得します。
   * `path` String (任意) - クッキーのパスが `path` と一致するクッキーを取得します。
@@ -76,14 +76,14 @@ session.defaultSession.cookies.set(cookie)
 
 #### `cookies.set(details)`
 
-* `details` Object 
-  * `url` String - クッキーに関連付ける URL。URL が無効な場合 promise は拒否されます。
-  * `name` String (任意) - クッキーの名前。省略した場合、既定では空です。
-  * `value` String (任意) - クッキーの値。省略した場合、既定では空です。
-  * `domain` String (任意) - Cookie のドメインです。これはサブドメインでも有効になるように最初のドットで正規化されます。省略した場合、デフォルトは空です。
-  * `path` String (任意) - クッキーのパス。省略した場合、既定では空です。
-  * `secure` Boolean (任意) - クッキーにSecure属性がついているかどうか。省略値は、falseです。
-  * `httpOnly` Boolean (任意) - クッキーにHttpOnly属性がついているかどうか。省略値は、falseです。
+* `details` Object
+  * `url` String - クッキーに関連付けられるURL。 URL が不正な場合、 Promise は reject されます。
+  * `name` String (任意) - Cookie の名前。 省略された場合は既定で空になります。
+  * `value` String (任意) - Cookie の値。 省略された場合は既定で空になります。
+  * `domain` String (任意) - Cookie のドメインです。これはサブドメインでも有効になるように最初のドットで正規化されます。 省略された場合は既定で空になります。
+  * `path` String (optional) - Cookie のパス。 省略された場合は既定で空になります。
+  * `secure` Boolean (任意) - Cookie に Secure フラグがついているか。 省略値は false です。
+  * `httpOnly` Boolean (任意) - Cookie に HttpOnly フラグがついているか。 省略値は、false です。
   * `expirationDate` Double (任意) - UNIX時間の秒数によるCookieの有効期限。 省略した場合、クッキーはセッションクッキーになり、セッション間では保持されなくなります。
 
 戻り値 `Promise<void>` - cookie が設定されたときに解決される Promise。

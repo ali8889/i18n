@@ -29,8 +29,9 @@ $ code electron-quick-start
 }
 ```
 
+
 ### 3. Debugging
 
-Imposta alcuni breakpoint in `main.js` e avvia il debugging in [Debug View](https://code.visualstudio.com/docs/editor/debugging). Dovresti poterti bloccare ad ogni breakpoint.
+Set some breakpoints in `main.js`, and start debugging in the [Debug View](https://code.visualstudio.com/docs/editor/debugging). You should be able to hit the breakpoints.
 
 Di seguito un progetto preconfigurato che puoi scaricare e debuggare direttamente in VsCode: https://github.com/octref/vscode-electron-debug/tree/master/electron-quick-start

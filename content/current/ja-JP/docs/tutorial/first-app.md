@@ -31,7 +31,7 @@ npm が基本的な `package.json` ファイルを作るガイドをします。
 }
 ```
 
-**注釈**: もし `main` フィールドが `package.json` 内に記載されていない場合、 Electron は (Node.js のように) `index.js` の読み込みを試みます。 もしこれがただのNodeアプリケーションならば、現在のパッケージを実行するように `node` に指示する `start` スクリプトを追加します。
+__注釈__: もし `main` フィールドが `package.json` 内に記載されていない場合、 Electron は (Node.js のように) `index.js` の読み込みを試みます。 もしこれがただのNodeアプリケーションならば、現在のパッケージを実行するように `node` に指示する `start` スクリプトを追加します。
 
 ```json
 {
@@ -146,7 +146,7 @@ app.on('activate', () => {
 // 別々のファイルに分割してここで require することもできます。
 ```
 
-最後に、以下の `index.html` が表示させたいウェブページです。
+最後に、表示させたいページを `index.html` に作成します：
 
 ```html
 <!DOCTYPE html>
@@ -159,9 +159,9 @@ app.on('activate', () => {
   </head>
   <body>
     <h1>Hello World!</h1>
-    node <script>document.write(process.versions.node)</script>、
-    Chrome <script>document.write(process.versions.chrome)</script>、
-    Electron <script>document.write(process.versions.electron)</script> を使用しています。
+    We are using node <script>document.write(process.versions.node)</script>,
+    Chrome <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
   </body>
 </html>
 ```
@@ -174,7 +174,7 @@ app.on('activate', () => {
 
 このチュートリアルのコードを [`electron/electron-quick-start`](https://github.com/electron/electron-quick-start) リポジトリからクローンして、実行してみてください。
 
-**注意**: これを実行するには、[Git](https://git-scm.com) と [npm](https://www.npmjs.com/)が必要です。
+**注意**: この実行には [Git](https://git-scm.com) と [npm](https://www.npmjs.com/) が必要です。
 
 ```sh
 # リポジトリをクローン

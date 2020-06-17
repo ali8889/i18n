@@ -11,9 +11,9 @@ This week we interviewed the creator of [Jasper](https://jasperapp.io), an Elect
 
 ---
 
-## Hello! Who are you?
+## こんにちは! あなたは誰ですか?
 
-I'm [Ryo Maruyama](https://github.com/h13i32maru), a software developer in Japan. I am developing [Jasper](https://jasperapp.io) and [ESDoc](https://esdoc.org).
+私は [Ryo Maruyama](https://github.com/h13i32maru) で日本のソフトウェア開発者です。 I am developing [Jasper](https://jasperapp.io) and [ESDoc](https://esdoc.org).
 
 ## What is Jasper?
 
@@ -65,7 +65,7 @@ I will introduce what kind of conditions can be used for stream.
 
 ### Users and Teams
 
-| Stream                                        | Issues                                                                |
+| Stream                                        | 問題                                                                    |
 | --------------------------------------------- | --------------------------------------------------------------------- |
 | `mentions:cat mentions:dog`                   | Issues that mention user `cat` or `dog`                               |
 | `author:cat author:dog`                       | Issues created by user `cat` or `dog`                                 |
@@ -78,7 +78,7 @@ I will introduce what kind of conditions can be used for stream.
 
 ### Repositories and Organizations
 
-| Stream                           | Issues                               |
+| Stream                           | 問題                                   |
 | -------------------------------- | ------------------------------------ |
 | `repo:cat/jump repo:dog/run`     | Issues in `cat/jump` or `dog/run`    |
 | `org:electron user:cat user:dog` | Issues in `electron`, `cat` or `dog` |
@@ -87,7 +87,7 @@ I will introduce what kind of conditions can be used for stream.
 
 ### Attributes
 
-| Stream                                            | Issues                                                         |
+| Stream                                            | 問題                                                             |
 | ------------------------------------------------- | -------------------------------------------------------------- |
 | `repo:cat/jump milestone:v1.0.0 milestone:v1.0.1` | Issues that are attached to `v1.0.0` or `v1.0.1` in `cat/jump` |
 | `repo:cat/jump label:bug label:blocker`           | Issues that are attached `bug` **and** `blocker` in `cat/jump` |
@@ -95,11 +95,11 @@ I will introduce what kind of conditions can be used for stream.
 
 ### Review Status
 
-| Stream                       | Issues                                                                           |
-| ---------------------------- | -------------------------------------------------------------------------------- |
-| `is:pr review:required`      | Issues that are required review in `cat/jump`                                    |
+| Stream                       | 問題                                                                                     |
+| ---------------------------- | -------------------------------------------------------------------------------------- |
+| `is:pr review:required`      | Issues that are required review in `cat/jump`                                          |
 | `is:pr review-requested:cat` | Issues that are requested review by `cat`. <br/> But these are not reviewed yet. |
-| `is:pr reviewed-by:cat`      | Issues that are reviewed by `cat`                                                |
+| `is:pr reviewed-by:cat`      | Issues that are reviewed by `cat`                                                      |
 
 <br/>
 

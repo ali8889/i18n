@@ -4,10 +4,10 @@
 
 プロセス: [Main](../tutorial/application-architecture.md#main-and-renderer-processes)
 
-### `new TouchBarSpacer(options)` *実験的*
+### `new TouchBarSpacer(options)` _実験的_
 
-* `options` Object 
-  * `size` String (任意) - スペーサーのサイズ。以下の値にできます。 
-    * `small` - アイテム間の小さいスペース。`NSTouchBarItemIdentifierFixedSpaceSmall` に対応します。これは既定値です。
-    * `large` - アイテム間の大きなスペース。`NSTouchBarItemIdentifierFixedSpaceLarge` に対応します。
-    * `flexible` - 利用可能なスペースを全て占有します。`NSTouchBarItemIdentifierFlexibleSpace` に対応します。
+* `options` Object
+  * `size` String (任意) - スペーサのサイズ。以下は設定可能な値です。
+    * `small` - アイテム間の小さいスペース。 `NSTouchBarItemIdentifierFixedSpaceSmall` に対応します。 これが既定値です。
+    * `large` - アイテム間の大きいスペース。 `NSTouchBarItemIdentifierFixedSpaceLarge` に対応します。
+    * `flexible` - 利用可能なスペース全てを埋める。 `NSTouchBarItemIdentifierFlexibleSpace` に対応します。

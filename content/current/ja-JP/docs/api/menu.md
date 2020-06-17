@@ -16,21 +16,21 @@
 
 * `menu` Menu | null
 
-macOSではアプリケーション メニューとして `menu` を設定します。Windows と Linuxでは、`menu` は各ウィンドウの上部のメニューとして設定されます。
+macOS では、 `menu` をアプリケーションメニューとして設定します。 Windows と Linux では、 `menu` は各ウィンドウのトップメニューとして設定されます。
 
 更に Windows と Linux では、最上位のアイテム名に `&` を使用して、アクセラレータを生成させるときに取得する文字を指定できます。 たとえば、ファイルメニューに `&File` を使用すると、その関連付けされたメニューを開く `Alt-F` アクセラレータが生成されます。 そのボタンラベルの指定された文字には下線が引かれます。 `&` 文字はボタンラベル上に表示されません。
 
-`null` を渡すとデフォルトのメニューが表示されなくなります。Windows と Linux では、これによりウィンドウからメニューバーが削除されるという追加の効果があります。
+`null` を渡すと、既定のメニューが表示されなくなります。 Windows と Linux では、さらにウィンドウからメニューバーを削除します。
 
-**注意:** アプリが何も設定しない場合は自動でデフォルトメニューが作成されます。 これは `ファイル`、`編集`、`表示`、`ウィンドウ`、`ヘルプ` のような標準のアイテムを含みます。
+**注:** アプリが何も設定しない場合は自動でデフォルトメニューが作成されます。 これは `ファイル`、`編集`、`表示`、`ウィンドウ`、`ヘルプ` のような標準のアイテムを含みます。
 
 #### `Menu.getApplicationMenu()`
 
 戻り値 `Menu | null` - セットされていれば menu を、そうでなければ `null` を返します。
 
-**注釈:** 返される `Menu` のインスタンスは、メニューアイテムの動的な追加または削除をサポートしていません。 [インスタンス プロパティ](#instance-properties) は動的に変更ができます。
+**注:** 返される `Menu` のインスタンスは、メニューアイテムの動的な追加または削除をサポートしていません。 [インスタンス プロパティ](#instance-properties) は動的に変更ができます。
 
-#### `Menu.sendActionToFirstResponder(action)` *macOS*
+#### `Menu.sendActionToFirstResponder(action)` _macOS_
 
 * `action` String
 
@@ -44,7 +44,7 @@ macOSネイティブなアクションに関しては[macOS Cocoa Event Handling
 
 戻り値 `Menu`
 
-一般的に、`template` は [MenuItem](menu-item.md) を構築するための `options` の配列です。使用方法は上記を参照できます。
+一般的に、`template` は [MenuItem](menu-item.md) を構築するための `options` の配列です。 使用方法は上記を参照できます。
 
 `template` の要素に他のフィールドを付けることもでき、それらは構築されたメニューアイテムのプロパティになります。
 
@@ -54,11 +54,11 @@ macOSネイティブなアクションに関しては[macOS Cocoa Event Handling
 
 #### `menu.popup([options])`
 
-* `options` Object (任意) 
+* `options` Object (任意)
   * `window` [BrowserWindow](browser-window.md) (任意) - 省略値はフォーカスされたウインドウです。
-  * `x` Number (任意) - デフォルトはマウスカーソルの位置。`y` が宣言されている場合はこれを宣言しなければいけない。
-  * `y` Number (任意) - デフォルトはマウスカーソルの位置。`x` が宣言されている場合はこれを宣言しなければいけない。
-  * `positioningItem` Number (任意) *macOS* - マウスカーソルの位置に配置するメニューアイテムのインデックス。省略値は -1。
+  * `x` Number (任意) - 既定ではマウスカーソルの現在位置です。 `y` が宣言されている場合は宣言する必要があります。
+  * `y` Number (任意) - 既定ではマウスカーソルの現在位置です。 `x` が宣言されている場合は宣言する必要があります。
+  * `positioningItem` Number (任意) _macOS_ - マウスカーソルの位置に配置するメニューアイテムのインデックス。 既定値は -1 です。
   * `callback` Function (任意) - メニューが閉じたしたときに呼ばれます。
 
 この menu を [`BrowserWindow`](browser-window.md) 内のコンテキストメニューとしてポップアップします。
@@ -258,7 +258,7 @@ window.addEventListener('contextmenu', (e) => {
 
 ## macOS アプリケーションメニューについて
 
-macOS は、Windows や Linux とは全く異なるスタイルのアプリケーションメニューです。ここにはあなたのアプリのメニューをよりネイティブにするための注意事項があります。
+macOS は、Windows 及び Linux とは全く異なるスタイルのアプリケーションメニューを持ちます。 ここでは、アプリのメニューをよりネイティブのようにする方法について、いくつかの注意点を示します。
 
 ### 標準メニュー
 
@@ -276,7 +276,7 @@ macOS はいくつかのメニューアイテムに、`About xxx` や `Hide xxx`
 
 macOS のアプリケーションメニューの最初のアイテムのラベルは、設定した名前に関係なく、アプリ名になります。 これを変えるには、アプリのバンドルの `Info.plist` ファイルを変更します。 より詳しくは、[情報プロパティリストファイルについて](https://developer.apple.com/library/ios/documentation/general/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html) を参照して下さい。
 
-## 特定のブラウザウインドウのメニューの設定 (*Linux* *Windows*)
+## 特定のブラウザウィンドウのメニューの設定 (*Linux* *Windows*)
 
 ブラウザウインドウの [`setMenu` メソッド](https://github.com/electron/electron/blob/master/docs/api/browser-window.md#winsetmenumenu-linux-windows) は、特定のブラウザウインドウのメニューを設定できます。
 
@@ -307,7 +307,7 @@ macOS のアプリケーションメニューの最初のアイテムのラベ�
 Menu:
 
 ```sh
-<br />- 1
+- 1
 - 2
 - 3
 - 4
@@ -329,7 +329,7 @@ Menu:
 Menu:
 
 ```sh
-<br />- 3
+- 3
 - 4
 - ---
 - 1
@@ -350,7 +350,7 @@ Menu:
 Menu:
 
 ```sh
-<br />- ---
+- ---
 - 3
 - 2
 - 1

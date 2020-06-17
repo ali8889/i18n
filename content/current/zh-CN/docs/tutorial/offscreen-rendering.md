@@ -20,7 +20,7 @@ GPU加速渲染意味着使用GPU用于合成。 因为帧必须从需要更多�
 
 ## 用法
 
-```javascript
+``` javascript
 const { app, BrowserWindow } = require('electron')
 
 app.disableHardwareAcceleration()

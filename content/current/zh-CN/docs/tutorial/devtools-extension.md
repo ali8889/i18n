@@ -1,6 +1,6 @@
 # 开发工具扩展程序
 
-Electron支持[Chrome DevTools 扩展程序](https://developer.chrome.com/extensions/devtools)，可增强开发工具调试流行web框架的能力
+Electron支持[Chrome  DevTools 扩展程序](https://developer.chrome.com/extensions/devtools)，可增强开发工具调试流行web框架的能力
 
 ## 如何加载一个 DevTools 扩展程序
 
@@ -11,26 +11,24 @@ Electron支持[Chrome DevTools 扩展程序](https://developer.chrome.com/extens
 下面以[React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)为例：
 
 1. 在 Chrome 中安装React Developer Tools 。
-2. 打开`chrome://extensions`，找到扩展程序的ID，形如`fmkadmapgofadopljbjfkapdkoienihi`的hash字符串。
-3. 找到Chrome 扩展程序 的存放目录： 
-    * 在Ｗindows 下为 `%LOCALAPPDATA%\Google\Chrome\User Data\Default\Extensions`;
-    * 在 Linux下为： 
-        * `~/.config/google-chrome/Default/Extensions/`
-        * `~/.config/google-chrome-beta/Default/Extensions/`
-        * `~/.config/google-chrome-canary/Default/Extensions/`
-        * `~/.config/chromium/Default/Extensions/`
-    * 在 macOS下为`~/Library/Application Support/Google/Chrome/Default/Extensions`。
+1. 打开`chrome://extensions`，找到扩展程序的ID，形如`fmkadmapgofadopljbjfkapdkoienihi`的hash字符串。
+1. 找到Chrome 扩展程序 的存放目录：
+   * 在Ｗindows 下为 `%LOCALAPPDATA%\Google\Chrome\User Data\Default\Extensions`;
+   * 在 Linux下为：
+     * `~/.config/google-chrome/Default/Extensions/`
+     * `~/.config/google-chrome-beta/Default/Extensions/`
+     * `~/.config/google-chrome-canary/Default/Extensions/`
+     * `~/.config/chromium/Default/Extensions/`
+   * 在 macOS下为`~/Library/Application Support/Google/Chrome/Default/Extensions`。
+1. Pass the location of the extension to `BrowserWindow.addDevToolsExtension` API, for the React Developer Tools, it is something like:
+   ```javascript
+   const path = require('path')
+   const os = require('os')
 
-4. Pass the location of the extension to `BrowserWindow.addDevToolsExtension` API, for the React Developer Tools, it is something like:
-    
-    ```javascript
-    const path = require('path')
-    const os = require('os')
-    
-    BrowserWindow.addDevToolsExtension(
+   BrowserWindow.addDevToolsExtension(
       path.join(os.homedir(), '/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.3.0_0')
-    )
-    ```
+   )
+   ```
 
 **注意：**只有在app模块的ready事件触发之后，才可以调用`BrowserWindow.addDevToolsExtension` API
 
@@ -42,7 +40,7 @@ The extension will be remembered so you only need to call this API once per exte
 
 ## 支持的 DevTools 扩展程序
 
-Electron 只支持有限的`chrome.*` API，所以，一些扩展程序如果使用了不支持的`chrome.*` API，它可能会无法正常工作。 以下 DevTools 扩展程序已经通过测试，可以在Electron中正常工作：
+Electron 只支持有限的`chrome.*` API，所以，一些扩展程序如果使用了不支持的`chrome.*` API，它可能会无法正常工作。 以下  DevTools 扩展程序已经通过测试，可以在Electron中正常工作：
 
 * [Ember Inspector](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
 * [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
@@ -50,7 +48,7 @@ Electron 只支持有限的`chrome.*` API，所以，一些扩展程序如果使
 * [jQuery Debugger](https://chrome.google.com/webstore/detail/jquery-debugger/dbhhnnnpaeobfddmlalhnehgclcmjimi)
 * [AngularJS Batarang](https://chrome.google.com/webstore/detail/angularjs-batarang/ighdmehidhipcmcojjgiloacoafjmpfk)
 * [Vue.js devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-* [Cerebral Debugger](https://cerebraljs.com/docs/introduction/debugger.html)
+* [Cerebral Debugger](https://cerebraljs.com/docs/introduction/devtools.html)
 * [Redux DevTools Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
 * [MobX Developer Tools](https://chrome.google.com/webstore/detail/mobx-developer-tools/pfgnfdagidkfgccljigdamigbcnndkod)
 

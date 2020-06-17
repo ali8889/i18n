@@ -1,6 +1,6 @@
 # Mac App Store への公開ガイド
 
-v0.34.0から、ElectronはMac App Store (MAS) にパッケージ化したアプリを登録することができます。このガイドでは、MASビルド用の制限とアプリを登録する方法についての情報を提供します。
+v0.34.0 から、Electron のパッケージしたアプリを Mac App Store (MAS) に登録できるようになります。 このガイドでは、MASビルド用の制限とアプリを登録する方法についての情報を提供します。
 
 **注意:** Mac App Store にアプリを登録するには、[Apple Developer Program](https://developer.apple.com/support/compare-memberships/) に登録する必要があります。これには費用がかかります。
 
@@ -122,7 +122,7 @@ macOS でのアプリのサンドボックス化を行うことが初めてな�
 
 #### ネイティブ モジュールに署名
 
-アプリで使用されているネイティブモジュールも署名する必要があります。electron-osx-sign を使用している場合は、必ず引数リストに構築済みバイナリへのパスを含めてください。
+アプリで使用されているネイティブモジュールも署名する必要があります。 electron-osx-sign を使用している場合は、必ず引数リストに構築済みバイナリへのパスを含めてください。
 
 ```sh
 electron-osx-sign YourApp.app YourApp.app/Contents/Resources/app/node_modules/nativemodule/build/release/nativemodule

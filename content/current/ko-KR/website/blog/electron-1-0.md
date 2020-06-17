@@ -1,10 +1,10 @@
 ---
-title: Electron 1.0
+title: 일렉트론 1.0
 author: jlord
 date: '2016-05-11'
 ---
 
-For the last two years, Electron has helped developers build cross platform desktop apps using HTML, CSS, and JavaScript. Now we're excited to share a major milestone for our framework and for the community that created it. The release of Electron 1.0 is now available from [electronjs.org](https://electronjs.org).
+For the last two years, Electron has helped developers build cross platform desktop apps using HTML, CSS, and JavaScript. Now we're excited to share a major milestone for our framework and for the community that created it. 출시된 일렉트론 1.0은 현재 [electronjs.org](https://electronjs.org) 에서 사용 가능합니다.
 
 ---
 
@@ -24,13 +24,13 @@ Now driving Electron is a growing community of developers and companies building
 
 In these last two years we've seen both companies and open source projects choose Electron as the foundation for their apps. Just in the past year, Electron has been downloaded over 1.2 million times. [Take a tour](https://electronjs.org/apps) of some of the amazing Electron apps and add your own if it isn't already there.
 
-![Electron downloads](https://cloud.githubusercontent.com/assets/378023/15037731/af7e87e0-12d8-11e6-94e2-117c360d0ac9.png)
+![Electron 다운로드](https://cloud.githubusercontent.com/assets/378023/15037731/af7e87e0-12d8-11e6-94e2-117c360d0ac9.png)
 
 ## Electron API Demos
 
 Along with the 1.0 release, we're releasing a new app to help you explore the Electron APIs and learn more about how to make your Electron app feel native. The [Electron API Demos](https://github.com/electron/electron-api-demos) app contains code snippets to help you get your app started and tips on effectively using the Electron APIs.
 
-[![Electron API Demos](https://cloud.githubusercontent.com/assets/378023/15138216/590acba4-16c9-11e6-863c-bdb0d3ef3eaa.png)](https://github.com/electron/electron-api-demos)
+[![Electron API 데모](https://cloud.githubusercontent.com/assets/378023/15138216/590acba4-16c9-11e6-863c-bdb0d3ef3eaa.png)](https://github.com/electron/electron-api-demos)
 
 ## Devtron
 
@@ -38,7 +38,7 @@ We've also added a new extension to help you debug your Electron apps. [Devtron]
 
 [![Devtron](https://cloud.githubusercontent.com/assets/378023/15138217/590c8b06-16c9-11e6-8af6-ef96299e85bc.png)](https://electronjs.org/devtron)
 
-### Features
+### 기능
 
   * **Require graph** that helps you visualize your app's internal and external library dependencies in both the main and renderer processes
   * **IPC monitor** that tracks and displays the messages sent and received between the processes in your app
@@ -62,6 +62,4 @@ There is now a new [community](https://electronjs.org/community) page that lists
 New to Electron? Watch the Electron 1.0 intro video:
 
 <div class="video"><iframe src="https://www.youtube.com/embed/8YP_nOCO-4Q?rel=0" frameborder="0" allowfullscreen></iframe></div>
-
-
 

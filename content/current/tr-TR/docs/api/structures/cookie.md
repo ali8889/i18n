@@ -8,4 +8,4 @@
 * `secure` Boole (opsiyonel) - Çerezin güvenli olarak işaretlenip işaretlenmediği.
 * `httpOnly` Boole (opsiyonel) - Çerezin sadece HTTP olarak işaretlenip işaretlenmediği.
 * `session` Boole (opsiyonel) - Çerezin bir oturum çerezi mi ya da son kullanma tarihi olan kalıcı bir çerez mi olduğu.
-* `expirationDate` Çift (opsiyonel) - Çerezin UNIX döneminden beri geçen saniye sayısı olarak son kullanma tarihi. Oturum çerezleri için sağlanmamıştır.
+* `expirationDate` Double (optional) - The expiration date of the cookie as the number of seconds since the UNIX epoch. Not provided for session cookies.

@@ -17,9 +17,8 @@ win.loadURL('https://github.com')
 **注:** 逆 (メインプロセスからレンダラープロセスにアクセスする) の場合は、 [webContents.executeJavaScript](web-contents.md#contentsexecutejavascriptcode-usergesture) が使用できます。
 
 **注意:** セキュリティ上の理由からリモートモジュールを無効にするには以下のようにしてできます。
-
-* [`BrowserWindow`](browser-window.md) - `enableRemoteModule` オプションを `false` にセットする。
-* [`<webview>`](webview-tag.md) - `enableremotemodule` 属性を `false` にセットする。
+- [`BrowserWindow`](browser-window.md) - `enableRemoteModule` オプションを `false` にセットする。
+- [`<webview>`](webview-tag.md) - `enableremotemodule` 属性を `false` にセットする。
 
 ## リモートオブジェクト
 
@@ -43,7 +42,7 @@ Electron は、レンダラープロセス内のリモートオブジェクト�
 
 メインプロセス内のコードでは、レンダラー (例えば `remote` モジュール) からのコールバックを受け取ることができますが、この機能を使用するときは非常に注意する必要があります。
 
-まず、デッドロックを防ぐために、メインプロセスに渡すコールバックは非同期で呼ばれます。メインプロセスが、渡されたコールバックの戻り値を取得することを期待しないで下さい。
+First, in order to avoid deadlocks, the callbacks passed to the main process are called asynchronously. You should not expect the main process to get the return value of the passed callbacks.
 
 例えば、メインプロセス内で呼ばれた `Array.map` はレンダラープロセスの関数を使用できません。
 
@@ -72,11 +71,11 @@ console.log(withRendererCb, withLocalCb)
 
 次に、メインプロセスに渡されたコールバックは、メインプロセスがそれをガベージコレクションするまで存続します。
 
-例えば、以下のコードは一見問題がないようにみえます。リモートオブジェクトに `close` イベントのコールバックをインストールします。
+For example, the following code seems innocent at first glance. It installs a callback for the `close` event on a remote object:
 
 ```javascript
 require('electron').remote.getCurrentWindow().on('close', () => {
-  // ウインドウが閉じられた...
+  // window was closed...
 })
 ```
 
@@ -151,6 +150,6 @@ const foo = require('electron').remote.require('./foo') // bar
 
 ## プロパティ
 
-### `remote.process` *読み出し専用*
+### `remote.process` _読み出し専用_
 
-`NodeJS.Process` 型のオブジェト。メインプロセス内の `process` オブジェクトです。これは `remote.getGlobal('process')` と同じですが、キャッシュされます。
+A `NodeJS.Process` object.  The `process` object in the main process. This is the same as `remote.getGlobal('process')` but is cached.

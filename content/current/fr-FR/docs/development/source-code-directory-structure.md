@@ -1,4 +1,4 @@
-# Hiérarchie du Code Source
+# Structure du répertoire du Code Source
 
 Le code source d'Electron est séparé en plusieurs parties, principalement suivant les conventions de séparation de Chromium.
 
@@ -84,7 +84,6 @@ Electron
 * **npm** - Logique pour l'installation d'Electron via npm.
 * **out** - Dossier de sortie temporaire de `ninja`.
 * **script** - Scripts utilisés à des fins de développement comme le build, le packaging, les tests, etc.
-
 ```diff
 script/ - L'ensemble de tous les scripts que Electron exécute pour une variété de fonctions.
 ── codesign/ - Codesign Fakes pour les applications Electron ; utilisé pour les tests.
@@ -93,8 +92,7 @@ script/ - L'ensemble de tous les scripts que Electron exécute pour une variét�
     ── notes/ - Génère des notes de publication pour les nouvelles versions d'Electron.
     <unk> ─ ─ uploaders/ - Envoie divers fichiers liés à la version pendant la sortie.
 ```
-
-* **outils** - Scripts d'aide utilisés par les fichiers GN. 
+* **tools** - Helper scripts used by GN files.
   * Les scripts mis ici ne devraient jamais être invoqués par les utilisateurs directement, contrairement à ceux de `script`.
 * **typings** - Types TypeScript pour le code interne d'Electron.
 * **vendor** - Code source pour certaines dépendances de tiers, y compris `boto` et `requests`.
@@ -106,8 +104,8 @@ Le repository d'Electron a quelques dépendances tierces, se trouvant dans le do
 ```sh
 $ git status
 
-  modifié : vendor/depot_tools (new commits)
-  modifié : vendor/boto (new commits)
+    modified:   vendor/depot_tools (new commits)
+    modified:   vendor/boto (new commits)
 ```
 
 Pour mettre à jour ces dependances tierces, exécutez cette commande:
@@ -120,5 +118,5 @@ Si vous utilisez souvent cette commande, vous pouvez créer un alias dans votre 
 
 ```sh
 [alias]
-  su = mise à jour du sous-module --init --recursive
+    su = submodule update --init --recursive
 ```

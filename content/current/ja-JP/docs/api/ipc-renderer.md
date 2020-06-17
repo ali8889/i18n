@@ -15,7 +15,7 @@
 ### `ipcRenderer.on(channel, listener)`
 
 * `channel` String
-* `listener` Function 
+* `listener` Function
   * `event` IpcRendererEvent
   * `...args` any[]
 
@@ -24,16 +24,16 @@
 ### `ipcRenderer.once(channel, listener)`
 
 * `channel` String
-* `listener` Function 
+* `listener` Function
   * `event` IpcRendererEvent
   * `...args` any[]
 
-一回だけの `listener` イベント関数を追加します。この `listener` は次に `channel` にメッセージが送信された後にのみ呼び出され、その後削除されます。
+イベントに対する一回限りの `listener` 関数を追加します。 この `listener` は、次にメッセージが `channel` へ送信されたときに、削除されてから呼び出されます。
 
 ### `ipcRenderer.removeListener(channel, listener)`
 
 * `channel` String
-* `listener` Function 
+* `listener` Function
   * `...args` any[]
 
 指定した `channel` の listener 配列から、指定した `listener` を削除します。
@@ -69,7 +69,6 @@
 メインプロセスは、[`ipcMain.handle()`](ipc-main.md#ipcmainhandlechannel-listener) で `channel` をリッスンする必要があります。
 
 例:
-
 ```javascript
 // レンダラープロセス
 ipcRenderer.invoke('some-name', someArgument).then((result) => {

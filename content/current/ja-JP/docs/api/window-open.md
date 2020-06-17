@@ -1,4 +1,4 @@
-# `window.open`関数
+# `window.open` 関数
 
 > 新しいウインドウを開き、URL をロードします。
 
@@ -6,7 +6,7 @@
 
 プロキシは、従来のウェブページと互換性があるように実装された、限定された標準機能を有します。 新しいウィンドウを完全に制御するには、`BrowserWindow` を直接作成する必要があります。
 
-新しく作成された `BrowserWindow` は、デフォルトで親ウィンドウのオプションを継承します。 継承されたオプションをオーバーライドするには、`features` 文字列で設定することができます。
+新しく作成された `BrowserWindow` は、デフォルトで親ウィンドウのオプションを継承します。 `features` 文字列の中に設定することで、継承されたオプションを上書きできます。
 
 ### `window.open(url[, frameName][, features])`
 
@@ -19,7 +19,6 @@
 `features` 文字列は、標準ブラウザの形式に従いますが、各機能は `BrowserWindow` のオプションのフィールドになっていければなりません。 `features` 文字列を通してセットできる機能は、 `zoomFactor`, `nodeIntegration`, `preload`, `javascript`, `contextIsolation`, `webviewTag` になります。
 
 例:
-
 ```js
 window.open('https://github.com', '_blank', 'nodeIntegration=no')
 ```

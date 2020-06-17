@@ -8,8 +8,8 @@
 
 ### `new MenuItem(options)`
 
-* `options` Object 
-  * `クリック` Function (任意) - メニューアイテムがクリックされると、 `click(menuItem, browserWindow, event)` と呼ばれる。 
+* `options` Object
+  * `click` Function (任意) - メニューアイテムがクリックされたとき、 `click(menuItem, browserWindow, event)` で呼び出されます。
     * `menuItem` MenuItem
     * `browserWindow` [BrowserWindow](browser-window.md)
     * `event` [KeyboardEvent](structures/keyboard-event.md)
@@ -17,18 +17,18 @@
   * `type` String (任意) - `normal`、`separator`、`submenu`、`checkbox`、`radio` にできる。
   * `label` String (任意)
   * `sublabel` String (任意)
-  * `toolTip` String (任意) *macOS* - このメニューアイテムに浮かび上がるテキスト。
+  * `toolTip` String (任意) _macOS_ - このメニューアイテムに浮かび上がるテキスト。
   * `accelerator` [Accelerator](accelerator.md) (任意)
   * `icon` ([NativeImage](native-image.md) | String) (任意)
   * `enabled` Boolean (任意) - もし false なら、メニューアイテムはグレーっぽくなってクリックできない。
-  * `acceleratorWorksWhenHidden` Boolean (任意) *macOS* - 省略値は `true` です。`false` のときは、アイテムが表示されていない場合にアクセラレータがアイテムをトリガーするのを防ぎます。
+  * `acceleratorWorksWhenHidden` Boolean (任意) _macOS_ - 省略値は `true` です。`false` のときは、アイテムが表示されていない場合にアクセラレータがアイテムをトリガーするのを防ぎます。
   * `visible` Boolean (任意) - もし false なら、メニューアイテムは全く見えなくなる。
   * `checked` Boolean (任意) - `checkbox` または `radio` の type のメニューアイテムに対してのみ指定する必要がある。
-  * `registerAccelerator` Boolean (任意) *Linux* *Windows* - false の場合、アクセラレータはシステムに登録されませんが、それでも表示はされます。 省略値は true です。
+  * `registerAccelerator` Boolean (optional) _Linux_ _Windows_ - If false, the accelerator won't be registered with the system, but it will still be displayed. 省略値は true です。
   * `submenu` (MenuItemConstructorOptions[] | [Menu](menu.md)) (任意) - `submenu` 型メニューアイテムを指定する必要があります。 もし `submenu` を指定した場合、`type: 'submenu'` は省略できます。 値が [`Menu`](menu.md) でない場合は、`Menu.buildFromTemplate` を用いて自動的に変換されます。
-  * `id` String (任意) - 一つの menu 内で一意なもの。これが定義されていれば、position 属性によってこのアイテムへの参照として利用できる。
+  * `id` String (任意) - 単一のメニューの中でユニーク。 宣言されている場合は、位置属性によってこのアイテムへの参照として使用できます。
   * `before` String[] (任意) - 指定したラベルの前にこのアイテムを挿入します。 参照された項目が存在しない場合、アイテムはメニューの最後に挿入されます。 また、与えられたメニューアイテムをそのアイテムと同じ「グループ」に配置する必要があることを意味します。
-  * `after` String[] (任意) - このアイテムをIDが指すアイテムの後に挿入する。IDが指すアイテムが存在しない場合、アイテムはメニューの最後に挿入される。
+  * `after` String[] (任意) - 指定したラベルの後にこのアイテムを挿入します。 参照された項目が存在しない場合、アイテムはメニューの最後に挿入されます。
   * `beforeGroupContaining` String[] (任意) - 単一のコンテキストメニューで、指定されたラベルのアイテムを含むグループの前に、そのグループの配置を宣言する手段を提供します。
   * ` afterGroupContaining ` String[] (任意) - 単一のコンテキストメニューで、指定されたラベルのアイテムを含むグループの後に、そのグループの配置を宣言する手段を提供します。
 
@@ -46,8 +46,8 @@ Roles を使用すると、メニューアイテムに定義済みの動作を�
 
 `role` プロパティは、以下の値を持つことができます。
 
-* `元に戻します`
-* `やり直します`
+* `undo`
+* `redo`
 * `cut`
 * `copy`
 * `paste`
@@ -69,7 +69,7 @@ Roles を使用すると、メニューアイテムに定義済みの動作を�
 * `viewMenu` - デフォルトの"表示"メニュー全体 (リロード、開発ツールON/OFF等)
 * `windowMenu` - デフォルトの"ウインドウ"メニュー全体 (最小化、ズーム等)。
 
-以下は *macOS* で有効な追加の role です。
+以下は _macOS_ で有効な追加の role です。
 
 * `appMenu` - デフォルトの"App"メニュー全体 (Electronについて、サービス等)
 * `about` - `orderFrontStandardAboutPanel` アクションに割り当てる。
@@ -109,8 +109,7 @@ macOS の `role` を指定するとき、`label` と `accelerator` がメニュ�
 
 #### `menuItem.click`
 
-MenuItem がクリックイベントを受け取ったときに発火される `Function`。`menuItem.click(event, focusedWindow, focusedWebContents)` で呼び出せます。
-
+MenuItem がクリックイベントを受け取った時に発火される `Function`。 これは `menuItem.click(event, focusedWindow, focusedWebContents)` で呼び出されます。
 * `event` [KeyboardEvent](structures/keyboard-event.md)
 * `focusedWindow` [BrowserWindow](browser-window.md)
 * `focusedWebContents` [WebContents](web-contents.md)
@@ -121,7 +120,7 @@ MenuItem がクリックイベントを受け取ったときに発火される `
 
 #### `menuItem.type`
 
-アイテムの種類を示す `String` です。`normal`、`separator`、`submenu`、`checkbox`、`radio` にできます。
+そのアイテムの種類を示す `String`。 `normal` 、 `separator` 、 `submenu` 、 `checkbox` 、 `radio` のいずれか。
 
 #### `menuItem.role`
 
@@ -139,7 +138,7 @@ MenuItem がクリックイベントを受け取ったときに発火される `
 
 アイテムの副ラベルを示す `String`。このプロパティは動的に変更できます。
 
-#### `menuItem.toolTip` *macOS*
+#### `menuItem.toolTip` _macOS_
 
 そのアイテムに浮かび上がるテキストを示す `String`。
 

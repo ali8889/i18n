@@ -61,26 +61,25 @@ process.env.GOOGLE_API_KEY = 'YOUR_KEY_HERE'
 
 ### `ELECTRON_NO_ASAR`
 
-ASARサポートを無効にします。 この変数は、`ELECTRON_RUN_AS_NODE` を設定したフォークされた子プロセスと生成された子プロセスでのみサポートされます。
+ASAR サポートを無効にします。 この変数は、`ELECTRON_RUN_AS_NODE` を設定したフォークされた子プロセスと生成された子プロセスでのみサポートされます。
 
 ### `ELECTRON_RUN_AS_NODE`
 
 通常のNode.jsプロセスとしてプロセスを開始します。
 
-### `ELECTRON_NO_ATTACH_CONSOLE` *Windows*
+### `ELECTRON_NO_ATTACH_CONSOLE` _Windows_
 
 現在のコンソールセッションにアタッチしません。
 
-### `ELECTRON_FORCE_WINDOW_MENU_BAR` *Linux*
+### `ELECTRON_FORCE_WINDOW_MENU_BAR` _Linux_
 
 Linuxのグローバルメニューバーを使用しません。
 
-### `ELECTRON_TRASH` *Linux*
+### `ELECTRON_TRASH` _Linux_
 
-Linux 上での trash 実装を設定します。デフォルトは `gio` です。
+Linux でゴミの実装を設定します。 既定値は `gio` です。
 
 Options:
-
 * `gvfs-trash`
 * `trash-cli`
 * `kioclient5`
@@ -90,13 +89,14 @@ Options:
 
 以下の環境変数は、主に開発とデバッグを目的としています。
 
+
 ### `ELECTRON_ENABLE_LOGGING`
 
 コンソールにChromeの内部ログを出力します。
 
 ### `ELECTRON_LOG_ASAR_READS`
 
-ElectronがASARファイルから読み取るとき、読み取りオフセットとファイルパスをシステムの `tmpdir` に記録します。出力されたファイルは、ASARモジュールのファイル順序を最適化するために使用できます。
+Electron が ASAR ファイルから読み込むときに、読み取りオフセットとファイルパスをシステムの `tmpdir` へログとして出力します。 ファイルの順番を最適化するために、結果のファイルを ASAR モジュールへ与えられます。
 
 ### `ELECTRON_ENABLE_STACK_DUMPING`
 
@@ -104,7 +104,7 @@ Electronがクラッシュすると、コンソールにスタックトレース
 
 `crashReporter` が開始されている場合、この環境変数は機能しません。
 
-### `ELECTRON_DEFAULT_ERROR_MODE` *Windows*
+### `ELECTRON_DEFAULT_ERROR_MODE` _Windows_
 
 Electronがクラッシュすると、Windowsのクラッシュダイアログを表示します。
 

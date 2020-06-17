@@ -8,18 +8,18 @@ Electron의 소스 코드는 몇 개의 파트로 분리되어 있습니다. 그
 
 ```diff
 Electron
-├── build/ - Build configuration files needed to build with GN.
+├── build/ - GN으로 빌드하는데 필요한 빌드 구성 파일
 ├── buildflags/ - Determines the set of features that can be conditionally built.
 ├── chromium_src/ - Source code copied from Chromium that isn't part of the content layer.
 ├── default_app/ - A default app run when Electron is started without
 |                  providing a consumer app.
-├── docs/ - Electron's documentation.
+├── docs/ - Electron 문서
 |   ├── api/ - Documentation for Electron's externally-facing modules and APIs.
 |   ├── development/ - Documentation to aid in developing for and with Electron.
 |   ├── fiddles/ - A set of code snippets one can run in Electron Fiddle.
-|   ├── images/ - Images used in documentation.
+|   ├── images/ - 문서에 사용되는 이미지
 |   └── tutorial/ - Tutorial documents for various aspects of Electron.
-├── lib/ - JavaScript/TypeScript source code.
+├── lib/ - JavaScript/TypeScript 소스 코드
 |   ├── browser/ - Main process initialization code.
 |   |   ├── api/ - API implementation for main process modules.
 |   |   └── remote/ - Code related to the remote module as it is
@@ -45,14 +45,14 @@ Electron
 ├── patches/ - Patches applied on top of Electron's core dependencies
 |   |          in order to handle differences between our use cases and
 |   |          default functionality.
-|   ├── boringssl/ - Patches applied to Google's fork of OpenSSL, BoringSSL.
-|   ├── chromium/ - Patches applied to Chromium.
-|   ├── node/ - Patches applied on top of Node.js.
-|   └── v8/ - Patches applied on top of Google's V8 engine.
-├── shell/ - C++ source code.
+|   ├── boringssl/ - Google의 OpenSSL 포크인 BoringSSL에 적용된 패치.
+|   ├── chromium/ - Chromium에 적용된 패치
+|   ├── node/ - Node.js 기반에 적용된 패치
+|   └── v8/ - Google V8 엔진 기반에 적용된 패치
+├── shell/ - C++ 소스 코드
 |   ├── app/ - 시스템 엔트리 코드.
-|   ├── browser/ - The frontend including the main window, UI, and all of the
-|   |   |          main process things. This talks to the renderer to manage web
+|   ├── browser/ - 메인 윈도우, UI, 메인 프로세스의 모든 것을 포함한
+|   |   |          프론트엔드. This talks to the renderer to manage web
 |   |   |          pages.
 |   |   ├── ui/ - 서로 다른 플랫폼에 대한 UI 관련 구현 코드.
 |   |   |   ├── cocoa/ - Cocoa 특정 소스 코드.
@@ -84,7 +84,6 @@ Electron
 * **npm** - Logic for installation of Electron via npm.
 * **out** - ninja의 임시 출력 디렉터리.
 * **script** - 개발목적으로 사용되는 빌드, 패키징, 테스트, 기타등을 실행하는 스크립트.
-
 ```diff
 script/ - The set of all scripts Electron runs for a variety of purposes.
 ├── codesign/ - Fakes codesigning for Electron apps; used for testing.
@@ -93,8 +92,7 @@ script/ - The set of all scripts Electron runs for a variety of purposes.
     ├── notes/ - Generates release notes for new Electron versions.
     └── uploaders/ - Uploads various release-related files during release.
 ```
-
-* **도구** - Helper scripts used by GN files. 
+* **tools** - Helper scripts used by GN files.
   * Scripts put here should never be invoked by users directly, unlike those in `script`.
 * **typings** - TypeScript typings for Electron's internal code.
 * **vendor** - Source code for some third party dependencies, including `boto` and `requests`.
@@ -106,8 +104,8 @@ Electron 저장소는 몇 가지 외부 벤더 의존성을 가지고 있으며 
 ```sh
 $ git status
 
-  modified:   vendor/depot_tools (new commits)
-  modified:   vendor/boto (new commits)
+    modified:   vendor/depot_tools (new commits)
+    modified:   vendor/boto (new commits)
 ```
 
 이 외부 의존성 모듈들을 업데이트 하려면, 다음 커맨드를 실행합니다:
@@ -120,5 +118,5 @@ git submodule update --init --recursive
 
 ```sh
 [alias]
-  su = submodule update --init --recursive
+	su = submodule update --init --recursive
 ```

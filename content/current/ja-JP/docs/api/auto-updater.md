@@ -10,7 +10,7 @@
 
 ## プラットフォームに関する注意事項
 
-現在のところ、macOSとWindowsしかサポートされていません。Linuxでは、自動アップデータの組み込みサポートがないので、アプリを更新するためにディストリビューションのパッケージマネージャーを使うことを推奨しています。
+現在、macOS と Windows にのみ対応しています。 Linux では、自動更新の組み込みサポートがないので、アプリ更新にはディストリビューションのパッケージマネージャーの使用を推奨しています。
 
 さらに、各プラットフォームではいくつかの微妙な違いがあります。
 
@@ -18,7 +18,7 @@
 
 macOSでは、`autoUpdater` モジュールは [Squirrel.Mac](https://github.com/Squirrel/Squirrel.Mac) で構築されているので、動作させるのに特別なセットアップ作業をする必要はありません。 サーバー側の要件については、[サーバーサポート](https://github.com/Squirrel/Squirrel.Mac#server-support) をお読みください。 [アプリケーショントランスポートセキュリティ](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW35) (ATS) が、更新処理の一部としてなされるすべてのリクエストに適用されることに注意してください。 アプリのplistに `NSAllowsArbitraryLoads` キーを追加することで、ATSを無効にすることができます。
 
-**注:** macOSでは自動更新を有効にするにはアプリに署名をしなければなりません。これは、`Squirrel.Mac` の動作要件です。
+**注:** macOS で自動更新を有効にするには、アプリ署名が必要です。 これは `Squirrel.Mac` の動作要件です。
 
 ### Windows
 
@@ -48,7 +48,7 @@ Squirrel.Macとは違って、Windowsでは、S3やその他の静的ファイ�
 
 ### イベント: 'update-available'
 
-利用可能な更新がある場合に生成されます。更新プログラムが自動的にダウンロードされます。
+利用可能な更新がある場合に発生します。 更新は自動ダウンロードされます。
 
 ### イベント: 'update-not-available'
 
@@ -68,7 +68,7 @@ Squirrel.Macとは違って、Windowsでは、S3やその他の静的ファイ�
 
 Windowsでは `releaseName` のみ利用可能です。
 
-**注意:** 必ずこのイベントを処理する必要はありません。ダウンロードに成功したアップデートは、次回のアプリケーション起動時にも適用されます。
+**注:** 必ずこのイベントを処理する必要はありません。 ダウンロードに成功した更新は、次回のアプリケーション起動時でも適用されます。
 
 ### イベント: 'before-quit-for-update'
 
@@ -82,10 +82,10 @@ Windowsでは `releaseName` のみ利用可能です。
 
 ### `autoUpdater.setFeedURL(options)`
 
-* `options` Object 
+* `options` Object
   * `url` String
-  * `headers` Record&lt;String, String&gt; (任意) *macOS* - HTTP リクエストのヘッダ。
-  * `serverType` String (任意) *macOS* - `json` または `default` のいずれかの詳細については、[Squirrel.Mac](https://github.com/Squirrel/Squirrel.Mac) README を参照してください。
+  * `headers` Record&lt;String, String&gt; (任意) _macOS_ - HTTP リクエストのヘッダ。
+  * `serverType` String (任意) _macOS_ - `json` または `default` のいずれかの詳細については、[Squirrel.Mac](https://github.com/Squirrel/Squirrel.Mac) README を参照してください。
 
 `url` を設定して自動更新を初期化します。
 
@@ -95,11 +95,11 @@ Windowsでは `releaseName` のみ利用可能です。
 
 ### `autoUpdater.checkForUpdates()`
 
-更新プログラムがあるかどうかをサーバーに要求します。この API を使用する前に `setFeedURL` を呼び出す必要があります。
+更新があるかどうかサーバーに問い合わせます。 この API を使用する前に `setFeedURL` を呼び出す必要があります。
 
 ### `autoUpdater.quitAndInstall()`
 
-更新プログラムがダウンロードされた後でアプリを再起動し、更新プログラムをインストールします。`update-downloaded` が発生した後でしか呼び出さないようにしてください。
+ダウンロード後にアプリを再起動し、更新をインストールします。 `update-downloaded` が発生した後でしか呼び出さないでください。
 
 `autoUpdater.quitAndInstall()` を呼ぶと、この中では最初にすべてのアプリケーションウィンドウを閉じ、すべてのウィンドウが閉じられた後に自動的に `app.quit()` を呼び出します。
 

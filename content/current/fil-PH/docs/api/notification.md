@@ -26,21 +26,21 @@ Ang klase ng `Notification` ay may mga sumusunod na mga istatikong pamamaraan:
 
 Nagbabalik sa `Boolean` - Kung hindi man ang mga paunawa ng desktop ay sinusuportahan sa kasalukuyang sistema
 
-### Ang `new Notification([options])` ay *Experimental*
+### Ang `new Notification([options])` ay _Experimental_
 
-* `pagpipilian` Na Bagay (opsyonal) 
+* `options` Object (optional)
   * Ang `title` String - Ang isang pamagat sa mga paunawa, kung saan ay ipinakita sa ibabaw ng window ng paunawa kung saan ito ipinakita.
-  * `subtitle` String (optional) *macOS* - A subtitle for the notification, which will be displayed below the title.
+  * `subtitle` String (optional) _macOS_ - A subtitle for the notification, which will be displayed below the title.
   * Ang `body` String - Ang kabuuang teksto ng mga paunawa, kung saan ay makikita sa ilalim ng pamagat o pangalawang pamagat.
   * `silent` Boolean (optional) - Whether or not to emit an OS notification noise when showing the notification.
   * `icon` (String | [NativeImage](native-image.md)) (optional) - An icon to use in the notification.
-  * `hasReply` Boolean (optional) *macOS* - Whether or not to add an inline reply option to the notification.
-  * `timeoutType` String (optional) *Linux* *Windows* - The timeout duration of the notification. Can be 'default' or 'never'.
-  * `replyPlaceholder` String (optional) *macOS* - The placeholder to write in the inline reply input field.
-  * `sound` String (optional) *macOS* - The name of the sound file to play when the notification is shown.
-  * `urgency` String (optional) *Linux* - The urgency level of the notification. Can be 'normal', 'critical', or 'low'.
-  * `actions` [NotificationAction[]](structures/notification-action.md) (optional) *macOS* - Actions to add to the notification. Please read the available actions and limitations in the `NotificationAction` documentation.
-  * `closeButtonText` String (optional) *macOS* - A custom title for the close button of an alert. An empty string will cause the default localized text to be used.
+  * `hasReply` Boolean (optional) _macOS_ - Whether or not to add an inline reply option to the notification.
+  * `timeoutType` String (optional) _Linux_ _Windows_ - The timeout duration of the notification. Can be 'default' or 'never'.
+  * `replyPlaceholder` String (optional) _macOS_ - The placeholder to write in the inline reply input field.
+  * `sound` String (optional) _macOS_ - The name of the sound file to play when the notification is shown.
+  * `urgency` String (optional) _Linux_ - The urgency level of the notification. Can be 'normal', 'critical', or 'low'.
+  * `actions` [NotificationAction[]](structures/notification-action.md) (optional) _macOS_ - Actions to add to the notification. Please read the available actions and limitations in the `NotificationAction` documentation.
+  * `closeButtonText` String (optional) _macOS_ - A custom title for the close button of an alert. An empty string will cause the default localized text to be used.
 
 ### Mga Instance na Kaganapan
 
@@ -48,7 +48,7 @@ Ang mga bagay na nilikha na may `new Notification` ay naglalabas ng mga sumusuno
 
 **Tandaan:** Ang ilang mga kaganapan ay magagamit lamang sa partikular na mga operating system at na may label na.
 
-#### Kaganapan: 'ipakita'
+#### Event: 'ipakita'
 
 Ibinabalik ang:
 
@@ -56,7 +56,7 @@ Ibinabalik ang:
 
 Ay lalabas kapag ang paunawa ay ipinakita sa mga gumagamit, tandaan na ito ay ititira ng maraming beses bilang isang paunawa na maaaring ipakita ng maraming beses sa pamamagitan ng pamamaraan ng `show()`.
 
-#### Event: 'click'
+#### Event: 'klik'
 
 Ibinabalik ang:
 
@@ -64,7 +64,7 @@ Ibinabalik ang:
 
 Ay lalabas kapag ang paunawa ay na-klik na ng gumagamit.
 
-#### Event: 'close'
+#### Event: 'isara'
 
 Ibinabalik ang:
 
@@ -74,7 +74,7 @@ Ay lalabas kapag ang paunawa ay isinara sa pamamagitan ng manu-manong pakikialam
 
 This event is not guaranteed to be emitted in all cases where the notification is closed.
 
-#### Event: 'sumagot' sa *macOS*
+#### Event: 'sumagot' sa _macOS_
 
 Ibinabalik ang:
 
@@ -83,11 +83,11 @@ Ibinabalik ang:
 
 Ay lalabas kapag ang gumagamit ay na-klik ang pindutan ng "Reply" sa paunawa na may `hasReeply: true`.
 
-#### Event: 'aksyon' sa *macOS*
+#### Event: 'aksyon' sa _macOS_
 
 Ibinabalik ang:
 
-* `event` Event
+* `kaganapan` Kaganapan
 * Ang `index` Number - Ang indise ng mga aksyon na na-aktibeyt na.
 
 ### Mga pamamaraan ng pagkakataon
@@ -138,13 +138,13 @@ A `Boolean` property representing whether the notification is silent.
 
 A `Boolean` property representing whether the notification has a reply action.
 
-#### `notification.urgency` *Linux*
+#### `notification.urgency` _Linux_
 
 A `String` property representing the urgency level of the notification. Can be 'normal', 'critical', or 'low'.
 
 Default is 'low' - see [NotifyUrgency](https://developer.gnome.org/notification-spec/#urgency-levels) for more information.
 
-#### `notification.timeoutType` *Linux* *Windows*
+#### `notification.timeoutType` _Linux_ _Windows_
 
 A `String` property representing the type of timeout duration for the notification. Can be 'default' or 'never'.
 
@@ -156,9 +156,9 @@ A [`NotificationAction[]`](structures/notification-action.md) property represent
 
 ### Patugtugin ang mga tunog
 
-Sa macOS, maaari mong tukuyin ang pangalan ng mga tunog na gusto mong patunugin kapag ang paunawa ay ipinakita. Kahit ano sa mga default na tunog (sa ilalim ng System Preferences > Sound) ay maaaring gamitin, sa karagdagan sa mga file ng costum sound. Maging sigurado na ang file ng tunog ay nakoya na sa ilalim ng bundle ng app (hal, `YourApp.app/Contents/Resources`), o isa sa mga sumusunod na lokasyon:
+Sa macOS, maaari mong tukuyin ang pangalan ng mga tunog na gusto mong patunugin kapag ang paunawa ay ipinakita. Any of the default sounds (under System Preferences > Sound) can be used, in addition to custom sound files. Maging sigurado na ang file ng tunog ay nakoya na sa ilalim ng bundle ng app (hal, `YourApp.app/Contents/Resources`), o isa sa mga sumusunod na lokasyon:
 
-* `~/Library/Sounds`
+* `-/Library/Sounds`
 * `/Library/Sounds`
 * `/Network/Library/Sounds`
 * `/System/Library/Sounds`

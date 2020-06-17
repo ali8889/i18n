@@ -53,12 +53,12 @@ Ang `state` ay maaaring isa sa mga sumusunod:
 
 #### Event: 'done'
 
-Ibinabalik ang:
+Pagbabalik:
 
 * `event` na Pangyayari
 * `state` String - Can be `completed`, `cancelled` or `interrupted`.
 
-Ang mga ito ay lumalabas kapag ang "download" ay nasa estado ng terminal. Kasama dito ang matagumpay na "download", inihintong "download" (via `downloadItem.cancel()`), at itinigil ngunit hindi ma maaaring ituloy na "download".
+Emitted when the download is in a terminal state. This includes a completed download, a cancelled download (via `downloadItem.cancel()`), and interrupted download that can't be resumed.
 
 Ang `state` ay maaaring isa sa mga sumusunod:
 
@@ -80,7 +80,7 @@ Ang API ay ang natatanging posibleng gamitin sa sesyon ng `will-download` na maa
 
 #### `downloadItem.getSavePath()`
 
-Pagbabalik ng `String` - Ang "save path" ng "download item". Ito ay maaaring itinakdang lokasyon ng payl o "path", sa pamamagitan ng `downloadItem.setSavePath(path)` o ang piniling lokasyon o direktoryo ng payl galing sa ipinakitang "save dialog".
+Returns `String` - The save path of the download item. This will be either the path set via `downloadItem.setSavePath(path)` or the path selected from the shown save dialog.
 
 **[Deprecated](modernization/property-updates.md): use the `savePath` property instead.**
 
@@ -88,7 +88,7 @@ Pagbabalik ng `String` - Ang "save path" ng "download item". Ito ay maaaring iti
 
 * `options` SaveDialogOptions - Set the save file dialog options. This object has the same properties as the `options` parameter of [`dialog.showSaveDialog()`](dialog.md).
 
-This API allows the user to set custom options for the save dialog that opens for the download item by default. The API is only available in session's `will-download` callback function.
+This API allows the user to set custom options for the save dialog that opens for the download item by default. Ang API ay ang natatanging posibleng gamitin sa sesyon ng `will-download` na maaaring muling gamitin.
 
 #### `downloadItem.getSaveDialogOptions()`
 
@@ -106,7 +106,7 @@ Pagbabalik sa `Boolean` - Kahit pa ang "download" ay pansamantalang nakahinto.
 
 Pagbabalik sa pagproseso ng "download" na pansamantalang inihinto.
 
-**Paalala:** Para mapagana ang mga "download" na muling prinoseso, ang "server" kung saan pinoproseso ang "download" ay dapat suportahan ng mga saklaw na kahilingan at magbigay pareho ang mga halaga ng "header" na `Last-Modified` at `ETag`. Kung hindi man, ang `resume()` ay ihihinto ang pagtanggap ng nakaraang "bytes" at muling uumpisahan ang "download".
+**Note:** To enable resumable downloads the server you are downloading from must support range requests and provide both `Last-Modified` and `ETag` header values. Kung hindi man, ang `resume()` ay ihihinto ang pagtanggap ng nakaraang "bytes" at muling uumpisahan ang "download".
 
 #### `downloadItem.canResume()`
 
@@ -132,7 +132,7 @@ Pagbabalik ng `Boolean` - Kapag ang "download" ay may kilos ng gumagamit.
 
 Pagbabalik ng `String` - Ang pangalan ng payl ng "download item".
 
-**Paalala:** Ang pangalan ng payl ay hindi parating pareho sa isang aktwal na pinanatili sa lokal na "disc". Kung ang gumagamit ay nagsagawa ng pagbabago sa pangalan ng payl sa pinoproseso na "download" na nananatili sa "dialog", ang aktwal na pangalan sa payl ay magbabago din.
+**Note:** The file name is not always the same as the actual one saved in local disk. Kung ang gumagamit ay nagsagawa ng pagbabago sa pangalan ng payl sa pinoproseso na "download" na nananatili sa "dialog", ang aktwal na pangalan sa payl ay magbabago din.
 
 #### `downloadItem.getTotalBytes()`
 
@@ -152,7 +152,7 @@ Pagbabalik ng `String` - Ang Content-Disposition galing sa tugon ng "header".
 
 Returns `String` - The current state. Can be `progressing`, `completed`, `cancelled` or `interrupted`.
 
-**Note:** Ang mga sumusunod na paraan ay kapaki-pakinabang lalo na para paganahing muli ang aytem na `cancelled` kapag ang sesyon ay muling inumpisahan.
+**Note:** The following methods are useful specifically to resume a `cancelled` item when session is restarted.
 
 #### `downloadItem.getURLChain()`
 

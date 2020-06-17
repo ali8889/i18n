@@ -17,7 +17,7 @@ Ibinabalik ang:
 * `kaganapan` Kaganapan
 * `transactions` Transaction[] - Array of [`Transaction`](structures/transaction.md) objects.
 
-## Mga Method
+## Mga Pamamaraan
 
 The `inAppPurchase` module has the following methods:
 

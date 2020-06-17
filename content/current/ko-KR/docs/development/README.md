@@ -4,8 +4,8 @@
 
 * [행동 규칙](../../CODE_OF_CONDUCT.md)
 * [Electron에 기여하기](../../CONTRIBUTING.md)
-* [이슈](issues.md)
-* [Pull Requests](pull-requests.md)
+* [문제](issues.md)
+* [풀 리퀘스트](pull-requests.md)
 * [문서 스타일 안내](coding-style.md#documentation)
 * [소스 코드 디렉토리 구조](source-code-directory-structure.md)
 * [코딩 스타일](coding-style.md)

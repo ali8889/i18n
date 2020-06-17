@@ -20,7 +20,7 @@ GPU アクセラレーションレンダリングとは、GPU が構成に使用
 
 ## 使い方
 
-```javascript
+``` javascript
 const { app, BrowserWindow } = require('electron')
 
 app.disableHardwareAcceleration()

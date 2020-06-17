@@ -29,8 +29,9 @@ $ code electron-quick-start
 }
 ```
 
-### Débogage
 
-Définissez des points d’arrêt dans `main.js` et démarrez le débogage dans la [Vue Debug](https://code.visualstudio.com/docs/editor/debugging). Vous devriez être en mesure de toucher les points d’arrêt.
+### 3. Debugging
+
+Set some breakpoints in `main.js`, and start debugging in the [Debug View](https://code.visualstudio.com/docs/editor/debugging). You should be able to hit the breakpoints.
 
 Voici un projet pré-configuré que vous pouvez télécharger et déboguer directement dans VSCode : https://github.com/octref/vscode-electron-debug/tree/master/electron-quick-start

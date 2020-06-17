@@ -12,11 +12,11 @@ Electron の脆弱性を報告する正しい方法については [SECURITY.md]
 
 ## Chromium のセキュリティ問題とアップグレード
 
-Electron は Chromium のリリースと交互に更新しています。詳細については、[Electron リリースケイデンスのブログ投稿](https://electronjs.org/blog/12-week-cadence) を参照してください。
+Electron は、Chromiumのリリースとは交互に更新しています。 詳しくは、[Electron リリースケイデンスのブログ記事](https://electronjs.org/blog/12-week-cadence) を参照してください。
 
 ## セキュリティはみんなの責任
 
-あなたのElectronアプリケーションのセキュリティは、フレームワーク (*Chromium*, *Node.js*), Electron 自身、NPM の依存関係、あなたのコード のセキュリティの結果であることを覚えておくことは重要です。 そのため、いくつかの重要なベストプラックティスに従う、責任があります。
+あなたの Electron アプリケーションのセキュリティは、フレームワーク (*Chromium*、*Node.js*)、Electron 自身、NPM の依存関係、あなたのコード のセキュリティの結果であることを覚えておくことが大事です。 そのため、いくつかの重要なベストプラックティスに従う、責任があります。
 
 * **あなたのアプリケーションは最新リリースの Electron フレームワークを使う。** あなたはプロダクトをリリースしたとき、Electron、 Chromium 共有ライブラリ、Node.js を組み込んでリリースしています。 これらのコンポーネントに影響する脆弱性は、あなたのアプリケーションのセキュリティに影響する可能性があります。 Electronを最新バージョンにアップデートすることで、あなたはクリティカルな脆弱性(例えば *nodeIntegration bypasses*) にパッチを当てた状態にして、あなたのアプリケーションで発現しないようにできます。 詳細については、"[現行バージョンの Electron を使う](#17-use-a-current-version-of-electron)" を参照してください。
 
@@ -24,11 +24,12 @@ Electron は Chromium のリリースと交互に更新しています。詳細�
 
 * **セキュアコーディングプラクティスの採用。** あなたのアプリケーションの防衛の第一歩はあなたのコードです。 クロスサイトスクリプティング(XSS) のような共通WEB脆弱性は、Electronアプリケーション上でセキュリティの影響度が高くなります。そのため、セキュアなソフトウェア開発のベストプラクティスの採用やセキュリティテストの実施が強く求められます。
 
+
 ## 信用されないコンテンツの隔離
 
 信用されていないソース (例えばリモートサーバー) からコードを受け取ってローカルで実行するときは、常にセキュリティの問題が存在します。 例として、リモートのウェブサイトがデフォルト [`BrowserWindow`](../api/browser-window.md) 内に表示されていると考えてください。 もし攻撃者がどうにかして(情報源そのものの攻撃や中間者攻撃によって) 得られる内容を変更した場合、ユーザーのPC上でネイティブコードを実行できることになります。
 
-> :警告: Node integration が有効な環境で、リモートコードの読み込みと実行を行ってはいけません。 代わりに、Node.js コードの実行にはローカルファイル (アプリケーションと一緒にパッケージ化されているもの) だけを使用してください。 remote コンテンツを表示するには、[`<webview>`](../api/webview-tag.md) tag または [`BrowserView`](../api/browser-view.md)を使用します。その時`nodeIntegration`を無効に、`contextIsolation`を有効にすることを確認してください。
+> :警告:  Node integration が有効な環境で、リモートコードの読み込みと実行を行ってはいけません。 代わりに、Node.js コードの実行にはローカルファイル (アプリケーションと一緒にパッケージ化されているもの) だけを使用してください。 remote コンテンツを表示するには、[`<webview>`](../api/webview-tag.md) tag または [`BrowserView`](../api/browser-view.md)を使用します。その時`nodeIntegration`を無効に、`contextIsolation`を有効にすることを確認してください。
 
 ## Electron のセキュリティ警告
 
@@ -80,19 +81,15 @@ browserWindow.loadURL('http://example.com')
 browserWindow.loadURL('https://example.com')
 ```
 
-```html
-<!-- NG -->
-<script crossorigin src="http://example.com/react.js"></script>
-<link rel="stylesheet" href="http://example.com/style.css">
-
-<!-- OK -->
-<script crossorigin src="https://example.com/react.js"></script>
+```html<!-- NG --><script crossorigin src="http://example.com/react.js"></script>
+<link rel="stylesheet" href="http://example.com/style.css"><!-- OK --><script crossorigin src="https://example.com/react.js"></script>
 <link rel="stylesheet" href="https://example.com/style.css">
 ```
 
+
 ## 2) リモートコンテンツで、Node.js integration を有効にしない
 
-*この推奨は、Electron 5.0.0 からデフォルトの振舞いです。*
+_この推奨は、Electron 5.0.0 からデフォルトの振舞いです。_
 
 リモートコンテンツをロードするレンダラー ([`BrowserWindow`](../api/browser-window.md)、[`BrowserView`](../api/browser-view.md)、[`<webview>`](../api/webview-tag.md)) で Node.js integration を有効にしないことが重要です。 リモートコンテンツに与える権限を制限することで、攻撃者がウェブサイトで JavaScript を実行できるようになった場合に、ユーザを傷つけることを劇的に難しくする目的があります。
 
@@ -127,12 +124,7 @@ const mainWindow = new BrowserWindow({
 mainWindow.loadURL('https://example.com')
 ```
 
-```html
-<!-- NG -->
-<webview nodeIntegration src="page.html"></webview>
-
-<!-- OK -->
-<webview src="page.html"></webview>
+```html<!-- NG --><webview nodeIntegration src="page.html"></webview><!-- OK --><webview src="page.html"></webview>
 ```
 
 Node.js integration を無効にすると、ウェブサイトへ Node.js モジュールまたは機能を使用する API を確認することができます。 プリロードスクリプトは引き続き `require` と他の Node.js の機能にアクセスできるため、開発者はコンテンツをリモートにロードするカスタム API を確認します。
@@ -148,6 +140,7 @@ window.readConfig = function () {
 }
 ```
 
+
 ## 3) リモートコンテンツで、コンテキストイソレーションを有効にする
 
 コンテキストイソレーションは、開発者が専用の JavaScript コンテキストで、プリロードスクリプトと Electron API でコードを実行できるようにする Electron の機能です。 つまり、`Array.prototype.push` や `JSON.parse` などのグローバルオブジェクトは、レンダラープロセスで実行されているスクリプトでは変更できません。
@@ -156,46 +149,10 @@ Electron は Chromium の [コンテンツスクリプト](https://developer.chr
 
 `nodeIntegration: false`を使用して、文字列のアイソレーションを強制する場合やNode primitivesの使用を避ける場合であっても、 `contextIsolation` を使用しなければなりません。
 
-### なぜ？
+### Why & How?
 
-コンテキストイソレーションにより、レンダラーで実行されている各スクリプトは、Electron API またはプリロードスクリプト内のスクリプトとの衝突を心配することなく、JavaScript 環境を変更できます。
+For more information on what `contextIsolation` is and how to enable it please see our dedicated [Context Isolation](context-isolation.md) document.
 
-まだ実験的なElectronの機能ですが、コンテキストアイソレーションはセキュリティのためのレイヤーを追加します。 これは Electron APIとプリロードスクリプトのために新しいJavaScriptの世界を作成します。そのため、プロトタイプ汚染攻撃を緩和します。
-
-同時に、プリロードスクリプトは `document` および `window` オブジェクトにアクセスできます。 言い換えれば、ローリスクでハイリターンを得ているということです。
-
-### どうすればいいの？
-
-```js
-// メインプロセス
-const mainWindow = new BrowserWindow({
-  webPreferences: {
-    contextIsolation: true,
-    preload: path.join(app.getAppPath(), 'preload.js')
-  }
-})
-```
-
-```js
-// プリロードスクリプト
-
-// ロードする前にページ内の変数を設定
-webFrame.executeJavaScript('window.foo = "foo";')
-
-// ロードされたページはこの変数にアクセスできない
-// このコンテキスト内でのみ有効
-window.bar = 'bar'
-
-document.addEventListener('DOMContentLoaded', () => {
-  // window.foo はメインコンテキストでのみ使用可能なため
-  // ログアウトすると 'undefined' になる
-  console.log(window.foo)
-
-  // window.bar はこのコンテキスト内で使用可能なため
-  // ログアウトしても 'bar'
-  console.log(window.bar)
-})
-```
 
 ## 4) リモートのコンテンツからセッション権限リクエストを利用する
 
@@ -230,9 +187,10 @@ session
   })
 ```
 
+
 ## 5) webSecurity を無効にしない
 
-*Electron のデフォルトを推奨しています*
+_Electron のデフォルトを推奨しています_
 
 レンダラープロセス ([`BrowserWindow`](../api/browser-window.md)、[`BrowserView`](../api/browser-view.md)、[`<webview>`](../api/webview-tag.md)) 上の `webSecurity` プロパティを無効にすることは、 重要なセキュリティ機能を無効にするということです。
 
@@ -243,7 +201,6 @@ session
 ` webSecurity` を無効にすると、同一オリジンポリシーが無効になり、`allowRunningInsecureContent` プロパティが `true` に設定されます。 つまり、異なるドメインからの安全でないコードの実行を可能にしてしまいます。
 
 ### どうすればいいの？
-
 ```js
 // NG
 const mainWindow = new BrowserWindow({
@@ -258,13 +215,9 @@ const mainWindow = new BrowserWindow({
 const mainWindow = new BrowserWindow()
 ```
 
-```html
-<!-- NG -->
-<webview disablewebsecurity src="page.html"></webview>
-
-<!-- OK -->
-<webview src="page.html"></webview>
+```html<!-- NG --><webview disablewebsecurity src="page.html"></webview><!-- OK --><webview src="page.html"></webview>
 ```
+
 
 ## 6) Content-Security-Policy を定義する
 
@@ -309,9 +262,10 @@ CSP の推奨伝達メカニズムは HTTP ヘッダですが、`file://` プロ
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'">
 ```
 
+
 ## 7) `allowRunningInsecureContent` を `true` にしない
 
-*Electron のデフォルトを推奨しています*
+_Electron のデフォルトを推奨しています_
 
 デフォルトでは、Electron は `HTTPS` 上でロードされたウェブサイト上でのみ、安全でないソース (`HTTP`) からスクリプト、CSS、またはプラグインを読み込んで実行できるようにします。 `allowRunningInsecureContent` プロパティを `true` にすることで、その保護を無効にします。
 
@@ -337,9 +291,10 @@ const mainWindow = new BrowserWindow({
 const mainWindow = new BrowserWindow({})
 ```
 
+
 ## 8) 実験的な機能を有効にしない
 
-*Electron のデフォルトを推奨しています*
+_Electron のデフォルトを推奨しています_
 
 Electron の上級ユーザは、`experimentalFeatures` のプロパティを使用して Chromium の実験的な機能を有効にすることができます。
 
@@ -365,9 +320,10 @@ const mainWindow = new BrowserWindow({
 const mainWindow = new BrowserWindow({})
 ```
 
+
 ## 9) `enableBlinkFeatures` を使用しない
 
-*Electron のデフォルトを推奨しています*
+_Electron のデフォルトを推奨しています_
 
 Blink は、Chromium のバックグラウンドにあるレンダリングエンジンの名前です。 `experimentalFeatures` と同様に、`enableBlinkFeatures` プロパティを使用すると、デフォルトで無効になっている機能を有効にすることができます。
 
@@ -376,7 +332,6 @@ Blink は、Chromium のバックグラウンドにあるレンダリングエ�
 一般に、機能がデフォルトで有効になっていない場合は、よい理由が考えられます。 その機能を有効にするための、正しい使用方法は存在します。 開発者は、機能を有効にする必要がある理由、影響の内容、アプリケーションのセキュリティにどのように影響するかを正確に把握する必要があります。 どのような場合においても、機能を推論的に有効にするべきではありません。
 
 ### どうすればいいの？
-
 ```js
 // 悪例
 const mainWindow = new BrowserWindow({
@@ -391,9 +346,10 @@ const mainWindow = new BrowserWindow({
 const mainWindow = new BrowserWindow()
 ```
 
+
 ## 10) `allowpopups` を使用しない
 
-*Electron のデフォルトを推奨しています*
+_Electron のデフォルトを推奨しています_
 
 [`<webview>`](../api/webview-tag.md) を使用している場合、新しいウィンドウを開くには `<webview>` タグにページとスクリプトをロードする必要があります。 `allowpopups` 属性は、`window.open()` メソッドを使用して新しい [`BrowserWindows`](../api/browser-window.md) を作成することができるようにします。 そうでなければ、`<webview>` は新しいウインドウを作成できません。
 
@@ -403,13 +359,9 @@ const mainWindow = new BrowserWindow()
 
 ### どうすればいいの？
 
-```html
-<!-- NG -->
-<webview allowpopups src="page.html"></webview>
-
-<!-- OK -->
-<webview src="page.html"></webview>
+```html<!-- NG --><webview allowpopups src="page.html"></webview><!-- OK --><webview src="page.html"></webview>
 ```
+
 
 ## 11) 作成前に WebView のオプションを確認する
 
@@ -445,7 +397,7 @@ app.on('web-contents-created', (event, contents) => {
 })
 ```
 
-繰り返しになりますが、このチェックリストはリスクを最小化するものであり、リスクを無くすものではありません。ただ単にWebサイトを表示するという目的であれば、Electronアプリケーションよりもブラウザを利用した方がよりセキュアでしょう。
+繰り返しになりますが、このリストは単にリスクを最小化するだけで、除去するものではありません。 ウェブサイトを表示することが目的であれば、ブラウザの方が安全性の高い選択肢になります。
 
 ## 12) ナビゲーションを無効化か制限
 
@@ -520,7 +472,6 @@ Shellの [`openExternal`](../api/shell.md#shellopenexternalurl-options-callback)
 const { shell } = require('electron')
 shell.openExternal(USER_CONTROLLED_DATA_HERE)
 ```
-
 ```js
 //  Good
 const { shell } = require('electron')
@@ -539,7 +490,7 @@ shell.openExternal('https://example.com/index.html')
 
 さらに、プリロードスクリプトが誤ってサンドボックス化されたレンダラーにモジュールをリークさせる可能性があります。 `remote` をリークすると、攻撃を実行するため、多数の主要なプロセスモジュールに悪意のあるコードが仕掛けられます。
 
-`remote` モジュールの無効化によってこれらの攻撃手法は無効化できます。コンテキストの隔離の有効化もまた、これに続くプロトタイプ汚染攻撃を防ぎます。
+`remote` モジュールを無効にすれば、これらの攻撃手段を排除できます。 コンテキストイソレーションの有効化も、これに続く "プロトタイプ汚染" 攻撃を防ぎます。
 
 ### どうすればいいの？
 
@@ -557,12 +508,7 @@ const mainWindow = new BrowserWindow({
 })
 ```
 
-```html
-<!-- レンダラーが信頼できないコンテンツを実行する場合、危険  -->
-<webview src="page.html"></webview>
-
-<!-- 安全 -->
-<webview enableremotemodule="false" src="page.html"></webview>
+```html<!-- 信頼できないコンテンツをレンダラーが実行する場合は NG  --><webview src="page.html"></webview><!-- OK --><webview enableremotemodule="false" src="page.html"></webview>
 ```
 
 ## 16) `remote` モジュールをフィルタ
@@ -617,7 +563,7 @@ app.on('remote-get-current-web-contents', (event, webContents) => {
 
 ## 17) 現行バージョンの Electron を使う
 
-最新バージョンの Electron を常に使用するよう努めるべきです。新しいメジャーバージョンがリリースされるたびに、できるだけ早くアプリを更新してください。
+常に最新バージョンの Electron を使用するように努力してください。 新しいメジャーバージョンがリリースされる度に、できるだけ早くアプリを更新しましょう。
 
 ### なぜ？
 

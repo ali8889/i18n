@@ -17,23 +17,23 @@ Menggunakan `Quick Start` sebagai contoh:
 
 ...
 
-## Proses Utama
+## Main process
 
 ...
 
-## Proses renderer
+## Renderer process
 
 ...
 
-## Jalankan app anda
+## Run your app
 
 ...
 
-### Jalankan sebagai distribusi
+### Run as a distribution
 
 ...
 
-### Download binary secara manual
+### Manually downloaded Electron binary
 
 ...
 ```
@@ -95,10 +95,10 @@ Menggunakan `AutoUpdater` sebagai contoh:
 * Konstruktor harus terdaftar dengan `###`-tingkat judul.
 * [Metode Statis](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static) harus terdaftar di bawah `### Static Methods` bagian.
 * [Metode Instance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Prototype_methods) harus terdaftar di bawah `### Instance Methods` bagian.
-* Semua metode yang memiliki nilai kembali harus mulai deskripsi mereka dengan "Pengembalian `[TYPE]` - Return description" 
+* All methods that have a return value must start their description with "Returns `[TYPE]` - Return description"
   * Jika metode mengembalikan sebuah `Object`, struktur dapat ditentukan dengan menggunakan titik dua diikuti dengan baris baru kemudian daftar unordered properti dalam gaya yang sama sebagai parameter fungsi.
 * Misalnya Acara harus terdaftar di bawah `### Instance Events` bagian.
-* Misalnya Properti harus terdaftar di bawah `### Contoh properti` bagian. 
+* Instance Properties must be listed under an `### Instance Properties` chapter.
   * Sifat misalnya harus dimulai dengan "A [Property Type] ..."
 
 Menggunakan `Session` dan `Cookies` kelas sebagai contoh:
@@ -135,7 +135,7 @@ Menggunakan `Session` dan `Cookies` kelas sebagai contoh:
 #### `cookies.get(filter, callback)`
 ```
 
-### Methods
+### Metode
 
 Metode Bab harus dalam bentuk berikut:
 
@@ -150,7 +150,7 @@ Metode Bab harus dalam bentuk berikut:
 
 Judul bisa `###` atau `####`-levels tergantung pada apakah itu adalah metode modul atau kelas.
 
-Untuk modul, `objectName` adalah nama modul. Untuk kelas, itu harus nama instance dari kelas, dan tidak harus sama dengan nama modul.
+For modules, the `objectName` is the module's name. For classes, it must be the name of the instance of the class, and must not be the same as the module's name.
 
 Sebagai contoh, metode dari `Session` kelas bawah `session` modul harus menggunakan `ses` sebagai `objectName`.
 
@@ -160,13 +160,13 @@ Argumen opsional dinotasikan oleh tanda kurung `[]` sekitarnya argumen opsional 
 diperlukan [, opsional]
 ```
 
-Berikut metode ini informasi lebih rinci tentang masing-masing argumen. Jenis argumen dinotasikan oleh salah satu jenis umum:
+Below the method is more detailed information on each of the arguments. The type of argument is notated by either the common types:
 
-* [`Tali`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+* [`Deretan`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
 * [`Jumlah`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)
-* [`Sasaran`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+* [`Obyek`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 * [`susunan`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
-* [`Boolean`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
+* [`boolean`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
 * Atau jenis kustom seperti Electron [`webcontent`](api/web-contents.md)
 
 Jika argumen atau metode unik untuk platform tertentu, platform tersebut dilambangkan menggunakan daftar dicetak miring ruang-delimited berikut datatype. Nilai bisa saja `MacOS`, `Windows`, atau `Linux`.
@@ -179,7 +179,7 @@ Jika argumen atau metode unik untuk platform tertentu, platform tersebut dilamba
 
 Deskripsi untuk `Fungsi` ketik argumen harus menjelaskan bagaimana hal itu dapat disebut dan daftar jenis parameter yang akan dikirimkan ke sana.
 
-### Events
+### Acara
 
 Peristiwa Bab harus dalam bentuk berikut:
 
@@ -197,7 +197,7 @@ Judul bisa `###` atau `####`-levels tergantung pada apakah itu adalah acara dari
 
 Argumen dari suatu acara mengikuti aturan yang sama seperti metode.
 
-### Properti/peralatan
+### properti
 
 Sifat Bab harus dalam bentuk berikut:
 

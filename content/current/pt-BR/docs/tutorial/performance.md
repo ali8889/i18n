@@ -2,87 +2,87 @@
 
 Desenvolvedores frequentemente perguntam sobre formas de otimizar a performance de aplicações Electron. Engenheiros de software, consumidores e desenvolvedores de frameworks nem sempre estão de acordo com uma simples definição de a "performance" acontece. Esse documento demonstra algumas práticas favoritas dos mantenedores do Electron, com a finalidade de reduzir consumo de memória, CPU e recursos de disco, enquanto garante que o APP seja responsivo a entrada do usuário e complete as operações da forma mais rápida possível. Além disso, nós queremos todas os meios de performance para manter um alto padrão para a segurança dos Apps.
 
-Wisdom and information about how to build performant websites with JavaScript generally applies to Electron apps, too. To a certain extent, resources discussing how to build performant Node.js applications also apply, but be careful to understand that the term "performance" means different things for a Node.js backend than it does for an application running on a client.
+Conhecimento e informação sobre como construir websites de performance com JavaScript geralmente também se aplicam à aplicativos Electron. Até certo ponto,recursos discutidos para performance de aplicações Node.js também se aplicam,porém fique atento que o termo "performance" no backend Node.js tem um significado diferente do de uma aplicação cliente.
 
-This list is provided for your convenience – and is, much like our [security checklist](./security.md) – not meant to exhaustive. It is probably possible to build a slow Electron app that follows all the steps outlined below. Electron is a powerful development platform that enables you, the developer, to do more or less whatever you want. All that freedom means that performance is largely your responsibility.
+Esta lista é providenciada para sua conveniência - e é muito parecida com nossa [ checklist de segurança ](./security.md) - não pretende ser cansativa. Provavelmente é possível construir uma aplicação Electron lenta seguindo todos os passos listados abaixo. Electron é uma poderosa plataforma de desenvolvimento que deixa você, o desenvolvedor, fazer mais ou menos o que você quiser. Toda essa liberdade significa que a performance é amplamente sua responsabilidade.
 
-## Measure, Measure, Measure
+## Diminuir, diminuir, diminuir
 
-The list below contains a number of steps that are fairly straightforward and easy to implement. However, building the most performant version of your app will require you to go beyond a number of steps. Instead, you will have to closely examine all the code running in your app by carefully profiling and measuring. Where are the bottlenecks? When the user clicks a button, what operations take up the brunt of the time? While the app is simply idling, which objects take up the most memory?
+A lista abaixo contém um número de passos razoavelmente diretos e fáceis de implementar. Entretanto, construir a melhor versão da sua aplicação vai exigir que você vá além de uma série de etapas. Ao invés disso, você deve examinar de perto todo o código rodando em sua aplicação sendo cuidadoso, meticuloso e observador. Onde estão os gargalos ? Quando o usuário clica em um botão, quais operações gastam mais tempo de processamento ? Enquanto a aplicação está ociosa, quais objetos gastam mais memória ?
 
-Time and time again, we have seen that the most successful strategy for building a performant Electron app is to profile the running code, find the most resource-hungry piece of it, and to optimize it. Repeating this seemingly laborious process over and over again will dramatically increase your app's performance. Experience from working with major apps like Visual Studio Code or Slack has shown that this practice is by far the most reliable strategy to improve performance.
+Dia após dia nós temos visto que a estratégia mais bem sucedida para construir aplicações Electron com bom desempenho é analisar o código rodando, encontrar a parte que mais precisa de recursos e otimizá-la. Repetir esse processo incansavelmente, de novo e de novo vai aumentar drasticamente a performance da sua aplicação. Experiências trabalhando com aplicativos maiores como o Visual Studio Code ou o Slack tem mostrado que essa prática é de longe a estratégia mais confiável para aumentar a performance.
 
-To learn more about how to profile your app's code, familiarize yourself with the Chrome Developer Tools. For advanced analysis looking at multiple processes at once, consider the [Chrome Tracing] tool.
+Para aprender mais sobre como analisar o código da sua aplicação se familiarize com as Ferramentas de Desenvolvedor do Chrome. For advanced analysis looking at multiple processes at once, consider the [Chrome Tracing](https://www.chromium.org/developers/how-tos/trace-event-profiling-tool) tool.
 
-### Recommended Reading
+### Leituras Recomendadas
 
- * [Get Started With Analyzing Runtime Performance](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/)
- * [Talk: "Visual Studio Code - The First Second"](https://www.youtube.com/watch?v=r0OeHRUCCb4)
+ * [Começando na análise de performance em tempo de execução](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/)
+ * [Palestra:  "O primeiro segundo - Visual Studio Code"](https://www.youtube.com/watch?v=r0OeHRUCCb4)
 
-## Checklist
+## Sumário
 
-Chances are that your app could be a little leaner, faster, and generally less resource-hungry if you attempt these steps.
+Seu aplicativo pode ser um pouco mais enxuto, rápido e geralmente menos faminto por recursos se você se atentar a esses passos.
 
-1. [Carelessly including modules](#1-carelessly-including-modules)
-2. [Loading and running code too soon](#2-loading-and-running-code-too-soon)
-3. [Blocking the main process](#3-blocking-the-main-process)
-4. [Blocking the renderer process](#4-blocking-the-renderer-process)
-5. [Unnecessary polyfills](#5-unnecessary-polyfills)
-6. [Unnecessary or blocking network requests](#6-unnecessary-or-blocking-network-requests)
-7. [Bundle your code](#7-bundle-your-code)
+1. [Descuido ao incluir módulos](#1-carelessly-including-modules)
+2. [Carregando e rodando o código muito cedo](#2-loading-and-running-code-too-soon)
+3. [Bloqueando o processo principal](#3-blocking-the-main-process)
+4. [Bloqueando o processo de renderização](#4-blocking-the-renderer-process)
+5. [Sobrecargas desnecessárias](#5-unnecessary-polyfills)
+6. [Requisições desnecessárias ou bloqueadoras](#6-unnecessary-or-blocking-network-requests)
+7. [Empacote seu código](#7-bundle-your-code)
 
-## 1) Carelessly including modules
+## 1) Descuido ao incluir módulos
 
-Before adding a Node.js module to your application, examine said module. How many dependencies does that module include? What kind of resources does it need to simply be called in a `require()` statement? You might find that the module with the most downloads on the NPM package registry or the most stars on GitHub is not in fact the leanest or smallest one available.
+Antes de adicionar um módulo Node.js em sua aplicação,examine-o primeiro. Quantas dependências esse módulo inclui ? Que tipo de recursos são necessários para ele simplesmente ser chamado em um `require()` ? Você pode descobrir que o módulo com mais downloads nos pacotes NPM registrados ou com mais estrelas no GitHub, não é de fato o mais enxuto ou menor disponível.
 
 ### Por que?
 
-The reasoning behind this recommendation is best illustrated with a real-world example. During the early days of Electron, reliable detection of network connectivity was a problem, resulting many apps to use a module that exposed a simple `isOnline()` method.
+A razão por trás dessa recomendação é melhor ilustrada com um exemplo do mundo real. Durante os primórdios do Electron, garantir a descoberta de conexão de rede era um problema, resultando em muitas aplicações usando um módulo apenas para usar o método ` isOnline()`.
 
-That module detected your network connectivity by attempting to reach out to a number of well-known endpoints. For the list of those endpoints, it depended on a different module, which also contained a list of well-known ports. This dependency itself relied on a module containing information about ports, which came in the form of a JSON file with more than 100,000 lines of content. Whenever the module was loaded (usually in a `require('module')` statement), it would load all its dependencies and eventually read and parse this JSON file. Parsing many thousands lines of JSON is a very expensive operation. On a slow machine it can take up whole seconds of time.
+O módulo detecta sua conexão tentando chegar a um número conhecido de pontos de extremidade. Para a lista destes pontos, depende de um módulo diferente, que também continha uma lista de portas já conhecidas. Essa dependência por si mesma depende de um módulo contendo informações sobre portas, que vem em forma de um arquivo JSON com mais de 100.000 linhas de conteúdo. Sempre que o módulo é carregado (normalmente em um ` require('módulo) `), isto vai carregar todas as suas dependências e eventualmente ler e transformar esse arquivo JSON. Interpretar milhares de linhas de um JSON é uma operação muito cara. Em uma máquina lenta isso pode levar vários segundos.
 
-In many server contexts, startup time is virtually irrelevant. A Node.js server that requires information about all ports is likely actually "more performant" if it loads all required information into memory whenever the server boots at the benefit of serving requests faster. The module discussed in this example is not a "bad" module. Electron apps, however, should not be loading, parsing, and storing in memory information that it does not actually need.
+Em ambientes de servidores, tempo de inicialização é irrelevante virtualmente. Um servidor Node.js que requer informações sobre todas as portas é provavelmente na verdade "mais rápido" se ele carregar todas as informações necessárias em memória sempre que o servidor iniciar para o ter o beneficio de atender às requisições mais rapidamente. O módulo discutido neste exemplo não é um módulo "ruim". Aplicativos Electron, contudo, não devem estar carregando, interpretando, e armazenando na memória informações que ele na verdade não precisa.
 
-In short, a seemingly excellent module written primarily for Node.js servers running Linux might be bad news for your app's performance. In this particular example, the correct solution was to use no module at all, and to instead use connectivity checks included in later versions of Chromium.
+Em suma, um módulo aparentemente ótimo escrito primordialmente para servidores Node.js rodando em Linux pode ser uma má noticia para a performance da sua aplicação. Nesse exemplo em particular, a solução correta era não usar o módulo no final das contas, e ao invés disso usar verificadores de conexão incluídos em versões posteriores do Chromium.
 
 ### Como?
 
-When considering a module, we recommend that you check:
+Quando considerar um módulo, nos recomendados que você verifique:
 
-1. the size of dependencies included 2) the resources required to load (`require()`) it
-3. the resources required to perform the action you're interested in
+1. o tamanho das dependências inclusas. 2) Os recursos necessários para fazer um (`require()`)
+3. os recursos requeridos para realizar a ação que você está interessado
 
-Generating a CPU profile and a heap memory profile for loading a module can be done with a single command on the command line. In the example below, we're looking at the popular module `request`.
+Gerar um perfil de consumo de CPU e de memória para carregar um módulo pode ser feito com um simples comando no terminal. No exemplo abaixo, nós estamos observando o popular módulo `request`.
 
 ```sh
 node --cpu-prof --heap-prof -e "require('request')"
 ```
 
-Executing this command results in a `.cpuprofile` file and a `.heapprofile` file in the directory you executed it in. Both files can be analyzed using the Chrome Developer Tools, using the `Performance` and `Memory` tabs respectively.
+Executando esse comando temos um arquivo `.cpuprofile` e um arquivo `.heapprofile` no diretório em que você executou. Ambos os arquivos podem ser analisados usando a Ferramenta de Desenvolvedor do Chrome, usando as seções `Performance` e `Memory` respectivamente.
 
 ![performance-cpu-prof](../images/performance-cpu-prof.png)
 
 ![performance-heap-prof](../images/performance-heap-prof.png)
 
-In this example, on the author's machine, we saw that loading `request` took almost half a second, whereas `node-fetch` took dramatically less memory and less than 50ms.
+Nesse exemplo, na máquina do autor, nós vimos que o `request` levou quase meio segundo, enquanto o `node-fetch` levou drasticamente menos memória e menos que 50ms.
 
-## 2) Loading and running code too soon
+## 2) Carregar e rodar o código muito cedo
 
-If you have expensive setup operations, consider deferring those. Inspect all the work being executed right after the application starts. Instead of firing off all operations right away, consider staggering them in a sequence more closely aligned with the user's journey.
+Se você tem operações de configurações gastonas, considere adiar elas. Inspecione todo o trabalho executado logo após o início da aplicação. Ao invés de disparar todas as funções imediatamente, considere escalona-las em uma sequencia mais ligada ao caminho do usuário.
 
-In traditional Node.js development, we're used to putting all our `require()` statements at the top. If you're currently writing your Electron application using the same strategy _and_ are using sizable modules that you do not immediately need, apply the same strategy and defer loading to a more opportune time.
+Em um desenvolvimento tradicional de Node.js, nós estamos acostumados a colocar todos as declarações `require()` no início. Se você atualmente desenvolve sua aplicação Electron usando a mesma estratégia _e_ usando módulos consideráveis que você não precisa imediatamente, aplique a mesma estratégia e adie o carregamento para um momento mais oportuno.
 
 ### Por que?
 
-Loading modules is a surprisingly expensive operation, especially on Windows. When your app starts, it should not make users wait for operations that are currently not necessary.
+Carregar módulos é surpreendentemente uma operação cara, especialmente no Windows. Quando sua aplicação inicia, não deve fazer seus usuários aguardarem por coisas que eles não precisam agora.
 
-This might seem obvious, but many applications tend to do a large amount of work immediately after the app has launched - like checking for updates, downloading content used in a later flow, or performing heavy disk I/O operations.
+Isto pode parecer óbvio, mas a maioria das aplicações tendem a fazer muitas operações imediatamente após o programa ser aberto - como checar atualizações, baixar conteúdo usado em uma sessão anterior, ou fazer operações I/O pesadas no disco.
 
-Let's consider Visual Studio Code as an example. When you open a file, it will immediately display the file to you without any code highlighting, prioritizing your ability to interact with the text. Once it has done that work, it will move on to code highlighting.
+Vamos tomar o Visual Studio Code como exemplo. Quando você abre um arquivo, ele vai imediatamente aparecer para você sem nenhum destaque, priorizando sua capacidade de interagir com o texto. Uma vez que está funcionando, aí sim ele vai destacar o código.
 
 ### Como?
 
-Let's consider an example and assume that your application is parsing files in the fictitious `.foo` format. In order to do that, it relies on the equally fictitious `foo-parser` module. In traditional Node.js development, you might write code that eagerly loads dependencies:
+Vamos considerar um exemplo e assumir que sua aplicação está interpretando arquivos em um formato fictício `.foo`. Para fazer isso, ele depende do módulo igualmente fictício `foo-parser`. Em um desenvolvimento tradicional em Node.js, você provavelmente vai escrever um código que vai avidamente carregar dependências:
 
 ```js
 const fs = require('fs')
@@ -103,28 +103,28 @@ const parser = new Parser()
 module.exports = { parser }
 ```
 
-In the above example, we're doing a lot of work that's being executed as soon as the file is loaded. Do we need to get parsed files right away? Could we do this work a little later, when `getParsedFiles()` is actually called?
+No exemplo acima, nós estamos fazendo muita coisa assim que o arquivo é carregado. Nós precisamos interpretar os arquivos imediatamente ? Nós podemos fazer isso um pouco mais tarde, quando o `getParsedFiles()` é realmente utilizado ?
 
 ```js
-// "fs" is likely already being loaded, so the `require()` call is cheap
+// "fs" já está sendo carregado, então o `require()` é "barato"
 const fs = require('fs')
 
 class Parser {
   async getFiles () {
-    // Touch the disk as soon as `getFiles` is called, not sooner.
-    // Also, ensure that we're not blocking other operations by using
-    // the asynchronous version.
+    // Acesse o disco logo que o `getFiles` é chamado, não antes.
+    // Além disso, assegure-se que nós não estamos bloqueando outras operações usando
+// a versão assíncrona.
     this.files = this.files || await fs.readdir('.')
 
     return this.files
   }
 
   async getParsedFiles () {
-    // Our fictitious foo-parser is a big and expensive module to load, so
-    // defer that work until we actually need to parse files.
-    // Since `require()` comes with a module cache, the `require()` call
-    // will only be expensive once - subsequent calls of `getParsedFiles()`
-    // will be faster.
+    // Nosso módulo fictício foo-parser é grande e requer muito para ser carregado,então
+// adie esse trabalho até nos realmente precisarmos interpretar os arquivos.
+    // Já que `require()` vem com um módulo em cache, o `require()` 
+    // vai sair caro apenas uma vez - as chamadas seguintes de `getParsedFiles()`
+    // vão ser mais rápidas.
     const fooParser = require('foo-parser')
     const files = await this.getFiles()
 
@@ -132,112 +132,111 @@ class Parser {
   }
 }
 
-// This operation is now a lot cheaper than in our previous example
+// Essa operação agora é muito mais barata que nosso exemplo anterior
 const parser = new Parser()
 
 module.exports = { parser }
 ```
 
-In short, allocate resources "just in time" rather than allocating them all when your app starts.
+Em suma, aloque recursos quando precisar em vez de alocar todos eles quando sua aplicação iniciar.
 
-## 3) Blocking the main process
+## 3) Bloqueando o processo principal
 
-Electron's main process (sometimes called "browser process") is special: It is the parent process to all your app's other processes and the primary process the operating system interacts with. It handles windows, interactions, and the communication between various components inside your app. It also houses the UI thread.
+O processo principal do Electron (algumas vezes chamado de "browser process") é especial: é o processo pai de todos os outros na sua aplicação e o primeiro processo com quem o sistema operacional interage. Ele lida com janelas, interações, e comunicação entre vários componente dentro do seu programa. Ele também abriga a thread da UI.
 
-Under no circumstances should you block this process and the UI thread with long-running operations. Blocking the UI thread means that your entire app will freeze until the main process is ready to continue processing.
-
-### Por que?
-
-The main process and its UI thread are essentially the control tower for major operations inside your app. When the operating system tells your app about a mouse click, it'll go through the main process before it reaches your window. If your window is rendering a buttery-smooth animation, it'll need to talk to the GPU process about that – once again going through the main process.
-
-Electron and Chromium are careful to put heavy disk I/O and CPU-bound operations onto new threads to avoid blocking the UI thread. You should do the same.
-
-### Como?
-
-Electron's powerful multi-process architecture stands ready to assist you with your long-running tasks, but also includes a small number of performance traps.
-
-1) For long running CPU-heavy tasks, make use of [worker threads](https://nodejs.org/api/worker_threads.html), consider moving them to the BrowserWindow, or (as a last resort) spawn a dedicated process.
-
-2) Avoid using the synchronous IPC and the `remote` module as much as possible. While there are legitimate use cases, it is far too easy to unknowingly block the UI thread using the `remote` module.
-
-3) Avoid using blocking I/O operations in the main process. In short, whenever core Node.js modules (like `fs` or `child_process`) offer a synchronous or an asynchronous version, you should prefer the asynchronous and non-blocking variant.
-
-
-## 4) Blocking the renderer process
-
-Since Electron ships with a current version of Chrome, you can make use of the latest and greatest features the Web Platform offers to defer or offload heavy operations in a way that keeps your app smooth and responsive.
+Sob nenhuma circunstância você deve bloquear este processo e a thread da UI com operações longas. Bloquear a thread da UI significa que todo o seu programa vai travar até o processo principal estar pronto para continuar.
 
 ### Por que?
 
-Your app probably has a lot of JavaScript to run in the renderer process. The trick is to execute operations as quickly as possible without taking away resources needed to keep scrolling smooth, respond to user input, or animations at 60fps.
+O processo principal e sua thread UI são essencialmente a torre de controle para operações maiores em seu programa. Quando o sistema operacional informa o programa sobre um click do mouse, ele vai passar através do processo principal antes de chegar à sua janela. Se sua janela está renderizando uma animação suave, ela vai precisar conversar com o processo da GPU sobre isso - mais uma vez passando pelo processo principal.
 
-Orchestrating the flow of operations in your renderer's code is particularly useful if users complain about your app sometimes "stuttering".
+Electron e Chromium são cuidadosos ao colocar tarefas pesadas de I/P e operações pesadas em CPU dentro de novas threads para evitar o bloqueio da thread da UI. Você deve fazer o mesmo.
 
 ### Como?
 
-Generally speaking, all advice for building performant web apps for modern browsers apply to Electron's renderers, too. The two primary tools at your disposal  are currently `requestIdleCallback()` for small operations and `Web Workers` for long-running operations.
+A poderosa arquitetura multi-procedural fica pronta para ajudar você com suas tarefas demoradas, mas também inclue um pequeno número de armadilhas de performance.
 
-*`requestIdleCallback()`* allows developers to queue up a function to be executed as soon as the process is entering an idle period. It enables you to perform low-priority or background work without impacting the user experience. For more information about how to use it, [check out its documentation on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback).
+1) Para longas e pesadas tarefas na CPU, faça uso de [worker threads](https://nodejs.org/api/worker_threads.html), considere move-las para a BrowserWindow ou (como último recurso) cria um processo dedicado.
 
-*Web Workers* are a powerful tool to run code on a separate thread. There are some caveats to consider – consult Electron's [multithreading documentation](./multithreading.md) and the [MDN documentation for Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers). They're an ideal solution for any operation that requires a lot of CPU power for an extended period of time.
+2) Evite usar o IPC síncrono e o módulo `remote` o máximo possível. Enquanto há casos legítimos de uso, é de longe muito fácil bloquear a thread da UI sem saber usando o módulo `remote`.
+
+3) Evite usar operações que bloqueiam I/O no processo principal. Em suma, sempre que um módulo Node.js (como `fs` ou `child_process`) oferecer uma versão assíncrona ou síncrona, você deve dar preferência a versão assíncrona e não-bloqueadora.
 
 
-## 5) Unnecessary polyfills
+## 4) Bloqueando o processo de renderização
 
-One of Electron's great benefits is that you know exactly which engine will parse your JavaScript, HTML, and CSS. If you're re-purposing code that was written for the web at large, make sure to not polyfill features included in Electron.
+Desde que o Electron esteja de acordo com a versão do Chrome, você pode usar os mais novos e melhores recursos que a plataforma Web oferece para adiar ou descarregar operações pesadas a fim de manter sua aplicação leve e responsiva.
 
 ### Por que?
 
-When building a web application for today's Internet, the oldest environments dictate what features you can and cannot use. Even though Electron supports well-performing CSS filters and animations, an older browser might not. Where you could use WebGL, your developers may have chosen a more resource-hungry solution to support older phones.
+Você provavelmente tem muito JavaScript para rodar no processo de renderização. A dica é executar operações o mais rápido possível sem deixar de lado recursos necessários para continuar liso, respondendo às entradas do usuário, ou animando a 60fps.
 
-When it comes to JavaScript, you may have included toolkit libraries like jQuery for DOM selectors or polyfills like the `regenerator-runtime` to support `async/await`.
-
-It is rare for a JavaScript-based polyfill to be faster than the equivalent native feature in Electron. Do not slow down your Electron app by shipping your own version of standard web platform features.
+Orquestrar o fluxo de operações no código de renderização é particularmente útil se usuários reclamam que seu programa "engasga" às vezes.
 
 ### Como?
 
-Operate under the assumption that polyfills in current versions of Electron are unnecessary. If you have doubts, check [caniuse.com](https://caniuse.com/) and check if the [version of Chromium used in your Electron version](../api/process.md#processversionschrome-readonly) supports the feature you desire.
+Geralmente, todo conselho para construir aplicativos web melhores para navegadores modernos se aplicam à renderização do Electron também. As duas ferramentas primárias à sua disposição são atualmente `requestIdleCallback()` para pequenos processos e `Web Workers` para operações demoradas.
 
-In addition, carefully examine the libraries you use. Are they really necessary? `jQuery`, for example, was such a success that many of its features are now part of the [standard JavaScript feature set available](http://youmightnotneedjquery.com/).
+*`requestIdleCallback()`* permite ao desenvolvedor enfileirar uma função para ser executada assim que o processo estiver entrando em um período ocioso. Ela permite você fazer tarefas de baixa prioridade ou de fundo sem impactar a experiência do usuário. Para mais informações sobre como usar isso, cheque a sua documentação no [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback).
 
-If you're using a transpiler/compiler like TypeScript, examine its configuration and ensure that you're targeting the latest ECMAScript version supported by Electron.
+*Web Workers* são uma ferramenta poderosa para rodar um código em uma thread separada. Há algumas ressalvas - consulte a [documentação de multi-thread do Electron](./multithreading.md) e a [documentação do MDN para Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers). Elas são a solução ideal para qualquer operação que precise de muito poder de CPU por um longo período de tempo.
 
 
-## 6) Unnecessary or blocking network requests
+## 5) Sobrecargas desnecessárias
 
-Avoid fetching rarely changing resources from the internet if they could easily be bundled with your application.
+Um dos maiores benefícios do Electron é que você sabe exatamente qual engine vai interpretar seu JavaScript, HTML e CSS. Se você esta usando código que foi escrito para a web em geral, certifique-se de não sobrecarregar recursos já incluídos no Electron.
 
 ### Por que?
 
-Many users of Electron start with an entirely web-based app that they're turning into a desktop application. As web developers, we are used to loading resources from a variety of content delivery networks. Now that you are shipping a proper desktop application, attempt to "cut the cord" where possible
- - and avoid letting your users wait for resources that never change and could easily be included  in your app.
+Ao construir uma aplicação web para a internet de hoje, os ambientes mais antigos ditam quais funcionalidades você pode e não pode usar. Embora o Electron suporte filtros e animações CSS de bom desempenho, um navegador mais antigo pode não suportar. Onde você poderia usar WebGL, seus desenvolvedores podem ter escolhido uma solução mais faminta por recursos para suportar telefones antigos.
 
-A typical example is Google Fonts. Many developers make use of Google's impressive collection of free fonts, which comes with a content delivery network. The pitch is straightforward: Include a few lines of CSS and Google will take care of the rest.
+Quando isso vem para o JavaScript, você deve ter incluído bibliotecas ferramentais como JQuery para seletores DOM ou sobrecargas como o `regenerator-runtime` para suportar `async/await`.
 
-When building an Electron app, your users are better served if you download the fonts and include them in your app's bundle.
+É raro que uma sobrecarga baseada em JavaScript seja mais rápida que o equivalente em uma funcionalidade nativa do Electron. Não deixe seu aplicativo Electron lento, enviando sua própria versão dos recursos de plataforma web padrão.
 
 ### Como?
 
-In an ideal world, your application wouldn't need the network to operate at all. To get there, you must understand what resources your app is downloading \- and how large those resources are.
+Opere sobre a suposição que sobrecargas em versões atuais do Electron são desnecessárias. Se você tem dúvidas, cheque [caniuse.com](https://caniuse.com/) e verifique se a [versão do Chromium usada em sua aplicação Electron](../api/process.md#processversionschrome-readonly) suporta a funcionalidade que deseja.
 
-To do so, open up the developer tools. Navigate to the `Network` tab and check the `Disable cache` option. Then, reload your renderer. Unless your app prohibits such reloads, you can usually trigger a reload by hitting `Cmd + R` or `Ctrl + R` with the developer tools in focus.
+Além disso, examine cuidadosamente as bibliotecas que você usa. São realmente necessárias? `jQuery`, por exemplo, foi um sucesso tal que muitos de seus recursos agora fazem parte da [configuração padrão de JavaScript disponível](http://youmightnotneedjquery.com/).
 
-The tools will now meticulously record all network requests. In a first pass, take stock of all the resources being downloaded, focusing on the larger files first. Are any of them images, fonts, or media files that don't change and could be included with your bundle? If so, include them.
+Se você estiver usando um compilador/transpilador como TypeScript, examine sua configuração e certifique-se de que esteja utilizando a versão mais recente do ECMAScript suportada pelo Electron.
 
-As a next step, enable `Network Throttling`. Find the drop-down that currently reads `Online` and select a slower speed such as `Fast 3G`. Reload your renderer and see if there are any resources that your app is unnecessarily waiting for. In many cases, an app will wait for a network request to complete despite not actually needing the involved resource.
 
-As a tip, loading resources from the Internet that you might want to change without shipping an application update is a powerful strategy. For advanced control over how resources are being loaded, consider investing in [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
+## 6) Requisições desnecessárias ou bloqueadoras
 
-## 7) Bundle your code
-
-As already pointed out in "[Loading and running code too soon](#2-loading-and-running-code-too-soon)", calling `require()` is an expensive operation. If you are able to do so, bundle your application's code into a single file.
+Evite buscar raramente recursos da internet se eles podem facilmente ser empacotados com seu aplicativo.
 
 ### Por que?
 
-Modern JavaScript development usually involves many files and modules. While that's perfectly fine for developing with Electron, we heavily recommend that you bundle all your code into one single file to ensure that the overhead included in calling `require()` is only paid once when your application loads.
+Muitos usuários do Electron começam com um aplicativo inteiramente baseado na web que estão transformando em uma aplicação desktop. Como desenvolvedores web, estamos acostumados a carregar recursos de uma variedade de redes de conteúdo. Now that you are shipping a proper desktop application, attempt to "cut the cord" where possible and avoid letting your users wait for resources that never change and could easily be included  in your app.
+
+Um típico exemplo é o Google Fonts. Muitos desenvolvedores usam a incrível coleção de fontes gratuitas do Google, que vem com um rede de entrega de conteúdo. O tom é direto: Inclua algumas linhas de CSS e o Google cuidará do resto.
+
+Quando está construindo uma aplicação Electron, seus usuários serão melhor atendidos se você baixar as fontes e incluí-las no pacote de seu programa.
 
 ### Como?
 
-There are numerous JavaScript bundlers out there and we know better than to anger the community by recommending one tool over another. We do however recommend that you use a bundler that is able to handle Electron's unique environment that needs to handle both Node.js and browser environments.
+Em um mundo ideal, sua aplicação não precisaria de conexão com a internet para funcionar completamente. Para chegar lá, você deve entender quais recursos em sua aplicação estão baixando \- e o quão grandes são esses recursos.
 
-As of writing this article, the popular choices include [Webpack](https://webpack.js.org/), [Parcel](https://parceljs.org/), and [rollup.js](https://rollupjs.org/).
+Para isso, abra suas ferramentas de desenvolvedor. Navegue até a seção `Network` e marque a opção `Disable cache`. Em seguida, recarregue seu renderizador. A menos que sua aplicação proíba tais recarregamentos, você pode fazer ativar o recarregamento pressionando `Cmd +R` ou `Ctrl + R` com a ferramenta de desenvolvedor em foco.
+
+As ferramentas agora vão meticulosamente gravar todas as requisições de rede. No primeiro passo, faça um balanço de todos os recursos que estão sendo baixados, focando nos arquivos grandes primeiro. Há algumas dessas imagens, fontes ou arquivos de mídia que não mudam e poderiam ser incluídas em seu pacote ? Se sim, inclua elas.
+
+Como próximo passo, habilite o `Network Throttling`. Ache o menu suspenso que está em `Online` e selecione uma velocidade menor como o `Fast 3G`. Recarregue seu renderizador e veja se tem algum recurso que sua aplicação está esperando desnecessariamente. Em muitos casos, o programa vai aguardar uma requisição na rede ser concluída apesar de não precisar realmente do recurso envolvido.
+
+Uma dica, carregar recursos da Internet que você pode querer alterar sem enviar uma atualização de aplicativo é uma estratégia poderosa. Para o controle avançado de sobre como os recursos estão sendo carregados, considere investir em [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
+
+## 7) Empacote seu código
+
+Como já apontado em "[Carregando e rodando o código muito cedo](#2-loading-and-running-code-too-soon)", o `require()` é uma operação cara. Se você for capaz, comprima sua aplicação em um único arquivo.
+
+### Por que?
+
+Desenvolvimentos modernos de JavaScript normalmente envolvem muitos arquivos e módulos. Enquanto isso é perfeito para desenvolver com Electron, nós recomendamos fortemente que você empacote todo o seu código em um único arquivos para garantir que a sobrecarga inclusa no método `require()` seja paga apenas uma vez quando sua aplicação inicia.
+
+### Como?
+
+Tem vários compressores de JavaScript lá fora e nós sabemos que melhor que irritar a comunidade recomendando uma única ferramenta em detrimento de outra. Nós recomendamos contudo que você use um empacotador que seja capaz de lidar com o ambiente único do Electron que precisa lidar com Node.js e Browser.
+
+A partir da escrita deste artigo, as escolhas populares incluem [Webpack](https://webpack.js.org/), [Parcel](https://parceljs.org/), e [rollup.js](https://rollupjs.org/).

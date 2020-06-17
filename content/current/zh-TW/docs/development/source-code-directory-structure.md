@@ -84,7 +84,6 @@ Electron
 * **npm** - Logic for installation of Electron via npm.
 * **out** - `ninja` 的暫存目錄。
 * **script** - 開發時期用的腳本，例如建置、打包、測試等。
-
 ```diff
 script/ - The set of all scripts Electron runs for a variety of purposes.
 ├── codesign/ - Fakes codesigning for Electron apps; used for testing.
@@ -93,8 +92,7 @@ script/ - The set of all scripts Electron runs for a variety of purposes.
     ├── notes/ - Generates release notes for new Electron versions.
     └── uploaders/ - Uploads various release-related files during release.
 ```
-
-* **工具** - Helper scripts used by GN files. 
+* **tools** - Helper scripts used by GN files.
   * Scripts put here should never be invoked by users directly, unlike those in `script`.
 * **typings** - TypeScript typings for Electron's internal code.
 * **vendor** - Source code for some third party dependencies, including `boto` and `requests`.
@@ -106,8 +104,8 @@ Electron 儲存庫裡有一些外部的相依模組，存放在 [/vendor](https:
 ```sh
 $ git status
 
-  modified:   vendor/depot_tools (new commits)
-  modified:   vendor/boto (new commits)
+    modified:   vendor/depot_tools (new commits)
+    modified:   vendor/boto (new commits)
 ```
 
 執行下列指令可以更新相依的外部模組:
@@ -120,5 +118,5 @@ git submodule update --init --recursive
 
 ```sh
 [alias]
-  su = submodule update --init --recursive
+    su = submodule update --init --recursive
 ```
